@@ -22,6 +22,7 @@ import {
 } from "@expo-google-fonts/asap";
 import { DefaultTheme, Provider as PaperProvider } from "react-native-paper";
 import { View } from "react-native";
+import RegisterPage from "./scenes/login/registerPage";
 
 const Stack = createStackNavigator();
 
@@ -76,6 +77,7 @@ export default function App() {
                 <Stack.Screen name="Login">
                   {(props) => <LoginPage {...props} onSignIn={handleSignIn} />}
                 </Stack.Screen>
+                <Stack.Screen name="register" component={RegisterPage}/>
               </>
             )}
           </Stack.Navigator>
