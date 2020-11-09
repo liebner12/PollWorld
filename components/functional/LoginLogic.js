@@ -5,7 +5,7 @@ import Constants from "expo-constants";
 
 const signInWithGoogle = async () => {
     const result = await Google.logInAsync({
-        androidClientId: Constants.manifest.extra.google.androidClientId,
+        androidClientId: Constants.manifest.extra.androidClientId,
         scopes: ["profile", "email"]
     });
     if (result.type === "success") {
@@ -17,7 +17,7 @@ const signInWithGoogle = async () => {
 }
 
 const signInWithFacebook = async () => {
-    const appId = Constants.manifest.extra.facebook.appId;
+    const appId = Constants.manifest.extra.appId;
     const permissions = ["public_profile", "email"];
     await Facebook.initializeAsync({appId});
     const { type, token } = await Facebook.logInWithReadPermissionsAsync({permissions});
