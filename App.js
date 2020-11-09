@@ -6,6 +6,8 @@ import { createStackNavigator } from "@react-navigation/stack";
 import StartPage from "./scenes/login/startPage";
 import LoginPage from "./scenes/login/loginPage";
 import HomePage from "./scenes/main/homePage";
+import PhysicalPage from "./scenes/login/physicalPage";
+import PersonalDataPage from "./scenes/login/personalDataPage";
 import { AppLoading } from "expo";
 import {
   useFonts,
@@ -75,6 +77,16 @@ export default function App() {
                 </Stack.Screen>
                 <Stack.Screen name="Login">
                   {(props) => <LoginPage {...props} onSignIn={handleSignIn} />}
+                </Stack.Screen>
+                <Stack.Screen name="Personal">
+                  {(props) => (
+                    <PersonalDataPage {...props} onSignIn={handleSignIn} />
+                  )}
+                </Stack.Screen>
+                <Stack.Screen name="Physical">
+                  {(props) => (
+                    <PhysicalPage {...props} onSignIn={handleSignIn} />
+                  )}
                 </Stack.Screen>
               </>
             )}

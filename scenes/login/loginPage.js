@@ -10,18 +10,18 @@ import { Ionicons } from "@expo/vector-icons";
 const LoginPage = ({navigation, onSignIn}) => {
   return (
     <Container>
-      <TouchableOpacity style={{marginTop: 20}} onPress={() => navigation.navigate('Start')}>
+      <TouchableOpacity style={{marginTop: 10}} onPress={() => navigation.navigate('Start')}>
         <Ionicons name="md-arrow-round-back" size={30} color="#32e0c4" />
       </TouchableOpacity>
       <View style={styles.main}>
-        <View style={styles.container}>
+        <View style={styles.titleContainer}>
           <Title>Zaloguj się</Title>
           <SubTitle>O cześć, nie zauważyłem cie, siemanko!</SubTitle>
         </View>
         <View>
           <TextField name="Email" />
           <TextField name="Hasło" password={true} secured={true} />
-          <MainButton name="Zaloguj się" />
+          <MainButton name="Zaloguj się" onPress={() => navigation.navigate('Personal')} />
           <Text style={[styles.greyText, styles.smallText]}>
             albo użyj twojego portalu społecznościowego
           </Text>
@@ -56,12 +56,12 @@ const LoginPage = ({navigation, onSignIn}) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
+  titleContainer: {
     marginBottom: 30,
   },
   main: {
     flex: 1,
-    justifyContent: "flex-end",
+    marginTop: 70,  
   },
   login: {
     fontSize: 16,
