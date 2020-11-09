@@ -32,8 +32,15 @@
       "visible": true,
       "barStyle": "dark-content",
       "backgroundColor": "#212121"
+    },
+    "extra": {
+      "facebook": {
+        "appId": "276251297112045"
+      },
+      "google": {
+        "androidClientId": "749206604554-mk3k4vfvo4jl390mmspjnj6570il9vq6.apps.googleusercontent.com"
+      }
     }
-    
 
   }
 }

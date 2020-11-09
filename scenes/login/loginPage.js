@@ -61,7 +61,6 @@ const styles = StyleSheet.create({
   },
   main: {
     flex: 1,
-    justifyContent: "flex-end",
   },
   login: {
     fontSize: 16,
