@@ -53,7 +53,6 @@ const LoginPage = ({ navigation, onSignIn }) => {
             text={email}
             setText={setEmail}
             error={emailError}
-            
           />
           <TextField
             name="Hasło"
@@ -62,7 +61,6 @@ const LoginPage = ({ navigation, onSignIn }) => {
             text={password}
             setText={setPassword}
             error={passwordError}
-         
           />
           <MainButton name="Zaloguj się" onPress={() => loginChecker()} />
           <Text style={[styles.greyText, styles.smallText]}>

@@ -3,6 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import StartPage from "../scenes/login/startPage";
 import LoginPage from "../scenes/login/loginPage";
+import RegisterPage from "../scenes/login/registerPage";
 import HomePage from "../scenes/main/homePage";
 import PhysicalPage from "../scenes/login/physicalPage";
 import PersonalDataPage from "../scenes/login/personalDataPage";
@@ -34,6 +35,9 @@ const AppNavigator = () => {
             </Stack.Screen>
             <Stack.Screen name="Login">
               {(props) => <LoginPage {...props} onSignIn={handleSignIn} />}
+            </Stack.Screen>
+            <Stack.Screen name="Register">
+              {(props) => <RegisterPage {...props} onSignIn={handleSignIn} />}
             </Stack.Screen>
             <Stack.Screen name="Personal">
               {(props) => (
