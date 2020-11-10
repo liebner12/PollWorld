@@ -21,7 +21,7 @@ const StartPage = ({ navigation, onSignIn }) => {
         </View>
         <View>
           <MainButton name="Zarejestruj się" 
-            onPress={() => navigation.navigate("register")}
+            onPress={() => navigation.navigate("Register")}
             />
           <MainButton
             name="Zaloguj przez Google"
