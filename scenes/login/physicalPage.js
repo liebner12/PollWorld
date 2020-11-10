@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import MainButton from "../../components/common/MainButton";
 import Title from "../../components/common/Title";
@@ -8,8 +8,9 @@ import Paragraph from "../../components/common/Paragraph";
 import { Ionicons } from "@expo/vector-icons";
 import { RadioButton } from "react-native-paper";
 const PhysicalPage = ({ navigation, onSignIn }) => {
-  const [value, setValue] = React.useState("first");
-
+  const [value, setValue] = useState("0");
+  const [height, setHeight] = useState("");
+  const [weight, setWeight] = useState("");
   return (
     <Container>
       <TouchableOpacity
@@ -23,8 +24,8 @@ const PhysicalPage = ({ navigation, onSignIn }) => {
           <Title>Fizyczne statystyki</Title>
         </View>
         <View>
-          <TextField name="Wzrost" />
-          <TextField name="Waga" />
+          <TextField name="Wzrost" text={height} setText={setHeight} />
+          <TextField name="Waga" text={weight} setText={setWeight} />
           <Text style={styles.livingTitle}>Poziom aktywności fizycznej</Text>
           <RadioButton.Group
             onValueChange={(value) => setValue(value)}

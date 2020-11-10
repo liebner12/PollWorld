@@ -24,7 +24,7 @@ const LoginPage = ({ navigation, onSignIn }) => {
       setEmailError("");
       if (password != "") {
         setPasswordError("");
-        navigation.navigate("Personal");
+        onSignIn();
       } else {
         setPasswordError("Niepoprawne hasło.");
       }
@@ -62,7 +62,7 @@ const LoginPage = ({ navigation, onSignIn }) => {
             setText={setPassword}
             error={passwordError}
           />
-          <MainButton name="Zaloguj się" onPress={() => onSignIn()} />
+          <MainButton name="Zaloguj się" onPress={() => loginChecker()} />
           <Text style={[styles.greyText, styles.smallText]}>
             albo użyj twojego portalu społecznościowego
           </Text>
