@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import MainButton from "../../components/common/MainButton";
 import Title from "../../components/common/Title";
@@ -9,8 +9,10 @@ import { Ionicons } from "@expo/vector-icons";
 import { RadioButton } from "react-native-paper";
 import { List } from "react-native-paper";
 const PersonalDataPage = ({ navigation, onSignIn }) => {
-  const [value, setValue] = React.useState("first");
-
+  const [value, setValue] = React.useState("0");
+  const [name, setName] = useState("");
+  const [age, setAge] = useState("");
+  const [sex, setSex] = useState("");
   return (
     <Container>
       <TouchableOpacity
@@ -24,9 +26,9 @@ const PersonalDataPage = ({ navigation, onSignIn }) => {
           <Title>Dane osobowe</Title>
         </View>
         <View>
-          <TextField name="Imię" />
-          <TextField name="Wiek" />
-          <TextField name="Płeć" />
+          <TextField name="Imię" text={name} setText={setName}/>
+          <TextField name="Wiek" text={age} setText={setAge} />
+          <TextField name="Płeć" text={sex} setText={setSex} />
           <List.Accordion
             titleStyle={styles.listFixUp}
             title="Rejon zatrudnienia"
