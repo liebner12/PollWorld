@@ -4,7 +4,7 @@ import MainButton from "../../components/common/MainButton";
 import Title from "../../components/common/Title";
 import Container from "../../components/common/Container";
 import TextField from "../../components/common/TextField";
-import MainText from "../../components/common/MainText";
+import Paragraph from "../../components/common/Paragraph";
 import { Ionicons } from "@expo/vector-icons";
 import { RadioButton } from "react-native-paper";
 const PersonalDataPage = ({ navigation, onSignIn }) => {
@@ -34,7 +34,7 @@ const PersonalDataPage = ({ navigation, onSignIn }) => {
           >
             <View style={styles.radioContainer}>
               <View style={styles.radioButton}>
-                <MainText>Metropolia</MainText>
+                <Paragraph>Metropolia</Paragraph>
                 <RadioButton
                   value="metropolia"
                   color="#32e0c4"
@@ -42,7 +42,7 @@ const PersonalDataPage = ({ navigation, onSignIn }) => {
                 />
               </View>
               <View style={styles.radioButton}>
-                <MainText>Miasto</MainText>
+                <Paragraph>Miasto</Paragraph>
                 <RadioButton
                   value="miasto"
                   color="#32e0c4"
@@ -50,7 +50,7 @@ const PersonalDataPage = ({ navigation, onSignIn }) => {
                 />
               </View>
               <View style={styles.radioButton}>
-                <MainText>Wieś</MainText>
+                <Paragraph>Wieś</Paragraph>
                 <RadioButton
                   value="wies"
                   color="#32e0c4"

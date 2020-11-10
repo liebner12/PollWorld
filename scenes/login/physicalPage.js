@@ -4,7 +4,7 @@ import MainButton from "../../components/common/MainButton";
 import Title from "../../components/common/Title";
 import Container from "../../components/common/Container";
 import TextField from "../../components/common/TextField";
-import MainText from "../../components/common/MainText";
+import Paragraph from "../../components/common/Paragraph";
 import { Ionicons } from "@expo/vector-icons";
 import { RadioButton } from "react-native-paper";
 const PhysicalPage = ({ navigation, onSignIn }) => {
@@ -32,7 +32,7 @@ const PhysicalPage = ({ navigation, onSignIn }) => {
           >
             <View style={styles.radioContainer}>
               <View style={styles.radioButton}>
-                <MainText>1</MainText>
+                <Paragraph>1</Paragraph>
                 <RadioButton
                   value="1"
                   color="#32e0c4"
@@ -40,7 +40,7 @@ const PhysicalPage = ({ navigation, onSignIn }) => {
                 />
               </View>
               <View style={styles.radioButton}>
-                <MainText>2</MainText>
+                <Paragraph>2</Paragraph>
                 <RadioButton
                   value="2"
                   color="#32e0c4"
@@ -48,7 +48,7 @@ const PhysicalPage = ({ navigation, onSignIn }) => {
                 />
               </View>
               <View style={styles.radioButton}>
-                <MainText>3</MainText>
+                <Paragraph>3</Paragraph>
                 <RadioButton
                   value="3"
                   color="#32e0c4"
@@ -56,7 +56,7 @@ const PhysicalPage = ({ navigation, onSignIn }) => {
                 />
               </View>
               <View style={styles.radioButton}>
-                <MainText>4</MainText>
+                <Paragraph>4</Paragraph>
                 <RadioButton
                   value="4"
                   color="#32e0c4"
@@ -64,7 +64,7 @@ const PhysicalPage = ({ navigation, onSignIn }) => {
                 />
               </View>
               <View style={styles.radioButton}>
-                <MainText>5</MainText>
+                <Paragraph>5</Paragraph>
                 <RadioButton
                   value="5"
                   color="#32e0c4"

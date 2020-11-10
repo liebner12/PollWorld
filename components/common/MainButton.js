@@ -32,8 +32,8 @@ const MainButton = ({ name, transparent, icon, onPress }) => {
   return (
     <TouchableOpacity style={styles.button} activeOpacity={0.6} onPress={onPress}>
       <View style={styles.container}>
-        {icon ? <Text style={styles.icon}>{icon}    </Text> : null}
-        <Text style={styles.text}>{name}{icon ? "    " : ""}</Text>
+        {icon ? <Text style={styles.icon}>{icon}   </Text> : null}
+        <Text style={styles.text}>{name}{icon ? "   " : ""}</Text>
       </View>
     </TouchableOpacity>
   );

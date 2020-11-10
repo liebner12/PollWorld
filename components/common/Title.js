@@ -1,12 +1,12 @@
 import React from "react";
 import { StyleSheet, View, Text } from "react-native";
 
-const Title = ({ children }) => {
+const Title = ({ children, color, big }) => {
   const styles = StyleSheet.create({
     title: {
-      fontSize: 30,
+      fontSize: big ? 42: 30,
       fontFamily: "Quicksand_700Bold",
-      color: "#32e0c4",
+      color: color ? "#fff" : "#32e0c4",
       marginBottom: 5,
     },
   });

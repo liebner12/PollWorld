@@ -1,16 +1,22 @@
 import React from "react";
-import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
+import { StyleSheet, View, Text, TouchableOpacity, Image } from "react-native";
 import MainButton from "../../components/common/MainButton";
 import { FontAwesome } from "@expo/vector-icons";
 import Title from "../../components/common/Title";
 import SubTitle from "../../components/common/SubTitle";
 import Container from "../../components/common/Container";
+import superLogoV2 from "../../assets/iconLine.png";
 const StartPage = ({ navigation, onSignIn }) => {
   return (
     <Container>
       <View style={styles.main}>
         <View style={styles.container}>
-          <Title>PollWorld!</Title>
+          <View style={styles.logo}>
+            <Image source={superLogoV2} style={styles.image} />
+            <Title big={true} color={true}>
+              poll world
+            </Title>
+          </View>
           <SubTitle>Cześć mordeczko miłego dnia :D</SubTitle>
         </View>
         <View>
@@ -56,6 +62,18 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontFamily: "Quicksand_700Bold",
     color: "#32e0c4",
+  },
+  logo: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 10,
+  },
+  image: {
+    width: 42,
+    height: 42,
+    marginRight: 10,
+    marginTop: 12,
+    resizeMode: "contain",
   },
 });
 

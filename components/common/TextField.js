@@ -1,10 +1,9 @@
 import * as React from "react";
 import { StyleSheet, TextInput, Text, View, Button } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
-const MyComponent = ({ name, password, secured }) => {
-  const [text, setText] = React.useState("");
+const TextField = ({ name, password, secured, text, setText, error }) => {
   const [secure, setSecure] = React.useState(secured);
-  
+
   return (
     <View style={styles.container}>
       <Text style={styles.text}>{name}</Text>
@@ -17,18 +16,31 @@ const MyComponent = ({ name, password, secured }) => {
           selectionColor="white"
           secureTextEntry={secure}
         />
-        {password ? <AntDesign name="eye" size={24} color={secure ? "#d1d6db" : "#32e0c4"} onPress={() => setSecure(!secure)}/> : null}
+        {password ? (
+          <AntDesign
+            name="eye"
+            size={24}
+            color={secure ? "#d1d6db" : "#32e0c4"}
+            onPress={() => setSecure(!secure)}
+          />
+        ) : null}
       </View>
+      {error ? (
+        <Text style={styles.error}>{error}</Text>
+      ) : (
+        <Text style={styles.error}></Text>
+      )}
     </View>
   );
 };
 const styles = StyleSheet.create({
   container: {
-    marginBottom: 30,
+    marginBottom: 20,
   },
   textField: {
     flex: 1,
     marginBottom: 5,
+    fontSize: 16,
   },
   text: {
     fontSize: 14,
@@ -43,6 +55,12 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 16,
   },
+  error: {
+    fontFamily: "Asap_400Regular",
+    marginTop: 5,
+    minHeight: 20,
+    color: "#FF0000",
+  },
 });
 
-export default MyComponent;
+export default TextField;
