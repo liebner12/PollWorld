@@ -20,7 +20,9 @@ const StartPage = ({ navigation, onSignIn }) => {
           <SubTitle>Cześć mordeczko miłego dnia :D</SubTitle>
         </View>
         <View>
-          <MainButton name="Zarejestruj się" />
+          <MainButton name="Zarejestruj się" 
+            onPress={() => navigation.navigate("register")}
+            />
           <MainButton
             name="Zaloguj przez Google"
             transparent={true}
