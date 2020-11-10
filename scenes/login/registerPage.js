@@ -6,6 +6,7 @@ import Title from "../../components/common/Title";
 import SubTitle from "../../components/common/SubTitle";
 import Container from "../../components/common/Container";
 import TextField from "../../components/common/TextField";
+import { List } from 'react-native-paper'
 import { Ionicons } from "@expo/vector-icons";
 import { ScrollView } from "react-native-gesture-handler";
 
@@ -24,11 +25,25 @@ const RegisterPage = ({navigation, onSignIn}) => {
         </View>
         <View>
           <TextField name="Imię"/>
-          <TextField name="Nazwisko"/>  
-          <TextField name="Email" />
+          <TextField name="Nazwisko"/> 
           <TextField name="Data urodzenia"/>
-          <TextField name="Status społeczny"/>
-          <TextField name="Zainteresowania"/>
+          <List.Accordion titleStyle={styles.listFixUp} title = "Rejon zatrudnienia" >
+            <List.Item titleStyle={styles.listItem} title="IT" onPress ={() => console.log("IT")}/> 
+            <List.Item titleStyle={styles.listItem} title="Bankowość" onPress ={() => console.log("bnk")}/>
+            <List.Item titleStyle={styles.listItem} title="Branża Budowlana" onPress ={() => console.log("bud")}/>
+            <List.Item titleStyle={styles.listItem} title="Przemysł" onPress ={() => console.log("prz")}/>
+            <List.Item titleStyle={styles.listItem} title="Branża Sporzywcza" onPress ={() => console.log("jed")}/>
+            <List.Item titleStyle={styles.listItem} title="Transport i Logistyka" onPress ={() => console.log("lgi")}/>
+          </List.Accordion>
+          <List.Accordion titleStyle={styles.listFixUp} title = "Zainteresowania" >
+            <List.Item titleStyle={styles.listItem} title="Sport" onPress ={() => console.log("SP")}/> 
+            <List.Item titleStyle={styles.listItem} title="Sztuka" onPress ={() => console.log("bnk")}/>
+            <List.Item titleStyle={styles.listItem} title="Moda" onPress ={() => console.log("bud")}/>
+            <List.Item titleStyle={styles.listItem} title="Gry Planszowe" onPress ={() => console.log("prz")}/>
+            <List.Item titleStyle={styles.listItem} title="Gry Wideo" onPress ={() => console.log("jed")}/>
+          </List.Accordion>
+          
+          <TextField name="Email" />
           <TextField name="Hasło" password={true} secured={true} />
           <TextField name="Powtórz hasło" password={true} secured={true} />
           <MainButton name="Zarejestruj się" />
@@ -61,6 +76,16 @@ const RegisterPage = ({navigation, onSignIn}) => {
 const styles = StyleSheet.create({
   container: {
     marginBottom: 30,
+  },
+  listFixUp:{
+    marginLeft: -16,
+    marginBottom: 30,
+    color: "#32e0c4"
+  },
+  listItem:{
+    fontSize: 14,
+    fontFamily: "Quicksand_700Bold",
+    color: "#32e0c4",
   },
   main: {
     flex: 1,
