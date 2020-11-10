@@ -7,6 +7,7 @@ import TextField from "../../components/common/TextField";
 import Paragraph from "../../components/common/Paragraph";
 import { Ionicons } from "@expo/vector-icons";
 import { RadioButton } from "react-native-paper";
+import { List } from "react-native-paper";
 const PersonalDataPage = ({ navigation, onSignIn }) => {
   const [value, setValue] = React.useState("first");
 
@@ -26,7 +27,68 @@ const PersonalDataPage = ({ navigation, onSignIn }) => {
           <TextField name="Imię" />
           <TextField name="Wiek" />
           <TextField name="Płeć" />
-          <TextField name="Zawód" />
+          <List.Accordion
+            titleStyle={styles.listFixUp}
+            title="Rejon zatrudnienia"
+          >
+            <List.Item
+              titleStyle={styles.listItem}
+              title="IT"
+              onPress={() => console.log("IT")}
+            />
+            <List.Item
+              titleStyle={styles.listItem}
+              title="Bankowość"
+              onPress={() => console.log("bnk")}
+            />
+            <List.Item
+              titleStyle={styles.listItem}
+              title="Branża Budowlana"
+              onPress={() => console.log("bud")}
+            />
+            <List.Item
+              titleStyle={styles.listItem}
+              title="Przemysł"
+              onPress={() => console.log("prz")}
+            />
+            <List.Item
+              titleStyle={styles.listItem}
+              title="Branża Sporzywcza"
+              onPress={() => console.log("jed")}
+            />
+            <List.Item
+              titleStyle={styles.listItem}
+              title="Transport i Logistyka"
+              onPress={() => console.log("lgi")}
+            />
+          </List.Accordion>
+          <List.Accordion titleStyle={styles.listFixUp} title="Zainteresowania">
+            <List.Item
+              titleStyle={styles.listItem}
+              title="Sport"
+              onPress={() => console.log("SP")}
+            />
+            <List.Item
+              titleStyle={styles.listItem}
+              title="Sztuka"
+              onPress={() => console.log("bnk")}
+            />
+            <List.Item
+              titleStyle={styles.listItem}
+              title="Moda"
+              onPress={() => console.log("bud")}
+            />
+            <List.Item
+              titleStyle={styles.listItem}
+              title="Gry Planszowe"
+              onPress={() => console.log("prz")}
+            />
+            <List.Item
+              titleStyle={styles.listItem}
+              title="Gry Wideo"
+              onPress={() => console.log("jed")}
+            />
+          </List.Accordion>
           <Text style={styles.livingTitle}>Miejsce zamieszkania</Text>
           <RadioButton.Group
             onValueChange={(value) => setValue(value)}
@@ -60,7 +122,10 @@ const PersonalDataPage = ({ navigation, onSignIn }) => {
             </View>
           </RadioButton.Group>
           <View style={{ marginTop: 20 }}>
-            <MainButton name="Kontynuuj" onPress={() => navigation.navigate("Physical")}/>
+            <MainButton
+              name="Kontynuuj"
+              onPress={() => navigation.navigate("Physical")}
+            />
           </View>
         </View>
       </View>

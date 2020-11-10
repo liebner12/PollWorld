@@ -62,7 +62,7 @@ const LoginPage = ({ navigation, onSignIn }) => {
             setText={setPassword}
             error={passwordError}
           />
-          <MainButton name="Zaloguj się" onPress={() => loginChecker()} />
+          <MainButton name="Zaloguj się" onPress={() => onSignIn()} />
           <Text style={[styles.greyText, styles.smallText]}>
             albo użyj twojego portalu społecznościowego
           </Text>
