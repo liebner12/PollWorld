@@ -140,6 +140,16 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
   },
+  listFixUp:{
+    marginLeft: -16,
+    color:"#32e0c4"
+  },
+  listItem:{
+    color:"#32e0c4",
+    fontSize: 14,
+    fontFamily: "Asap_600SemiBold",
+
+  },
   radioButton: {
     flexDirection: "row-reverse",
     alignItems: "center",
