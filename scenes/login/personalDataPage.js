@@ -30,7 +30,7 @@ const PersonalDataPage = ({ navigation, onSignIn }) => {
           <TextField name="Wiek" text={age} setText={setAge} />
           <TextField name="Płeć" text={sex} setText={setSex} />
           <List.Accordion
-            titleStyle={styles.listFixUp}
+            titleStyle={styles.listTitle}
             title="Rejon zatrudnienia"
           >
             <List.Item
@@ -64,7 +64,7 @@ const PersonalDataPage = ({ navigation, onSignIn }) => {
               onPress={() => console.log("lgi")}
             />
           </List.Accordion>
-          <List.Accordion titleStyle={styles.listFixUp} title="Zainteresowania">
+          <List.Accordion titleStyle={styles.listTitle} title="Zainteresowania">
             <List.Item
               titleStyle={styles.listItem}
               title="Sport"
@@ -111,7 +111,7 @@ const PersonalDataPage = ({ navigation, onSignIn }) => {
                   value="miasto"
                   color="#32e0c4"
                   uncheckedColor="#32e0c4"
-                />
+                 />
               </View>
               <View style={styles.radioButton}>
                 <Paragraph>Wieś</Paragraph>
@@ -153,6 +153,17 @@ const styles = StyleSheet.create({
 
   titleContainer: {
     marginBottom: 30,
+  },
+  listTitle: {
+    marginLeft: -16,
+    fontSize: 14,
+    fontFamily: "Asap_600SemiBold",
+    color: "#32e0c4",
+  },
+  listItem: {
+    fontSize: 14,
+    fontFamily: "Quicksand_700Bold",
+    color: "#32e0c4",
   },
   main: {
     flex: 1,

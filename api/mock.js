@@ -1,3 +1,5 @@
+import { getToken } from './token';
+
 const mockSuccess = (value) => {
   return new Promise((resolve) => {
     setTimeout(() => resolve(value), 2000);
@@ -32,9 +34,8 @@ export const createAccount = (email, password, shouldSucceed = true) => {
 
 const getAuthenticationToken = () => "successful_fake_token";
 
-export const getUsers = (shouldSucceed = true) => {
-  const token = getAuthenticationToken();
-
+export const getUsers = async (shouldSucceed = true) => {
+  const token = await getToken();
   if (!shouldSucceed) {
     return mockFailure({ error: 401, message: "Invalid Request" });
   }

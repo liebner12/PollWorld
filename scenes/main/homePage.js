@@ -9,7 +9,7 @@ import TextField from "../../components/common/TextField";
 import { Ionicons } from "@expo/vector-icons";
 
 const HomePage = ({ navigation, onSignOut }) => {
-  console.log(onSignOut);
+  
   
   return (
     <Container>

@@ -7,6 +7,8 @@ import SubTitle from "../../components/common/SubTitle";
 import Container from "../../components/common/Container";
 import TextField from "../../components/common/TextField";
 import { Ionicons } from "@expo/vector-icons";
+import { login } from "../../api/mock"
+import { setToken } from '../../api/token';
 
 const LoginPage = ({ navigation, onSignIn }) => {
   const [email, setEmail] = useState("");
@@ -33,7 +35,14 @@ const LoginPage = ({ navigation, onSignIn }) => {
       password == "" ? setPasswordError("Niepoprawne hasło.") : "";
     }
   };
-
+  const loginUser = () => {
+    login("test@test.ca", "password")
+      .then(async (res)=> {
+        await setToken(res.auth_token);
+        onSignIn();
+      })
+      .catch((err) => console.log("error:", err.message));
+  };
   return (
     <Container>
       <TouchableOpacity
@@ -62,7 +71,7 @@ const LoginPage = ({ navigation, onSignIn }) => {
             setText={setPassword}
             error={passwordError}
           />
-          <MainButton name="Zaloguj się" onPress={() => loginChecker()} />
+          <MainButton name="Zaloguj się" onPress={() => loginUser()} />
           <Text style={[styles.greyText, styles.smallText]}>
             albo użyj twojego portalu społecznościowego
           </Text>
