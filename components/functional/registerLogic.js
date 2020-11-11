@@ -1,6 +1,6 @@
 import * as SecureStore from 'expo-secure-store';
 
-export const register = (email, password) => {
+export const registerLogic = (email, password) => {
     console.log(email + password)
     const server = "https://server.com";
     const expected_status = 201;

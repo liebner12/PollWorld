@@ -7,7 +7,7 @@ import SubTitle from "../../components/common/SubTitle";
 import Container from "../../components/common/Container";
 import TextField from "../../components/common/TextField";
 import { Ionicons } from "@expo/vector-icons";
-import {register} from "../../components/functional/registerLogic"
+import { registerLogic } from "../../components/functional/registerLogic";
 import { ScrollView } from "react-native-gesture-handler";
 
 const RegisterPage = ({ navigation, onSignIn }) => {
@@ -55,7 +55,7 @@ const RegisterPage = ({ navigation, onSignIn }) => {
           />
           <MainButton
             name="Zarejestruj się"
-            onPress={() => register(email,password)}
+            onPress={() => registerLogic(email, password)}
           />
         </View>
       </View>
