@@ -6,11 +6,11 @@ import SubTitle from "../../components/common/SubTitle";
 import Container from "../../components/common/Container";
 import TextField from "../../components/common/TextField";
 import { Ionicons } from "@expo/vector-icons";
-import { validateEmail } from "../../components/functional/typingValidation";
-import { validatePasswordLength } from "../../components/functional/typingValidation";
-import { validateTwoPasswords } from "../../components/functional/typingValidation";
-import { createAccount } from "../../api/authentication";
-import { setToken } from "../../api/token";
+import { validateEmail } from "../../components/functional/authentication/logic/typingValidation";
+import { validatePasswordLength } from "../../components/functional/authentication/logic/typingValidation";
+import { validateTwoPasswords } from "../../components/functional/authentication/logic/typingValidation";
+import { createAccount } from "../../components/functional/authentication/communication/authentication";
+import { setToken } from "../../components/functional/api/storedToken";
 const RegisterPage = ({ navigation, onSignIn }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -18,6 +18,7 @@ const RegisterPage = ({ navigation, onSignIn }) => {
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [checkPasswordError, setCheckPasswordError] = useState("");
+
   const submit = () => {
     createAccount(email, password)
       .then(async (res) => {
@@ -26,6 +27,7 @@ const RegisterPage = ({ navigation, onSignIn }) => {
       })
       .catch((res) => console.log(res));
   };
+
   const validateRegister = () => {
     if (validateEmail(email)) {
       setEmailError("");

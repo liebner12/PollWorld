@@ -7,9 +7,9 @@ import SubTitle from "../../components/common/SubTitle";
 import Container from "../../components/common/Container";
 import TextField from "../../components/common/TextField";
 import { Ionicons } from "@expo/vector-icons";
-import { validateEmail } from "../../components/functional/typingValidation";
-import { validatePasswordLength } from "../../components/functional/typingValidation";
-import { login } from "../../api/authentication";
+import { validateEmail } from "../../components/functional/authentication/logic/typingValidation";
+import { validatePasswordLength } from "../../components/functional/authentication/logic/typingValidation";
+import { login } from "../../components/functional/authentication/communication/authentication";
 const LoginPage = ({ navigation, onSignIn }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

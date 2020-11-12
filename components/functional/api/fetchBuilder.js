@@ -1,7 +1,6 @@
-import { getToken } from "./token";
+import { getToken } from "./storedToken";
 
-const getHeaders = async () => {
-  const token = await getToken();
+const getHeaders = async (token) => {
   const headers = {
     Accept: "application/json",
     "Content-Type": "application/json",
@@ -14,9 +13,9 @@ const getHeaders = async () => {
   return headers;
 };
 
-export const post = async (destination, body) => {
-  const headers = await getHeaders();
 
+export const post = async (destination, body, token) => {
+  const headers = await getHeaders(token);
   const result = await fetch(`http://localhost:3000${destination}`, {
     method: "POST",
     headers,
@@ -24,24 +23,18 @@ export const post = async (destination, body) => {
   });
 
   console.log(result);
-
-  if (result.ok) {
-    return await result.json();
-  }
-  throw { error: result.status };
+  return await result.json();
 };
 
-export const get = async (destination) => {
-  const headers = await getHeaders();
-
+export const get = async (destination, body, token) => {
+  const headers = await getHeaders(token);
   const result = await fetch(`http://localhost:3000${destination}`, {
     method: "GET",
     headers,
+    body: JSON.stringify(body),
   });
 
-  if (result.ok) {
-    return await result.json();
-  }
 
-  throw { error: result.status };
+  console.log(result);
+  return await result.json();
 };
