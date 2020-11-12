@@ -1,8 +1,7 @@
 import * as SecureStore from 'expo-secure-store';
 
 export const registerLogic = (email, password) => {
-    console.log(email + password)
-    const server = "https://server.com";
+    const server = "http://localhost:3000/users";
     const expected_status = 201;
 
     const register_data = {
@@ -16,7 +15,7 @@ export const registerLogic = (email, password) => {
             password: password
         })
     };
-    fetch(server.concat("/register"),register_data)
+    fetch(server, register_data)
         .then(response => {
             if(response.status === expected_status){
                 console.log("Zarejestrowano")

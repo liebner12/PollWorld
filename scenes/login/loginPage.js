@@ -7,42 +7,42 @@ import SubTitle from "../../components/common/SubTitle";
 import Container from "../../components/common/Container";
 import TextField from "../../components/common/TextField";
 import { Ionicons } from "@expo/vector-icons";
-import { login } from "../../api/mock"
-import { setToken } from '../../api/token';
-
+import { validateEmail } from "../../components/functional/typingValidation";
+import { validatePasswordLength } from "../../components/functional/typingValidation";
+import { login } from "../../api/authentication";
 const LoginPage = ({ navigation, onSignIn }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
 
-  const validate = (email) => {
-    const expression = /(?!.*\.{2})^([a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\.[a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|"((([\t]*\r\n)?[\t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([\t]*\r\n)?[\t]+)?")@(([a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.)+([a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.?$/i;
-    return expression.test(String(email).toLowerCase());
-  };
-
-  const loginChecker = () => {
-    if (validate(email)) {
-      setEmailError("");
-      if (password != "") {
-        setPasswordError("");
-        onSignIn();
-      } else {
-        setPasswordError("Niepoprawne hasło.");
-      }
-    } else {
-      setEmailError("Wprowadź poprawny adres e-mail.");
-      password == "" ? setPasswordError("Niepoprawne hasło.") : "";
-    }
-  };
-  const loginUser = () => {
-    login("test@test.ca", "password")
-      .then(async (res)=> {
-        await setToken(res.auth_token);
+  const submit = () => {
+    login(email, password)
+      .then(async (res) => {
+        await setToken(res.token);
         onSignIn();
       })
-      .catch((err) => console.log("error:", err.message));
+      .catch((res) => console.log(res));
   };
+  const validateLogin = () => {
+    if (validateEmail(email)) {
+      setEmailError("");
+      validatePasswordLength(password)
+        ? (setPasswordError(""), submit())
+        : setPasswordError("Niepoprawne hasło.");
+    } else {
+      setEmailError("Wprowadź poprawny adres e-mail.");
+      validatePasswordLength ? setPasswordError("Niepoprawne hasło.") : "";
+    }
+  };
+  /*validateEmail(email)
+      ? (setEmailError(""),
+        validatePasswordLength(password)
+          ? (setPasswordError(""), onSignIn())
+          : setPasswordError("Niepoprawne hasło."))
+      : (setEmailError("Wprowadź poprawny adres e-mail."),
+        validatePassword ? setPasswordError("Niepoprawne hasło.") : "");*/
+
   return (
     <Container>
       <TouchableOpacity
@@ -71,7 +71,7 @@ const LoginPage = ({ navigation, onSignIn }) => {
             setText={setPassword}
             error={passwordError}
           />
-          <MainButton name="Zaloguj się" onPress={() => loginUser()} />
+          <MainButton name="Zaloguj się" onPress={() => validateLogin()} />
           <Text style={[styles.greyText, styles.smallText]}>
             albo użyj twojego portalu społecznościowego
           </Text>
@@ -96,7 +96,10 @@ const LoginPage = ({ navigation, onSignIn }) => {
           <TouchableOpacity activeOpacity={0.6}>
             <Text style={styles.greyText}>Zapomniałeś hasła?</Text>
           </TouchableOpacity>
-          <TouchableOpacity activeOpacity={0.6}>
+          <TouchableOpacity
+            activeOpacity={0.6}
+            onPress={() => navigation.navigate("Register")}
+          >
             <Text style={styles.login}>Zarejestruj się</Text>
           </TouchableOpacity>
         </View>

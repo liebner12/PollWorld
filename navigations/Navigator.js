@@ -11,7 +11,7 @@ import { setToken } from '../api/token'
 const Stack = createStackNavigator();
 
 const AppNavigator = () => {
-  const [isAuthenticated, setIsAuthenticated] = React.useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const handleSignIn = () => {
     setIsAuthenticated(true);

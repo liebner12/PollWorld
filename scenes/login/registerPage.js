@@ -1,15 +1,16 @@
 import React, { useState } from "react";
-import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
+import { StyleSheet, View, TouchableOpacity } from "react-native";
 import MainButton from "../../components/common/MainButton";
-import { FontAwesome } from "@expo/vector-icons";
 import Title from "../../components/common/Title";
 import SubTitle from "../../components/common/SubTitle";
 import Container from "../../components/common/Container";
 import TextField from "../../components/common/TextField";
 import { Ionicons } from "@expo/vector-icons";
-import { registerLogic } from "../../components/functional/registerLogic";
-import { ScrollView } from "react-native-gesture-handler";
-
+import { validateEmail } from "../../components/functional/typingValidation";
+import { validatePasswordLength } from "../../components/functional/typingValidation";
+import { validateTwoPasswords } from "../../components/functional/typingValidation";
+import { createAccount } from "../../api/authentication";
+import { setToken } from "../../api/token";
 const RegisterPage = ({ navigation, onSignIn }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -17,6 +18,54 @@ const RegisterPage = ({ navigation, onSignIn }) => {
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [checkPasswordError, setCheckPasswordError] = useState("");
+  const submit = () => {
+    createAccount(email, password)
+      .then(async (res) => {
+        await setToken(res.token);
+        navigation.navigate("Personal");
+      })
+      .catch((res) => console.log(res));
+  };
+  const validateRegister = () => {
+    if (validateEmail(email)) {
+      setEmailError("");
+      if (validateTwoPasswords(password, checkPassword)) {
+        setCheckPasswordError("");
+        if (validatePasswordLength(password)) {
+          setPasswordError("");
+          submit();
+        } else {
+          setPasswordError("Niepoprawne hasło.");
+        }
+      } else {
+        setCheckPasswordError("Hasła różnią się od siebie.");
+        validatePasswordLength(password)
+          ? setPasswordError("")
+          : setPasswordError("Niepoprawne hasło.");
+      }
+    } else {
+      setEmailError("Wprowadź poprawny adres e-mail.");
+      validatePasswordLength
+        ? setPasswordError("Niepoprawne hasło.")
+        : setPasswordError("");
+      if (validateTwoPasswords(password, checkPassword)) {
+        setCheckPasswordError("");
+      } else {
+        setCheckPasswordError("Hasła różnią się od siebie.");
+      }
+    }
+    /*validateEmail(email)
+      ? (setEmailError(""),
+        validateTwoPasswords(password, checkPassword)
+          ? (setCheckPasswordError(""),
+          validatePasswordLength(password)
+              ? (setPasswordError(""), registerLogic(email, password))
+              : setPasswordError("Niepoprawne hasło."))
+          : (setCheckPasswordError("Hasła różnią się od siebie.")),)
+      : (setEmailError("Wprowadź poprawny adres e-mail."),
+        validatePassword ? setPasswordError("Niepoprawne hasło.") : ""); */
+  };
+
   return (
     <Container>
       <TouchableOpacity
@@ -55,7 +104,7 @@ const RegisterPage = ({ navigation, onSignIn }) => {
           />
           <MainButton
             name="Zarejestruj się"
-            onPress={() => registerLogic(email, password)}
+            onPress={() => validateRegister()}
           />
         </View>
       </View>
@@ -79,6 +128,7 @@ const styles = StyleSheet.create({
   },
   main: {
     flex: 1,
+    justifyContent: "center",
   },
   login: {
     fontSize: 16,

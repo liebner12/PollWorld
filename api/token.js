@@ -1,8 +1,8 @@
-import AsyncStorage from '@react-native-community/async-storage';
+import * as SecureStore from "expo-secure-store";
 
 export const getToken = async () => {
   try {
-    const value = await AsyncStorage.getItem('@auth_token');
+    const value = await SecureStore.getItemAsync("token");
     if (value !== null) {
       return value;
     }
@@ -13,7 +13,7 @@ export const getToken = async () => {
 
 export const setToken = async (token) => {
   try {
-    await AsyncStorage.setItem('@auth_token', token);
+    await SecureStore.setItemAsync("token", token);
   } catch (e) {
     return null;
   }
