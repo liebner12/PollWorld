@@ -37,7 +37,6 @@ const PersonalDataPage = ({ navigation }) => {
               keyboardType: "numeric",
               validate: [onlyNumbers, cantBeEmpty],
               ref: secondTextField,
-              blurOnSubmit: false,
             },
             sex: {
               type: "radio",

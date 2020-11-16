@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
   error: {
     fontFamily: "Asap_400Regular",
     minHeight: 20,
-    color: "#ef5350",
+    color: "#cf6679",
     marginBottom: "1%",
   },
 });

@@ -1,7 +1,6 @@
 import React from "react";
 import { StyleSheet, View, Text } from "react-native";
 import { RadioButton } from "react-native-paper";
-import Paragraph from "./Paragraph";
 const RadioButtonGroup = ({ title, fields, value, setValue }) => {
   const fieldKeys = Object.keys(fields);
   return (
@@ -12,7 +11,7 @@ const RadioButtonGroup = ({ title, fields, value, setValue }) => {
           const field = fields[key];
           return (
             <View key={key} style={styles.radioButton}>
-              <Paragraph>{field.name}</Paragraph>
+              <Text style={styles.radioName}>{field.name}</Text>
               <RadioButton
                 value={field.name}
                 color="#32e0c4"
@@ -39,6 +38,11 @@ const styles = StyleSheet.create({
     fontFamily: "Asap_600SemiBold",
     color: "#32e0c4",
     marginBottom: 10,
+  },
+  radioName: {
+    fontSize: 14,
+    fontFamily: "Asap_400Regular",
+    color: "#d6d6d6",
   },
 });
 
