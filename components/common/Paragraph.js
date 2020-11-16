@@ -7,12 +7,10 @@ const Paragraph = ({ children }) => {
       fontSize: 14,
       fontFamily: "Asap_400Regular",
       color: "#d6d6d6",
+      flex: 1,
+      flexWrap: "wrap",
     },
   });
-  return (
-    <View>
-      <Text style={styles.title}>{children}</Text>
-    </View>
-  );
+  return <Text style={styles.title}>{children}</Text>;
 };
 export default Paragraph;

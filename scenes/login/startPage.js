@@ -6,7 +6,7 @@ import Title from "../../components/common/Title";
 import SubTitle from "../../components/common/SubTitle";
 import Container from "../../components/common/Container";
 import superLogoV2 from "../../assets/iconLine.png";
-const StartPage = ({ navigation, onSignIn }) => {
+const StartPage = ({ navigation }) => {
   return (
     <Container>
       <View style={styles.main}>
@@ -33,7 +33,6 @@ const StartPage = ({ navigation, onSignIn }) => {
             name="Zaloguj przez Facebooka"
             transparent={true}
             icon={<FontAwesome name="facebook" size={24} color="white" />}
-            onPress={() => onSignIn()}
           />
         </View>
         <TouchableOpacity

@@ -1,134 +1,63 @@
-import React, {useState} from "react";
-import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
-import MainButton from "../../components/common/MainButton";
+import React, { createRef } from "react";
+import { View } from "react-native";
 import Title from "../../components/common/Title";
 import Container from "../../components/common/Container";
-import TextField from "../../components/common/TextField";
-import Paragraph from "../../components/common/Paragraph";
-import { Ionicons } from "@expo/vector-icons";
-import { RadioButton } from "react-native-paper";
+import ReturnButton from "../../components/common/ReturnButton";
+import Form from "../../components/form/Form";
+import {
+  cantBeEmpty,
+  onlyNumbers,
+} from "../../components/form/typingValidation";
+import TitleContainer from "../../components/common/TitleContainer";
 const PhysicalPage = ({ navigation, onSignIn }) => {
-  const [value, setValue] = useState("0");
-  const [height, setHeight] = useState("");
-  const [weight, setWeight] = useState("");
+  const secondTextField = createRef();
+  const handleSubmit = () => {
+    onSignIn();
+  };
+
   return (
     <Container>
-      <TouchableOpacity
-        style={{ marginTop: 10 }}
-        onPress={() => navigation.navigate("Start")}
-      >
-        <Ionicons name="md-arrow-round-back" size={30} color="#32e0c4" />
-      </TouchableOpacity>
-      <View style={styles.main}>
-        <View style={styles.titleContainer}>
+      <ReturnButton onPress={() => navigation.navigate("Personal")} />
+      <View>
+        <TitleContainer>
           <Title>Fizyczne statystyki</Title>
-        </View>
+        </TitleContainer>
         <View>
-          <TextField name="Wzrost" text={height} setText={setHeight} />
-          <TextField name="Waga" text={weight} setText={setWeight} />
-          <Text style={styles.livingTitle}>Poziom aktywności fizycznej</Text>
-          <RadioButton.Group
-            onValueChange={(value) => setValue(value)}
-            value={value}
-          >
-            <View style={styles.radioContainer}>
-              <View style={styles.radioButton}>
-                <Paragraph>1</Paragraph>
-                <RadioButton
-                  value="1"
-                  color="#32e0c4"
-                  uncheckedColor="#32e0c4"
-                />
-              </View>
-              <View style={styles.radioButton}>
-                <Paragraph>2</Paragraph>
-                <RadioButton
-                  value="2"
-                  color="#32e0c4"
-                  uncheckedColor="#32e0c4"
-                />
-              </View>
-              <View style={styles.radioButton}>
-                <Paragraph>3</Paragraph>
-                <RadioButton
-                  value="3"
-                  color="#32e0c4"
-                  uncheckedColor="#32e0c4"
-                />
-              </View>
-              <View style={styles.radioButton}>
-                <Paragraph>4</Paragraph>
-                <RadioButton
-                  value="4"
-                  color="#32e0c4"
-                  uncheckedColor="#32e0c4"
-                />
-              </View>
-              <View style={styles.radioButton}>
-                <Paragraph>5</Paragraph>
-                <RadioButton
-                  value="5"
-                  color="#32e0c4"
-                  uncheckedColor="#32e0c4"
-                />
-              </View>
-            </View>
-          </RadioButton.Group>
-          <View style={{ marginTop: 20 }}>
-            <MainButton name="Zakończ" />
-          </View>
+          <Form
+            buttonText="Zakończ"
+            onSubmit={handleSubmit}
+            fields={{
+              height: {
+                name: "Wzrost",
+                keyboardType: "numeric",
+                validate: [onlyNumbers, cantBeEmpty],
+                blurOnSubmit: false,
+                onSubmitEditing: () => secondTextField.current.focus(),
+              },
+              weight: {
+                name: "Waga",
+                keyboardType: "numeric",
+                validate: [onlyNumbers, cantBeEmpty],
+                ref: secondTextField,
+              },
+              activity: {
+                type: "radio",
+                title: "Poziom aktywności fizycznej",
+                fields: {
+                  1: { name: "1" },
+                  2: { name: "2" },
+                  3: { name: "3" },
+                  4: { name: "4" },
+                  5: { name: "5" },
+                },
+                validate: [cantBeEmpty],
+              },
+            }}
+          />
         </View>
       </View>
     </Container>
   );
 };
-
-const styles = StyleSheet.create({
-  radioContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-  radioButton: {
-    flexDirection: "row-reverse",
-    alignItems: "center",
-  },
-  livingTitle: {
-    fontSize: 14,
-    fontFamily: "Asap_600SemiBold",
-    color: "#32e0c4",
-    marginBottom: 10,
-  },
-
-  titleContainer: {
-    marginBottom: 30,
-  },
-  main: {
-    flex: 1,
-    justifyContent: "flex-start",
-    marginTop: 30,
-  },
-  login: {
-    fontSize: 16,
-    fontFamily: "Quicksand_700Bold",
-    color: "#32e0c4",
-  },
-  buttonContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginBottom: 20,
-  },
-  btn: { flex: 1 },
-  btnLeft: { marginRight: 30 },
-  greyText: {
-    color: "#989eb1",
-    fontSize: 16,
-    fontFamily: "Asap_400Regular",
-  },
-  smallText: {
-    marginVertical: 20,
-    fontSize: 14,
-    textAlign: "center",
-  },
-});
 
 export default PhysicalPage;

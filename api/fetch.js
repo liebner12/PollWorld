@@ -9,7 +9,7 @@ const getHeaders = async () => {
 
   if (token) {
     headers.Authorization = `Bearer ${token}`;
-  } 
+  }
 
   return headers;
 };
@@ -22,8 +22,6 @@ export const post = async (destination, body) => {
     headers,
     body: JSON.stringify(body),
   });
-
-  console.log(result);
 
   if (result.ok) {
     return await result.json();
