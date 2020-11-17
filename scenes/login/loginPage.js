@@ -7,7 +7,7 @@ import SubTitle from "../../components/common/SubTitle";
 import Container from "../../components/common/Container";
 import { validateEmail } from "../../components/form/typingValidation";
 import { validatePasswordLength } from "../../components/form/typingValidation";
-import { login } from "../../api/authentication";
+import { login } from "../../components/functional/authentication/logic/appSignIn";
 import Form from "../../components/form/Form";
 import ReturnButton from "../../components/common/ReturnButton";
 import TitleContainer from "../../components/common/TitleContainer";

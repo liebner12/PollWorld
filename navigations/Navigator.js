@@ -7,7 +7,7 @@ import RegisterPage from "../scenes/login/registerPage";
 import HomePage from "../scenes/main/homePage";
 import PhysicalPage from "../scenes/login/physicalPage";
 import PersonalDataPage from "../scenes/login/personalDataPage";
-import { setToken } from "../api/token";
+//import { setRefreshToken } from "../api/token";
 const Stack = createStackNavigator();
 
 const AppNavigator = () => {
@@ -18,7 +18,7 @@ const AppNavigator = () => {
   };
 
   const handleSignOut = async () => {
-    await setToken("");
+   // await setToken("");
     setIsAuthenticated(false);
   };
 

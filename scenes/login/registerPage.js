@@ -9,7 +9,7 @@ import {
   validatePasswordLength,
   validateEmail,
 } from "../../components/form/typingValidation";
-import { createAccount } from "../../api/authentication";
+import { createAccount } from "../../components/functional/authentication/logic/appSignIn";
 import Form from "../../components/form/Form";
 import ReturnButton from "../../components/common/ReturnButton";
 import TitleContainer from "../../components/common/TitleContainer";
