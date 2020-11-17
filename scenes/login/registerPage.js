@@ -18,8 +18,14 @@ import Link from "../../components/common/Link";
 const RegisterPage = ({ navigation }) => {
   const secondTextField = createRef();
   const thirdTextField = createRef();
-  const handleRegister = () => {
-    navigation.navigate("Personal");
+  const handleRegister = (result) => {
+    if (result === 200) {
+      navigation.navigate("Personal");
+    } else if (result === 400) {
+      throw new Error("Ten adres email jest już używany.");
+    } else {
+      throw new Error("Coś poszło nie tak.");
+    }
   };
 
   return (
@@ -28,7 +34,6 @@ const RegisterPage = ({ navigation }) => {
       <View>
         <TitleContainer>
           <Title>Zarejestruj się</Title>
-          <SubTitle>ziomeczku!</SubTitle>
         </TitleContainer>
         <View>
           <Form

@@ -14,8 +14,14 @@ import TitleContainer from "../../components/common/TitleContainer";
 const LoginPage = ({ navigation, onSignIn }) => {
   const secondTextField = createRef();
 
-  const handleResult = async (result) => {
-    onSignIn();
+  const handleLogin = async (result) => {
+    if (result === 200) {
+      onSignIn();
+    } else if (result === 401) {
+      throw new Error("Błędny email lub hasło.");
+    } else {
+      throw new Error("Coś poszło nie tak.");
+    }
   };
 
   return (
@@ -29,7 +35,7 @@ const LoginPage = ({ navigation, onSignIn }) => {
         <View>
           <Form
             buttonText="Zaloguj się"
-            onSubmit={handleResult}
+            onSubmit={handleLogin}
             action={login}
             fields={{
               email: {
