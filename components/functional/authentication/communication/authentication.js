@@ -1,6 +1,5 @@
 import { post} from "../../api/fetchBuilder";
 
-
 export const sendLoginData = (email, password) => {
   return post("/token/",{email:email, password:password});
 };
