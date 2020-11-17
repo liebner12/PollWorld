@@ -9,26 +9,27 @@ import TextField from "../../components/common/TextField";
 import { Ionicons } from "@expo/vector-icons";
 import { validateEmail } from "../../components/functional/authentication/logic/typingValidation";
 import { validatePasswordLength } from "../../components/functional/authentication/logic/typingValidation";
-import { login } from "../../components/functional/authentication/communication/authentication";
+import {createAccount, login} from "../../components/functional/authentication/logic/appSignIn";
 const LoginPage = ({ navigation, onSignIn }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
 
+
   const submit = () => {
-    login(email, password)
-      .then(async (res) => {
-        await setToken(res.token);
-        onSignIn();
-      })
-      .catch((res) => console.log(res));
+    let res = login(email,password);
+    if(res){
+      navigation.navigate("Personal");
+    }
   };
+
   const validateLogin = () => {
+    submit();
     if (validateEmail(email)) {
       setEmailError("");
       validatePasswordLength(password)
-        ? (setPasswordError(""), submit())
+        ? (setPasswordError(""))
         : setPasswordError("Niepoprawne hasło.");
     } else {
       setEmailError("Wprowadź poprawny adres e-mail.");

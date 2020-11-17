@@ -1,27 +1,33 @@
-import {getToken, setToken} from "../../api/storedToken";
-import {sendRegisterData, sendLoginData, expected_status} from "../communication/authentication";
+import {sendRegisterData, sendLoginData} from "../communication/authentication";
+import {getRefreshToken, setAccessToken, setRefreshToken, setToken} from "../../api/storedTokens";
 
-export const createAccount = (email, password) => {
-    let response = sendRegisterData(email,password);
-    let token_value = JSON.stringify(response.headers.get('authorization'));
-    if(response.status === expected_status){
-        setToken(token_value)
-        //TODO Przejście do kolejnego etapu rejestracji
+const expected_status = 200;
+
+
+export const createAccount = async (email, password) => {
+    let response = await sendRegisterData(email, password);
+    console.log(response.response_headers.get("content-type"));
+    console.log(response.response_body);
+    console.log(response.response_status);
+    if(response.response_status === expected_status){
+        await sendLoginData(email,password);
     }
     else{
-        //TODO Dostaliśmy errora, wyświetl komunikat, wróć do ekranu rejestracji
-        console.log("error", response.status)
+
     }
 }
 
-export const login = (email, password) => {
-    let response = sendLoginData(email,password);
-    let token_value = JSON.stringify(response.headers.get('authorization'));
-    if(response.status === expected_status){
-        setToken(token_value)
-    }
-    else{
-        //TODO Dostaliśmy errora, wyświetl komunikat
-        console.log("error", response.status)
+
+export const login = async (email, password) => {
+    let response = await sendLoginData(email, password);
+    console.log(response.response_headers.get("content-type"));
+    console.log(response.response_body.refresh);
+    console.log(response.response_body.access);
+    console.log(response.response_body.user);
+    console.log(response.response_status);
+    if(response.response_status===expected_status){
+        await setAccessToken(response.response_body.access);
+        await setRefreshToken(response.response_body.refresh);
+        console.log(getRefreshToken());
     }
 }

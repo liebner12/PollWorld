@@ -1,5 +1,5 @@
 import {expected_status, sendAppUserToken, } from "../communication/authentication";
-import {getToken} from "../../api/storedToken";
+import {getToken} from "../../api/storedTokens";
 
 export const autoLogin = () => {
     let user_token = getToken();

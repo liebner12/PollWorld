@@ -9,8 +9,9 @@ import { Ionicons } from "@expo/vector-icons";
 import { validateEmail } from "../../components/functional/authentication/logic/typingValidation";
 import { validatePasswordLength } from "../../components/functional/authentication/logic/typingValidation";
 import { validateTwoPasswords } from "../../components/functional/authentication/logic/typingValidation";
-import { createAccount } from "../../components/functional/authentication/communication/authentication";
-import { setToken } from "../../components/functional/api/storedToken";
+import { createAccount } from "../../components/functional/authentication/logic/appSignIn";
+import { setToken } from "../../components/functional/api/storedTokens";
+
 const RegisterPage = ({ navigation, onSignIn }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -20,12 +21,13 @@ const RegisterPage = ({ navigation, onSignIn }) => {
   const [checkPasswordError, setCheckPasswordError] = useState("");
 
   const submit = () => {
-    createAccount(email, password)
-      .then(async (res) => {
-        await setToken(res.token);
-        navigation.navigate("Personal");
-      })
-      .catch((res) => console.log(res));
+    let res = createAccount(email,password);
+    if(res){
+      navigation.navigate("Personal");
+    }
+    else{
+      setCheckPasswordError(res.response.status)
+    }
   };
 
   const validateRegister = () => {
@@ -42,14 +44,14 @@ const RegisterPage = ({ navigation, onSignIn }) => {
       } else {
         setCheckPasswordError("Hasła różnią się od siebie.");
         validatePasswordLength(password)
-          ? setPasswordError("")
-          : setPasswordError("Niepoprawne hasło.");
+            ? setPasswordError("")
+            : setPasswordError("Niepoprawne hasło.");
       }
     } else {
       setEmailError("Wprowadź poprawny adres e-mail.");
       validatePasswordLength
-        ? setPasswordError("Niepoprawne hasło.")
-        : setPasswordError("");
+          ? setPasswordError("Niepoprawne hasło.")
+          : setPasswordError("");
       if (validateTwoPasswords(password, checkPassword)) {
         setCheckPasswordError("");
       } else {
@@ -106,7 +108,7 @@ const RegisterPage = ({ navigation, onSignIn }) => {
           />
           <MainButton
             name="Zarejestruj się"
-            onPress={() => validateRegister()}
+            onPress={() => createAccount(email,password)}
           />
         </View>
       </View>

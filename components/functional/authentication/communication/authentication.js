@@ -1,20 +1,24 @@
-import { post } from "../../api/fetchBuilder";
+import { post} from "../../api/fetchBuilder";
+import axios, * as others from 'axios';
+import {exp} from "react-native-reanimated";
 
-export const expected_status = 201;
+const authorization_header = "server"
+
+
+
+
 
 export const sendLoginData = (email, password) => {
-  return post("/users/login", {
-    user: { email, password },
-  });
+  return post("/token/",{email:email, password:password});
 };
 export const sendAppUserToken = (user_token) =>{
   return post("/users/login/token",{},user_token)
 }
 
 export const sendRegisterData = (email, password) => {
-  return post("/users", {
-    user: { email, password },
-  })}
+  return post("/accounts/api/register/",{email:email, password:password});
+}
+
 
 export const sendGoogleUserToken = (user_token) => {
   return post("/users/login/facebook",{},user_token);

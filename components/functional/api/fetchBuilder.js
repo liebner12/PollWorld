@@ -1,40 +1,39 @@
-import { getToken } from "./storedToken";
+import { getToken } from "./storedTokens";
+import {exp} from "react-native-reanimated";
+import Constants from "expo-constants";
 
-const getHeaders = async (token) => {
+const server = `http://127.0.0.1:8000`
+
+const getHeaders = (token) => {
   const headers = {
-    Accept: "application/json",
-    "Content-Type": "application/json",
+    'Content-Type': 'application/json',
   };
-
   if (token) {
     headers.Authorization = `Bearer ${token}`;
-  } 
-
+  }
   return headers;
 };
 
 
+
 export const post = async (destination, body, token) => {
-  const headers = await getHeaders(token);
-  const result = await fetch(`http://localhost:3000${destination}`, {
+  let response_status;
+  let response_headers;
+  let response_body;
+  let res;
+  await fetch(`${server}${destination}`,{
     method: "POST",
-    headers,
-    body: JSON.stringify(body),
-  });
-
-  console.log(result);
-  return await result.json();
-};
-
-export const get = async (destination, body, token) => {
-  const headers = await getHeaders(token);
-  const result = await fetch(`http://localhost:3000${destination}`, {
-    method: "GET",
-    headers,
-    body: JSON.stringify(body),
-  });
-
-
-  console.log(result);
-  return await result.json();
-};
+        headers: getHeaders(token),
+        body: await JSON.stringify(body),}
+  )
+  .then(response => {
+    response_status = response.status;
+    response_headers = response.headers;
+    res = response})
+  response_body = await res.json()
+  return {
+    response_body: response_body,
+    response_status: response_status,
+    response_headers: response_headers
+  };
+}
