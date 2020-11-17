@@ -1,0 +1,23 @@
+import { post} from "../../api/fetchBuilder";
+import axios, * as others from 'axios';
+import {exp} from "react-native-reanimated";
+
+
+export const sendLoginData = (email, password) => {
+  return post("/token/",{email:email, password:password});
+};
+export const sendAppUserToken = (user_token) =>{
+  return post("/users/login/token",{},user_token)
+}
+
+export const sendRegisterData = (email, password) => {
+  return post("/accounts/api/register/",{email:email, password:password});
+}
+
+export const sendGoogleUserToken = (user_token) => {
+  return post("/users/login/facebook",{},user_token);
+};
+
+export const sendFacebookUserToken = (user_token) => {
+  return post("/users/login/google",{},user_token);
+}
