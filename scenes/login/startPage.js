@@ -28,6 +28,7 @@ const StartPage = ({ navigation }) => {
             name="Zaloguj przez Google"
             transparent={true}
             icon={<FontAwesome name="google" size={24} color="white" />}
+            onPress={() => navigation.navigate("Details")}
           />
           <MainButton
             name="Zaloguj przez Facebooka"

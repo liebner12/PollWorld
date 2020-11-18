@@ -25,6 +25,7 @@ const PersonalDataPage = ({ navigation }) => {
         <Form
           buttonText="Kontynuuj"
           onSubmit={handleSubmit}
+          action={() => console.log("fake")}
           fields={{
             name: {
               name: "Imię",
@@ -45,16 +46,6 @@ const PersonalDataPage = ({ navigation }) => {
                 male: { name: "mężczyzna" },
                 female: { name: "kobieta" },
                 others: { name: "inne" },
-              },
-              validate: [cantBeEmpty],
-            },
-            hometown: {
-              type: "radio",
-              title: "Miejsce zamieszkania",
-              fields: {
-                city: { name: "metropolia" },
-                town: { name: "miasto" },
-                village: { name: "wieś" },
               },
               validate: [cantBeEmpty],
             },

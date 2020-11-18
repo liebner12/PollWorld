@@ -7,7 +7,9 @@ import RegisterPage from "../scenes/login/registerPage";
 import HomePage from "../scenes/main/homePage";
 import PhysicalPage from "../scenes/login/physicalPage";
 import PersonalDataPage from "../scenes/login/personalDataPage";
+import DetailsPage from "../scenes/login/detailsPage"
 //import { setRefreshToken } from "../api/token";
+
 const Stack = createStackNavigator();
 
 const AppNavigator = () => {
@@ -39,6 +41,9 @@ const AppNavigator = () => {
             </Stack.Screen>
             <Stack.Screen name="Register">
               {(props) => <RegisterPage {...props} />}
+            </Stack.Screen>
+            <Stack.Screen name="Details">
+              {(props) => <DetailsPage {...props} />}
             </Stack.Screen>
             <Stack.Screen name="Personal">
               {(props) => <PersonalDataPage {...props} />}
