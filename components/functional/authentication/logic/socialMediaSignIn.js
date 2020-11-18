@@ -7,27 +7,27 @@ import {sendGoogleUserToken} from "../communication/authentication";
 import {initializeAsync} from "expo-facebook";
 
 
-export const signInWithGoogle = async() =>{
+export const getGoogleUserToken = async() =>{
         const scopes = ["profile", "email"];
-        const {type, accessToken, user} = await Google.logInAsync({
+        const {type, token, user} = await Google.logInAsync({
             androidClientId: googleAppId,
             scopes: scopes
+        }) .catch((error) => {
+            console.error(error);
         });
-        console.log(user);
-        if (type == "success") {
-            await sendGoogleUserToken(accessToken);
-        }
+        return user;
     };
 
-export const signInWithFacebook = async() =>{
+export const getFacebookUserToken = async() =>{
         await Facebook.initializeAsync({facebookAppId});
         const {
             type,
             token,
     } = await Facebook.logInWithReadPermissionsAsync({
         permissions: ["public_profile", "email"],
-    });
-        console.log(type);
-        console.log(token);
+    }) .catch((error) => {
+            console.error(error);
+        });
+        return token;
 }
 
