@@ -5,6 +5,7 @@ import MainButton from "../common/MainButton";
 import { validateFields, hasValidationError } from "./validate";
 import RadioButtonGroup from "../common/RadioButtonGroup";
 import CheckboxGroup from "../common/Checkbox";
+
 const Form = ({ fields, buttonText, onSubmit, action }) => {
   const fieldKeys = Object.keys(fields);
   const [values, setValues] = useState("");
