@@ -12,4 +12,4 @@ web-build/
 # macOS
 .DS_Store
 debug.log
-/secrets.js
+/components/functional/api/secrets.js
