@@ -26,6 +26,7 @@ const PhysicalPage = ({ navigation, onSignIn }) => {
           <Form
             buttonText="Zakończ"
             onSubmit={handleSubmit}
+            action={() => console.log("fake")}
             fields={{
               height: {
                 name: "Wzrost",

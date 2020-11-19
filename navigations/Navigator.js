@@ -7,7 +7,7 @@ import RegisterPage from "../scenes/login/registerPage";
 import HomePage from "../scenes/main/homePage";
 import PhysicalPage from "../scenes/login/physicalPage";
 import PersonalDataPage from "../scenes/login/personalDataPage";
-import DetailsPage from "../scenes/login/detailsPage"
+import DetailsPage from "../scenes/login/detailsPage";
 //import { setRefreshToken } from "../api/token";
 
 const Stack = createStackNavigator();
@@ -20,7 +20,7 @@ const AppNavigator = () => {
   };
 
   const handleSignOut = async () => {
-   // await setToken("");
+    // await setToken("");
     setIsAuthenticated(false);
   };
 
@@ -34,7 +34,7 @@ const AppNavigator = () => {
         ) : (
           <>
             <Stack.Screen name="Start">
-              {(props) => <StartPage {...props} />}
+              {(props) => <StartPage {...props} onSignIn={handleSignIn} />}
             </Stack.Screen>
             <Stack.Screen name="Login">
               {(props) => <LoginPage {...props} onSignIn={handleSignIn} />}
@@ -49,7 +49,7 @@ const AppNavigator = () => {
               {(props) => <PersonalDataPage {...props} />}
             </Stack.Screen>
             <Stack.Screen name="Physical">
-              {(props) => <PhysicalPage {...props} onSignIn={handleSignIn}/>}
+              {(props) => <PhysicalPage {...props} onSignIn={handleSignIn} />}
             </Stack.Screen>
           </>
         )}
