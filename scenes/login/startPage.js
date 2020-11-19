@@ -1,25 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 import { StyleSheet, View, Text, TouchableOpacity, Image } from "react-native";
 import MainButton from "../../components/common/MainButton";
 import { FontAwesome } from "@expo/vector-icons";
 import Title from "../../components/common/Title";
 import SubTitle from "../../components/common/SubTitle";
 import Container from "../../components/common/Container";
-import Alert from "../../components/common/Alert";
 import superLogoV2 from "../../assets/iconLine.png";
-import { signInWithGoogle } from "../../components/functional/authentication/logic/appSignIn";
-import { signInWithFacebook } from "../../components/functional/authentication/logic/appSignIn";
+import {
+  handleGoogleLogin,
+  handleFacebookLogin,
+} from "../../components/functional/authentication/socialLogInHandler";
 const StartPage = ({ navigation, onSignIn }) => {
-  const [open, setOpen] = useState(false);
-
-  const handleGoogleLogin = async () => {
-    await signInWithGoogle() == 200 ? onSignIn() : setOpen(true);
-  };
-
-  const handleFacebookLogin = async () => {
-    console.log(await signInWithFacebook);
-  };
-
   return (
     <Container>
       <View style={styles.main}>
@@ -41,13 +32,13 @@ const StartPage = ({ navigation, onSignIn }) => {
             name="Zaloguj przez Google"
             transparent={true}
             icon={<FontAwesome name="google" size={24} color="white" />}
-            onPress={() => handleGoogleLogin()}
+            onPress={() => handleGoogleLogin(onSignIn())}
           />
           <MainButton
             name="Zaloguj przez Facebooka"
             transparent={true}
             icon={<FontAwesome name="facebook" size={24} color="white" />}
-            onPress={() => navigation.navigate("Details")}
+            onPress={() => handleFacebookLogin(onSignIn())}
           />
         </View>
         <TouchableOpacity
@@ -57,7 +48,6 @@ const StartPage = ({ navigation, onSignIn }) => {
           <Text style={styles.login}>Zaloguj się</Text>
         </TouchableOpacity>
       </View>
-      {open ? <Alert name="Błąd" /> : null}
     </Container>
   );
 };

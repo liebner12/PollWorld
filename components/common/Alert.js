@@ -1,12 +1,7 @@
-import React from "react";
-import { StyleSheet, View, Text } from "react-native";
+import { ToastAndroid } from "react-native";
 
-const Alert = ({ name, transparent, icon, onPress }) => {
-  return (
-    <View style={styles.alertContainer} activeOpacity={0.6} onPress={onPress}>
-      <Text style={styles.text}>{name}</Text>
-    </View>
-  );
+export const Alert = () => {
+  return ToastAndroid.show("A pikachu appeared nearby !", ToastAndroid.SHORT);
 };
 
 export default Alert;

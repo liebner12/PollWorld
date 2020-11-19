@@ -7,10 +7,14 @@ import SubTitle from "../../components/common/SubTitle";
 import Container from "../../components/common/Container";
 import { validateEmail } from "../../components/form/typingValidation";
 import { validatePasswordLength } from "../../components/form/typingValidation";
-import { login, signInWithFacebook,signInWithGoogle } from "../../components/functional/authentication/logic/appSignIn";
+import { login } from "../../components/functional/authentication/logic/appSignIn";
 import Form from "../../components/form/Form";
 import ReturnButton from "../../components/common/ReturnButton";
 import TitleContainer from "../../components/common/TitleContainer";
+import {
+  handleGoogleLogin,
+  handleFacebookLogin,
+} from "../../components/functional/authentication/socialLogInHandler";
 const LoginPage = ({ navigation, onSignIn }) => {
   const secondTextField = createRef();
 
@@ -62,14 +66,14 @@ const LoginPage = ({ navigation, onSignIn }) => {
               <MainButton
                 name="Google"
                 icon={<FontAwesome name="google" size={24} color="white" />}
-                onPress={() => signInWithGoogle()}
+                onPress={() => handleGoogleLogin(onSignIn)}
               />
             </View>
             <View style={styles.btn}>
               <MainButton
                 name="Facebook"
                 icon={<FontAwesome name="facebook" size={24} color="white" />}
-                onPress={() => signInWithFacebook()}
+                onPress={() => handleFacebookLogin(onSignIn)}
               />
             </View>
           </View>
