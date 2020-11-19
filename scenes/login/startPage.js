@@ -12,12 +12,12 @@ import { signInWithFacebook } from "../../components/functional/authentication/l
 const StartPage = ({ navigation, onSignIn }) => {
   const [open, setOpen] = useState(false);
 
-  const handleGoogleLogin = () => {
-    signInWithGoogle() === 200 ? onSignIn() : setOpen(true);
+  const handleGoogleLogin = async () => {
+    await signInWithGoogle() == 200 ? onSignIn() : setOpen(true);
   };
 
-  const handleFacebookLogin = () => {
-    console.log(signInWithFacebook);
+  const handleFacebookLogin = async () => {
+    console.log(await signInWithFacebook);
   };
 
   return (
