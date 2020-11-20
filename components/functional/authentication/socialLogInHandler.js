@@ -4,7 +4,7 @@ import { ToastAndroid } from "react-native";
 
 export const handleGoogleLogin = async (onSignIn) => {
   (await signInWithGoogle()) == 100
-    ? onSignIn()
+    ? onSignIn() 
     : ToastAndroid.show("Coś poszło nie tak.", ToastAndroid.SHORT);
 };
 

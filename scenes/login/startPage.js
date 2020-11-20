@@ -32,13 +32,13 @@ const StartPage = ({ navigation, onSignIn }) => {
             name="Zaloguj przez Google"
             transparent={true}
             icon={<FontAwesome name="google" size={24} color="white" />}
-            onPress={() => handleGoogleLogin(onSignIn())}
+            onPress={() => handleGoogleLogin(onSignIn)}
           />
           <MainButton
             name="Zaloguj przez Facebooka"
             transparent={true}
             icon={<FontAwesome name="facebook" size={24} color="white" />}
-            onPress={() => handleFacebookLogin(onSignIn())}
+            onPress={() => handleFacebookLogin(onSignIn)}
           />
         </View>
         <TouchableOpacity
