@@ -4,10 +4,10 @@ import { createStackNavigator } from "@react-navigation/stack";
 import StartPage from "../scenes/login/startPage";
 import LoginPage from "../scenes/login/loginPage";
 import RegisterPage from "../scenes/login/registerPage";
-import HomePage from "../scenes/main/homePage";
 import PhysicalPage from "../scenes/login/physicalPage";
 import PersonalDataPage from "../scenes/login/personalDataPage";
 import DetailsPage from "../scenes/login/detailsPage";
+import BottomTabs from "./BottomTabs";
 //import { setRefreshToken } from "../api/token";
 
 const Stack = createStackNavigator();
@@ -29,7 +29,7 @@ const AppNavigator = () => {
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         {isAuthenticated ? (
           <Stack.Screen name="Home">
-            {(props) => <HomePage {...props} onSignOut={handleSignOut} />}
+            {(props) => <BottomTabs {...props} onSignOut={handleSignOut} />}
           </Stack.Screen>
         ) : (
           <>

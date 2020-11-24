@@ -1,7 +1,6 @@
 import React, { createRef } from "react";
 import { View, Text } from "react-native";
 import Title from "../../components/common/Title";
-import SubTitle from "../../components/common/SubTitle";
 import Container from "../../components/common/Container";
 import {
   validateTwoPasswords,
@@ -24,7 +23,9 @@ const RegisterPage = ({ navigation }) => {
     } else if (result === 400) {
       throw new Error("Ten adres email jest już używany.");
     } else {
+      navigation.navigate("Personal");
       throw new Error("Coś poszło nie tak.");
+     
     }
   };
 

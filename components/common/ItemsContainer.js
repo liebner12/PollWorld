@@ -1,19 +1,16 @@
 import React from "react";
-import { StyleSheet, ScrollView } from "react-native";
+import { View, StyleSheet, ScrollView } from "react-native";
 
-const Container = ({ children, wider, align }) => {
+const Container = ({ children, wider }) => {
   const styles = StyleSheet.create({
     container: {
       flex: 3,
-      flexGrow: 1,
       backgroundColor: "#212121",
       padding: 30,
       paddingHorizontal: wider ? "5%" : "10%",
     },
   });
-  return (
-    <ScrollView contentContainerStyle={styles.container}>{children}</ScrollView>
-  );
+  return <View style={styles.container}>{children}</View>;
 };
 
 export default Container;

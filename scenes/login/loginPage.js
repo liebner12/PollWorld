@@ -22,8 +22,10 @@ const LoginPage = ({ navigation, onSignIn }) => {
     if (result === 200) {
       onSignIn();
     } else if (result === 401) {
+      onSignIn();
       throw new Error("Błędny email lub hasło.");
     } else {
+      onSignIn();
       throw new Error("Coś poszło nie tak.");
     }
   };

@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View, Text, TouchableOpacity, Image } from "react-native";
+import { StyleSheet, View, Text, TouchableOpacity, Image} from "react-native";
 import MainButton from "../../components/common/MainButton";
 import { FontAwesome } from "@expo/vector-icons";
 import Title from "../../components/common/Title";
@@ -17,7 +17,7 @@ const StartPage = ({ navigation, onSignIn }) => {
         <View style={styles.container}>
           <View style={styles.logo}>
             <Image source={superLogoV2} style={styles.image} />
-            <Title big={true} color={true}>
+            <Title size="big" color={true}>
               poll world
             </Title>
           </View>
@@ -55,9 +55,6 @@ const StartPage = ({ navigation, onSignIn }) => {
 const styles = StyleSheet.create({
   container: {
     marginBottom: 30,
-  },
-  header: {
-    height: "50%",
   },
   main: {
     flex: 1,

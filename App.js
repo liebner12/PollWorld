@@ -1,6 +1,5 @@
 import { StatusBar } from "expo-status-bar";
 import React from "react";
-import "react-native-gesture-handler";
 import { AppLoading } from "expo";
 import {
   useFonts,
@@ -18,6 +17,7 @@ import {
 import { DefaultTheme, Provider as PaperProvider } from "react-native-paper";
 import { View } from "react-native";
 import AppNavigator from "./navigations/Navigator";
+import "react-native-gesture-handler";
 
 export default function App() {
   let [fontsLoaded] = useFonts({
