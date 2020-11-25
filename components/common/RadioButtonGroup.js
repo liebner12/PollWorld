@@ -3,6 +3,7 @@ import { StyleSheet, View, Text } from "react-native";
 import { RadioButton } from "react-native-paper";
 const RadioButtonGroup = ({ title, fields, value, setValue }) => {
   const fieldKeys = Object.keys(fields);
+  console.log(value)
   return (
     <RadioButton.Group onValueChange={setValue} value={value}>
       <Text style={styles.title}>{title}</Text>

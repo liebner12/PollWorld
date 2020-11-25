@@ -10,8 +10,10 @@ import {
 import SubTitle from "./SubTitle";
 import { AntDesign } from "@expo/vector-icons";
 
-const ExpandableList = ({ name, transparent, icon, onPress, setValue, value }) => {
+const ExpandableList = ({ fields, name, onPress, setValue, value = "" }) => {
   const [open, setOpen] = useState(false);
+  const fieldKeys = Object.keys(fields);
+
   const styles = StyleSheet.create({
     list: {
       backgroundColor: "#313131",
@@ -67,22 +69,22 @@ const ExpandableList = ({ name, transparent, icon, onPress, setValue, value }) =
             style={styles.icon}
           />
         </TouchableOpacity>
+
         {open ? (
           <ScrollView indicatorStyle="white" style={styles.scrollView}>
             <View style={styles.line}></View>
-
-            <TouchableOpacity style={styles.items}>
-              <SubTitle>Ninja</SubTitle>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.items}>
-              <SubTitle>Wojownik</SubTitle>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.items}>
-              <SubTitle>Szamanka</SubTitle>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.items}>
-              <SubTitle>Sura</SubTitle>
-            </TouchableOpacity>
+            {fieldKeys.map((key) => {
+              const field = fields[key];
+              return (
+                <TouchableOpacity
+                  key={key}
+                  style={styles.items}
+                  onPress={() => onPress(field.name)}
+                >
+                  <SubTitle>{field.name}</SubTitle>
+                </TouchableOpacity>
+              );
+            })}
           </ScrollView>
         ) : null}
       </View>

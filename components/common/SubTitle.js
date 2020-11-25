@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, Text } from "react-native";
 
 const SubTitle = ({ children, small }) => {
   const styles = StyleSheet.create({
@@ -9,10 +9,6 @@ const SubTitle = ({ children, small }) => {
       color: "#d6d6d6",
     },
   });
-  return (
-    <View>
-      <Text style={styles.title}>{children}</Text>
-    </View>
-  );
+  return <Text style={styles.title}>{children}</Text>;
 };
 export default SubTitle;

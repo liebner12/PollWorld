@@ -25,7 +25,6 @@ const RegisterPage = ({ navigation }) => {
     } else {
       navigation.navigate("Personal");
       throw new Error("Coś poszło nie tak.");
-     
     }
   };
 

@@ -4,7 +4,8 @@ import MainButton from "../../components/common/MainButton";
 import Title from "../../components/common/Title";
 import Header from "../../components/combined/Header";
 import ViewContainer from "../../components/common/ViewContainer";
-
+import SubTitle from "../../components/common/SubTitle";
+import PersonalData from "../../components/combined/PersonalData";
 const ProfilePage = ({ navigation, onSignOut }) => {
   return (
     <ScrollView
@@ -18,6 +19,7 @@ const ProfilePage = ({ navigation, onSignOut }) => {
           <View style={styles.name}>
             <Title>Pudzian Pudzianowski</Title>
           </View>
+          <PersonalData />
           <MainButton name="Wyloguj się" onPress={() => onSignOut()} />
         </ViewContainer>
       </View>
