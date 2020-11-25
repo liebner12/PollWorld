@@ -2,23 +2,24 @@ import React from "react";
 import { StyleSheet, View, ScrollView } from "react-native";
 import MainButton from "../../components/common/MainButton";
 import Title from "../../components/common/Title";
-import Container from "../../components/common/Container";
 import Header from "../../components/combined/Header";
-import SubTitle from "../../components/common/SubTitle";
+import ViewContainer from "../../components/common/ViewContainer";
 
 const ProfilePage = ({ navigation, onSignOut }) => {
   return (
-    <ScrollView contentContainerStyle={{ flex: 1 }}>
+    <ScrollView
+      contentContainerStyle={{ flexGrow: 1, backgroundColor: "#212121" }}
+    >
       <View style={{ flex: 1 }}>
         <Header>
           <View style={styles.pudzian}></View>
         </Header>
-        <Container wider={true}>
+        <ViewContainer wider={true}>
           <View style={styles.name}>
             <Title>Pudzian Pudzianowski</Title>
           </View>
           <MainButton name="Wyloguj się" onPress={() => onSignOut()} />
-        </Container>
+        </ViewContainer>
       </View>
     </ScrollView>
   );
@@ -35,7 +36,7 @@ const styles = StyleSheet.create({
   },
   name: {
     alignItems: "center",
-    marginTop: 30,
+    marginTop: 10,
   },
 });
 

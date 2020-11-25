@@ -18,7 +18,7 @@ const AppNavigator = () => {
   const handleSignIn = () => {
     setIsAuthenticated(true);
   };
-
+  
   const handleSignOut = async () => {
     // await setToken("");
     setIsAuthenticated(false);

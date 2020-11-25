@@ -69,6 +69,9 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 16,
     borderTopRightRadius: 16,
     marginTop: -20,
+    borderColor: "#000",
+    borderWidth: 1,
+    borderBottomWidth: 0,
   },
   barItem: {
     height: "100%",

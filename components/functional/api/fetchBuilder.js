@@ -1,4 +1,4 @@
-const server = `http://5104c283a4a7.ngrok.io`;
+const server = `http://a2f9d61fac28.ngrok.io`;
 
 const getHeaders = (token) => {
   const headers = {
