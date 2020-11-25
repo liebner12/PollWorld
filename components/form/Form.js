@@ -67,7 +67,7 @@ const Form = ({ fields, buttonText, onSubmit, action }) => {
               <ExpandableList
                 {...field}
                 value={values[key]}
-                onPress={(value) => console.log(values[key])}
+                onPress={(value) => onChangeValue(key, value)}
               />
             ) : (
               <TextField

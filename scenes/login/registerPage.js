@@ -65,16 +65,6 @@ const RegisterPage = ({ navigation }) => {
                 validate: [validateTwoPasswords],
                 ref: thirdTextField,
               },
-              testList: {
-                type: "list",
-                fields:{
-                  1: { name: "programista" },
-                  2: { name: "progamer" },
-                  3: { name: "kupa" },
-                  4: { name: "budo" },
-                  5: { name: "nic" },
-                },
-              },
               registerPolicy: {
                 type: "checkbox",
                 validate: [cantBeEmpty],

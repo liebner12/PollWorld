@@ -60,7 +60,7 @@ const ExpandableList = ({fields, name, transparent, onPress, value}) => {
           onPress={() => setOpen(!open)}
           activeOpacity={0.8}
         >
-          
+          <SubTitle>{value}</SubTitle>
           <AntDesign
             name="downcircleo"
             size={24}
@@ -74,7 +74,7 @@ const ExpandableList = ({fields, name, transparent, onPress, value}) => {
               {fieldKeys.map((key) => {
                 const field = fields[key];
                 return (
-                  <TouchableOpacity key={key} style={styles.items} onPress={onPress}>
+                  <TouchableOpacity key={key} style={styles.items} onPress={() => onPress(field.name)}>
                   <SubTitle>{field.name}</SubTitle>
                   </TouchableOpacity>
                 );
