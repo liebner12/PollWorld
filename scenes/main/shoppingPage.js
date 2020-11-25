@@ -1,12 +1,10 @@
 import React from "react";
-import { StyleSheet, View, ScrollView } from "react-native";
-import MainButton from "../../components/common/MainButton";
+import { StyleSheet, ScrollView } from "react-native";
 import Title from "../../components/common/Title";
-import Container from "../../components/common/Container";
 import Header from "../../components/combined/Header";
-import SubTitle from "../../components/common/SubTitle";
-import ScollableItems from "../../components/combined/ScrollableItems";
-import ItemsContainer from "../../components/common/ItemsContainer";
+import ItemsList from "../../components/combined/ItemsList";
+import ViewContainer from "../../components/common/ViewContainer";
+import Wallet from "../../components/common/Wallet";
 const ShoppingPage = ({ navigation, onSignOut }) => {
   return (
     <ScrollView
@@ -17,8 +15,8 @@ const ShoppingPage = ({ navigation, onSignOut }) => {
           Kupony
         </Title>
       </Header>
-      <ItemsContainer wider={true}>
-        <ScollableItems
+      <ViewContainer wider={true}>
+        <ItemsList
           title="Twoje kupony:"
           type="coupons"
           fields={{
@@ -36,7 +34,8 @@ const ShoppingPage = ({ navigation, onSignOut }) => {
             },
           }}
         />
-        <ScollableItems
+        <Wallet amount="1923"/>
+        <ItemsList
           title="Kupony:"
           type="coupons"
           fit={true}
@@ -91,7 +90,7 @@ const ShoppingPage = ({ navigation, onSignOut }) => {
             },
           }}
         />
-      </ItemsContainer>
+      </ViewContainer>
     </ScrollView>
   );
 };

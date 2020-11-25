@@ -34,7 +34,7 @@ const Form = ({ fields, buttonText, onSubmit, action }) => {
       return setValidationErrors(errors);
     }
     try {
-      // const result = await action(...getValues());
+      const result = await action(...getValues());
       await onSubmit();
     } catch (e) {
       setErrorMessage(e.message);

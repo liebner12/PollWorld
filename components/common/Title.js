@@ -10,13 +10,9 @@ const Title = ({ children, color, size, shadow, noMargin }) => {
       paddingVertical: noMargin ? 0 : 5,
       textShadowColor: shadow ? "rgba(0, 0, 0, 0.75)" : null,
       textShadowOffset: shadow ? { width: 0, height: 3 } : null,
-      textShadowRadius: 5,
+      textShadowRadius: shadow ? 5 : null,
     },
   });
-  return (
-    <View>
-      <Text style={styles.title}>{children}</Text>
-    </View>
-  );
+  return <Text style={styles.title}>{children}</Text>;
 };
 export default Title;

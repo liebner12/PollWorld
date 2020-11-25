@@ -1,7 +1,7 @@
 import React from "react";
-import { View, StyleSheet, ScrollView } from "react-native";
+import { View, StyleSheet } from "react-native";
 
-const Container = ({ children, wider }) => {
+const ViewContainer = ({ children, wider }) => {
   const styles = StyleSheet.create({
     container: {
       flex: 3,
@@ -13,4 +13,4 @@ const Container = ({ children, wider }) => {
   return <View style={styles.container}>{children}</View>;
 };
 
-export default Container;
+export default ViewContainer;

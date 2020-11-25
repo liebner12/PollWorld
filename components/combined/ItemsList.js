@@ -1,9 +1,9 @@
 import React from "react";
 import { StyleSheet, View, ScrollView, TouchableOpacity } from "react-native";
-import Title from "../../components/common/Title";
+import Title from "../common/Title";
 import Item from "./Item";
-import Link from "../../components/common/Link";
-const ScrollableItems = ({ fields, title, type, subTitle, action, fit }) => {
+import Link from "../common/Link";
+const ItemsList = ({ fields, title, type, subTitle, action, fit }) => {
   const fieldKeys = Object.keys(fields);
   return (
     <View>
@@ -70,4 +70,5 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
 });
-export default ScrollableItems;
+
+export default ItemsList;

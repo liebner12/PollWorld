@@ -21,7 +21,7 @@ const StartPage = ({ navigation, onSignIn }) => {
               poll world
             </Title>
           </View>
-          <SubTitle>Cześć mordeczko miłego dnia :D</SubTitle>
+          <SubTitle>Cześć! miłego dnia :D</SubTitle>
         </View>
         <View>
           <MainButton

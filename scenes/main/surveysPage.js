@@ -1,13 +1,9 @@
 import React from "react";
-import { StyleSheet, View, ScrollView } from "react-native";
-import MainButton from "../../components/common/MainButton";
+import { ScrollView } from "react-native";
 import Title from "../../components/common/Title";
-import Container from "../../components/common/Container";
 import Header from "../../components/combined/Header";
-import SubTitle from "../../components/common/SubTitle";
-import ScollableItems from "../../components/combined/ScrollableItems";
-import ItemsContainer from "../../components/common/ItemsContainer";
-
+import ItemsList from "../../components/combined/ItemsList";
+import ViewContainer from "../../components/common/ViewContainer";
 const SurveysPage = ({ navigation, onSignOut }) => {
   return (
     <ScrollView
@@ -18,8 +14,8 @@ const SurveysPage = ({ navigation, onSignOut }) => {
           Ankiety
         </Title>
       </Header>
-      <Container wider={true}>
-        <ScollableItems
+      <ViewContainer wider={true}>
+        <ItemsList
           title="Ankiety:"
           type="surveys"
           fit={true}
@@ -83,11 +79,9 @@ const SurveysPage = ({ navigation, onSignOut }) => {
             },
           }}
         />
-      </Container>
+      </ViewContainer>
     </ScrollView>
   );
 };
-
-const styles = StyleSheet.create({});
 
 export default SurveysPage;

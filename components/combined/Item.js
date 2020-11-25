@@ -19,13 +19,14 @@ const Item = ({
     item: {
       backgroundColor: "#444",
       height: type == "surveys" ? 190 : 150,
-      width: fit ? "45%" : 200,
+      width: fit ? "46%" : 200,
       borderRadius: 16,
       elevation: 5,
       paddingVertical: 8,
-      marginRight: fit ? (even ? "5%" : 0) : 30,
-      marginLeft: fit ? (even ? 0 : "5%") : 0,
+      marginRight: fit ? (even ? "4%" : 0) : 30,
+      marginLeft: fit ? (even ? 0 : "4%") : 0,
       marginBottom: fit ? "10%" : 20,
+      
     },
     icon: {
       backgroundColor: "rgba(50, 224, 196, 0.7)",
@@ -46,7 +47,6 @@ const Item = ({
     priceContainer: {
       flexDirection: "row",
       alignItems: "center",
-      justifyContent: price ? "flex-end" : "center",
       position: "absolute",
       bottom: 0,
       left: 0,
@@ -56,6 +56,9 @@ const Item = ({
       width: "100%",
       backgroundColor: type == "coupons" ? "rgba(50, 224, 196, 0.7)" : null,
       paddingHorizontal: 15,
+      flexDirection: "row",
+      justifyContent: rate ? "space-between" : price ? "flex-end" : "center",
+      width: "100%",
     },
     description: {
       flex: 1,
@@ -88,25 +91,17 @@ const Item = ({
         )}
       </View>
       <TouchableOpacity style={styles.priceContainer} activeOpacity={0.6}>
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: rate ? "space-between" : "flex-end",
-            width: "100%",
-          }}
-        >
-          {rate ? <Text style={styles.price}>Ocena: {rate}</Text> : null}
-          <View style={{ flexDirection: "row" }}>
-            <Text style={styles.price}>{price ? price : coupon} </Text>
-            {price ? (
-              <FontAwesome5
-                name="money-bill"
-                size={16}
-                color="white"
-                style={{ marginTop: 3 }}
-              />
-            ) : null}
-          </View>
+        {rate ? <Text style={styles.price}>Ocena: {rate}</Text> : null}
+        <View style={{ flexDirection: "row" }}>
+          <Text style={styles.price}>{price ? price : coupon} </Text>
+          {price ? (
+            <FontAwesome5
+              name="money-bill"
+              size={16}
+              color="white"
+              style={{ marginTop: 3 }}
+            />
+          ) : null}
         </View>
       </TouchableOpacity>
     </View>

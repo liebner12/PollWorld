@@ -1,14 +1,13 @@
 import React from "react";
-import { StyleSheet, View, Text, ScrollView } from "react-native";
-import MainButton from "../../components/common/MainButton";
+import { View, ScrollView } from "react-native";
 import Title from "../../components/common/Title";
-import Container from "../../components/common/Container";
 import Header from "../../components/combined/Header";
 import { FontAwesome5 } from "@expo/vector-icons";
 import SubTitle from "../../components/common/SubTitle";
-import ScollableItems from "../../components/combined/ScrollableItems";
-import ItemsContainer from "../../components/common/ItemsContainer";
-const HomePage = ({ navigation, onSignOut }) => {
+import ItemsList from "../../components/combined/ItemsList";
+import ViewContainer from "../../components/common/ViewContainer";
+
+const HomePage = ({ navigation }) => {
   return (
     <ScrollView
       contentContainerStyle={{ flexGrow: 1, backgroundColor: "#212121" }}
@@ -21,11 +20,11 @@ const HomePage = ({ navigation, onSignOut }) => {
           1923 <FontAwesome5 name="money-bill" size={24} color="white" />
         </Title>
       </Header>
-      <ItemsContainer wider={true}>
+      <ViewContainer wider={true}>
         <Title>Witaj Michał</Title>
         <SubTitle>Mamy dla Ciebie super ankiety!</SubTitle>
         <View style={{ marginTop: 40 }}>
-          <ScollableItems
+          <ItemsList
             title="Nowe ankiety"
             subTitle="Zobacz wszystkie:"
             action={() => navigation.navigate("Surveys")}
@@ -44,9 +43,16 @@ const HomePage = ({ navigation, onSignOut }) => {
                   "Pomóż nam udoskonalić usługę Smart, tak by była jeszcze wygodniejsza dla Ciebie!",
                 price: "250",
               },
+              3: {
+                name: "Familiada",
+                category: "Familiada",
+                description:
+                  "Dołącz do elitarnego grona ankietowanych ludzi Familiady!",
+                price: "150",
+              },
             }}
           />
-          <ScollableItems
+          <ItemsList
             title="Kupony"
             subTitle="Zobacz wszystkie:"
             type="coupons"
@@ -64,11 +70,16 @@ const HomePage = ({ navigation, onSignOut }) => {
                 description: "-10% na cały asortyment",
                 price: "2100",
               },
+              3: {
+                name: "bonprix",
+                category: "Ubrania i buty",
+                description: "Czwarta sztuka gratis!",
+                price: "1500",
+              },
             }}
           />
-          
         </View>
-      </ItemsContainer>
+      </ViewContainer>
     </ScrollView>
   );
 };
