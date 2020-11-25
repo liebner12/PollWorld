@@ -5,6 +5,7 @@ import MainButton from "../common/MainButton";
 import { validateFields, hasValidationError } from "./validate";
 import RadioButtonGroup from "../common/RadioButtonGroup";
 import CheckboxGroup from "../common/Checkbox";
+import ExpandableList from "../common/List";
 
 const Form = ({ fields, buttonText, onSubmit, action }) => {
   const fieldKeys = Object.keys(fields);
@@ -61,6 +62,12 @@ const Form = ({ fields, buttonText, onSubmit, action }) => {
                 {...field}
                 value={values[key]}
                 onPress={() => onChangeValue(key, !values[key])}
+              />
+            ) : field.type == "list" ? (
+              <ExpandableList
+                {...field}
+                value={values[key]}
+                onPress={(value) => console.log(values[key])}
               />
             ) : (
               <TextField
