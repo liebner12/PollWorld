@@ -1,18 +1,16 @@
 import {createSlice} from "@reduxjs/toolkit";
 
-const surveySlice = createSlice({
+export const surveySlice = createSlice({
     name: 'surveys',
-    initialState: [],
+    initialState: ["123123123", "123123", 'JSON'],
     reducers:{
         setSurveyList:{
-            reducer(state, action){
+            setSurveys(state, action){
                 state=action.payload;
-            },
-            prepare(surveysArray){
-                return {payload: surveysArray}
             }
         }
     }})
 
-    const action1 = surveySlice.setSurveyList([1,2,3]);
-    console.log(action1.payload);
+export const {setSurveyList} = surveySlice.actions;
+export const selectSurveys = state => state.surveys;
+export default surveySlice.reducer

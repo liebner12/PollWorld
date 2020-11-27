@@ -1,5 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import React from "react";
+
 import { AppLoading } from "expo";
 import {
   useFonts,
@@ -18,6 +19,8 @@ import { DefaultTheme, Provider as PaperProvider } from "react-native-paper";
 import { View } from "react-native";
 import AppNavigator from "./navigations/Navigator";
 import "react-native-gesture-handler";
+import {Provider} from "react-redux";
+import store from "./components/functional/surveys/logic/store";
 
 export default function App() {
   let [fontsLoaded] = useFonts({
@@ -44,11 +47,13 @@ export default function App() {
   };
 
   return (
+      <Provider store={store}>
     <View style={{ backgroundColor: "#212121", flex: 1 }}>
       <PaperProvider theme={theme}>
         <StatusBar style="light" />
         <AppNavigator />
       </PaperProvider>
     </View>
+</Provider>
   );
 }

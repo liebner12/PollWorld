@@ -4,10 +4,12 @@ import {
     setRefreshToken
 } from "../../api/storedTokens";
 import {getSurveys} from "../communication/survey";
+import {useSelector, useDispatch} from "react-redux";
+import {selectSurveys, setSurveyList} from "./surveyReducer";
 
 export const getUserSurveys = async () =>{
     let user_token = await getAccessToken();
-    let response = await getSurveys(user_token);
-    console.log(response);
-    return response;
+    let surveyList = await getSurveys(user_token);
+    const dispatch = useDispatch();
+    dispatch(setSurveyList(surveyList))
 }
