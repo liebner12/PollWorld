@@ -1,24 +1,16 @@
 import React, { createRef } from "react";
-import { View, StyleSheet, ScrollView } from "react-native";
+import { View, StyleSheet } from "react-native";
 import Title from "../../components/common/Title";
 import Container from "../../components/common/Container";
 import ReturnButton from "../../components/common/ReturnButton";
 import Form from "../../components/form/Form";
-import {
-  cantBeEmpty,
-  onlyNumbers,
-} from "../../components/form/typingValidation";
+import { cantBeEmpty } from "../../components/form/typingValidation";
 import TitleContainer from "../../components/common/TitleContainer";
-import { List } from "react-native-paper";
-import ExpandableList from "../../components/common/List";
-const DetailsPage = ({ navigation, onSignIn }) => {
-  const secondTextField = createRef();
-  const handleSubmit = () => {
-    onSignIn();
-  };
-  const [expanded, setExpanded] = React.useState(true);
 
-  const handlePress = () => setExpanded(!expanded);
+const DetailsPage = ({ navigation, onSignIn }) => {
+  const handleSubmit = () => {
+    navigation.navigate("Physical");
+  };
 
   return (
     <Container>
@@ -31,7 +23,46 @@ const DetailsPage = ({ navigation, onSignIn }) => {
           <Form
             buttonText="Zakończ"
             onSubmit={handleSubmit}
+            action={() => console.log("fake")}
             fields={{
+              job: {
+                type: "list",
+                title: "Branża",
+                fields: {
+                  1: { name: "przemysł" },
+                  2: { name: "budownictwo" },
+                  3: { name: "rolnictwo" },
+                  4: { name: "leśnictwo" },
+                  5: { name: "transport" },
+                  6: { name: "łączność" },
+                  7: { name: "handel" },
+                  8: { name: "IT" },
+                  9: {
+                    name:
+                      "pozostałe gałęzie produkcji materialnej (wydawnictwa, filmy, usługi informacyjne i inne)",
+                  },
+                  10: { name: "gospodarka komunalna" },
+                  11: {
+                    name:
+                      "gospodarka mieszkaniowa oraz niematerialne usługi komunalne",
+                  },
+                  12: { name: "nauka i rozwój techniki " },
+                  13: { name: "oświata i wychowanie" },
+                  14: { name: "kultura i sztuka" },
+                  15: { name: "ochrona zdrowia i pomoc społeczna" },
+                  16: { name: "kultura fizyczna, turystyka i wypoczynek" },
+                  17: {
+                    name:
+                      "pozostałe branże usług niematerialnych (fryzjerskie, kosmetyczne, fotograficzne i inne)",
+                  },
+                  18: {
+                    name: "administracja państwowa i wymiar sprawiedliwości",
+                  },
+                  19: { name: "finanse i ubezpieczenia" },
+                  20: { name: "organizacje polityczne, związki zawodowe" },
+                },
+                validate: [cantBeEmpty],
+              },
               hometown: {
                 type: "radio",
                 title: "Miejsce zamieszkania",
@@ -46,34 +77,8 @@ const DetailsPage = ({ navigation, onSignIn }) => {
           />
         </View>
       </View>
-      <ExpandableList />
     </Container>
   );
 };
-const styles = StyleSheet.create({
-  listFixUp: {
-    fontFamily: "Asap_600SemiBold",
-    color: "#32e0c4",
-  },
-  listItem: {
-    fontSize: 14,
-    fontFamily: "Asap_400Regular",
-    color: "#ffffff",
-  },
-  myFloatingList: {
-    backgroundColor: "#313131",
-    borderRadius: 20,
-    position: "absolute",
-    top: 80,
-    width: "100%",
-  },
-  myList: {
-    height: 60,
-    borderColor: "#32e0c4",
-    borderWidth: 2,
-    borderRadius: 14,
-    borderColor: "#32e0c4",
-    elevation: 19,
-  },
-});
+
 export default DetailsPage;

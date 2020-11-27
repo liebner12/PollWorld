@@ -12,7 +12,7 @@ import TitleContainer from "../../components/common/TitleContainer";
 const PersonalDataPage = ({ navigation }) => {
   const secondTextField = createRef();
   const handleSubmit = () => {
-    navigation.navigate("Physical");
+    navigation.navigate("Details");
   };
 
   return (

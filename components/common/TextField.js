@@ -12,6 +12,7 @@ const TextField = React.forwardRef(
       onSubmitEditing,
       keyboardType,
       blurOnSubmit,
+      defaultValue,
     },
     ref
   ) => {
@@ -23,6 +24,7 @@ const TextField = React.forwardRef(
         <View style={styles.textFieldContainer}>
           <TextInput
             value={text}
+            defaultValue={defaultValue}
             onChangeText={onChangeText}
             color="#fff"
             style={styles.textField}
