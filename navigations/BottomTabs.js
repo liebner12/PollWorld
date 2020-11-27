@@ -10,7 +10,7 @@ const Tab = createBottomTabNavigator();
 const BottomTabs = ({ onSignOut }) => {
   return (
     <Tab.Navigator tabBar={(props) => <MyTabBar {...props} />}>
-      <Tab.Screen name="Home" >
+      <Tab.Screen name="Home">
         {(props) => <HomePage {...props} onSignOut={onSignOut} />}
       </Tab.Screen>
       <Tab.Screen name="Surveys">

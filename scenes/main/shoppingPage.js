@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, ScrollView } from "react-native";
 import Title from "../../components/common/Title";
-import Header from "../../components/combined/Header";
+import Header from "../../components/common/Header";
 import ItemsList from "../../components/combined/ItemsList";
 import ViewContainer from "../../components/common/ViewContainer";
 import Wallet from "../../components/common/Wallet";

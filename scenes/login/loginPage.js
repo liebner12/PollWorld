@@ -46,6 +46,7 @@ const LoginPage = ({ navigation, onSignIn }) => {
             fields={{
               email: {
                 name: "Email",
+                defaultValue: "asdf@ga.com",
                 keyboardType: "email-address",
                 validate: [validateEmail],
                 blurOnSubmit: false,
@@ -53,6 +54,7 @@ const LoginPage = ({ navigation, onSignIn }) => {
               },
               password: {
                 name: "Hasło",
+                defaultValue: "vzxcvasdfzx",
                 password: true,
                 secured: true,
                 validate: [validatePasswordLength],

@@ -1,7 +1,7 @@
 import React from "react";
 import { View, ScrollView } from "react-native";
 import Title from "../../components/common/Title";
-import Header from "../../components/combined/Header";
+import Header from "../../components/common/Header";
 import { FontAwesome5 } from "@expo/vector-icons";
 import SubTitle from "../../components/common/SubTitle";
 import ItemsList from "../../components/combined/ItemsList";

@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, StyleSheet, Text } from "react-native";
 import TextField from "../common/TextField";
 import MainButton from "../common/MainButton";
 import { validateFields, hasValidationError } from "./validate";
 import RadioButtonGroup from "../common/RadioButtonGroup";
 import CheckboxGroup from "../common/Checkbox";
-import List from "../../components/common/List";
+import ExpandableList from "../../components/common/List";
 
 const Form = ({ fields, buttonText, onSubmit, action }) => {
   const fieldKeys = Object.keys(fields);
@@ -15,12 +15,15 @@ const Form = ({ fields, buttonText, onSubmit, action }) => {
 
   const onChangeValue = (key, value) => {
     const newState = { ...values, [key]: value };
+    console.log(newState);
     setValues(newState);
-
     if (validationErrors[key]) {
       const newErrors = { ...validationErrors, [key]: "" };
       setValidationErrors(newErrors);
     }
+  };
+  const changeHandler = (key) => {
+    setValues({ ...values, [e.target.name]: e.target.value });
   };
 
   const getValues = () => {
@@ -28,6 +31,11 @@ const Form = ({ fields, buttonText, onSubmit, action }) => {
   };
 
   const submit = async () => {
+    fieldKeys.map((key) => {
+      const field = fields[key];
+      onChangeValue(key, field.defaultValue);
+    });
+
     setErrorMessage("");
     setValidationErrors("");
     const errors = validateFields(fields, values);
@@ -35,7 +43,7 @@ const Form = ({ fields, buttonText, onSubmit, action }) => {
       return setValidationErrors(errors);
     }
     try {
-      const result = await action(...getValues());
+      //const result = await action(...getValues());
       await onSubmit();
     } catch (e) {
       setErrorMessage(e.message);
@@ -48,7 +56,7 @@ const Form = ({ fields, buttonText, onSubmit, action }) => {
       {fieldKeys.map((key) => {
         const field = fields[key];
         const fieldError = validationErrors[key];
-
+        
         return (
           <View key={key}>
             {field.type == "radio" ? (
@@ -64,7 +72,7 @@ const Form = ({ fields, buttonText, onSubmit, action }) => {
                 onPress={() => onChangeValue(key, !values[key])}
               />
             ) : field.type == "list" ? (
-              <List
+              <ExpandableList
                 {...field}
                 value={values[key]}
                 onPress={(value) => onChangeValue(key, value)}
@@ -75,6 +83,7 @@ const Form = ({ fields, buttonText, onSubmit, action }) => {
                 value={values[key]}
                 onChangeText={(text) => onChangeValue(key, text)}
               />
+              
             )}
             <Text style={styles.error}>{fieldError}</Text>
           </View>
