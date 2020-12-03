@@ -7,6 +7,7 @@ import ViewContainer from "../../components/common/ViewContainer";
 import SubTitle from "../../components/common/SubTitle";
 import PersonalData from "../../components/combined/PersonalData";
 const ProfilePage = ({ navigation, onSignOut }) => {
+
   return (
     <ScrollView
       contentContainerStyle={{ flexGrow: 1, backgroundColor: "#212121" }}

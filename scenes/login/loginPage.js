@@ -15,9 +15,9 @@ import {
   handleGoogleLogin,
   handleFacebookLogin,
 } from "../../components/functional/authentication/socialLogInHandler";
+
 const LoginPage = ({ navigation, onSignIn }) => {
   const secondTextField = createRef();
-
   const handleLogin = async (result) => {
     if (result === 200) {
       onSignIn();

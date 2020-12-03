@@ -10,6 +10,8 @@ import {
   handleGoogleLogin,
   handleFacebookLogin,
 } from "../../components/functional/authentication/socialLogInHandler";
+
+
 const StartPage = ({ navigation, onSignIn }) => {
   return (
     <Container>
@@ -38,12 +40,12 @@ const StartPage = ({ navigation, onSignIn }) => {
             name="Zaloguj przez Facebooka"
             transparent={true}
             icon={<FontAwesome name="facebook" size={24} color="white" />}
-            onPress={() => handleFacebookLogin(onSignIn)}
+            onPress={() => handleFacebookLogin()}
           />
         </View>
         <TouchableOpacity
           activeOpacity={0.6}
-          onPress={() => navigation.navigate("Login")}
+          onPress={() => {navigation.navigate("Login");}}
         >
           <Text style={styles.login}>Zaloguj się</Text>
         </TouchableOpacity>

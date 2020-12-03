@@ -1,6 +1,6 @@
 export const mock_surveys = [
      {
-         "id": 12,
+         "id": 1,
         "company": "Familiada",
         "name": "Familiada",
         "price": 120,
@@ -11,7 +11,7 @@ export const mock_surveys = [
         "description": "Ankieta stoworzona przez firme TVP s.a. którate umożliwia Ci odpowiadanie na pytania, które wystąpią kolejne"
         },
     {
-        "id": 13,
+        "id": 2,
         "company": "Allegro",
         "name": "Allegro Smart",
         "price": 150,
@@ -22,7 +22,7 @@ export const mock_surveys = [
         "description": "Ankieta spratewdza opinie klienta na temat serwisu Allegro, szczególnie uwzględniając usługę Allegro Smart"
     },
     {
-        "id": 14,
+        "id": 3,
         "company": "PWr",
         "name": "System JSOS",
         "price": 150,
@@ -33,7 +33,7 @@ export const mock_surveys = [
         "description": "Długi opis ankiety, który jest długim opisem ankiety, bo opisuje ankiete i jest dłuższy niż krótki opis ankiety"
     },
     {
-        "id": 15,
+        "id": 4,
         "company": "Firma",
         "name": "Nazwa Ankiety",
         "price": 150,
@@ -44,7 +44,7 @@ export const mock_surveys = [
         "description": "Długi opis ankiety, który jest długim opisem ankiety, bo opisuje ankiete i jest dłuższy niż krótki opis ankiety"
     },
     {
-        "id": 16,
+        "id": 5,
         "company": "Firma Kolejna",
         "name": "Ciekawa ankieta",
         "price": 111,

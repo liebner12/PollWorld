@@ -1,12 +1,9 @@
-import {configureStore} from '@reduxjs/toolkit'
-import surveysReducer from '../logic/surveyReducer'
+import { combineReducers } from 'redux'
 
-export default configureStore({
-    reducer:{
-        surveys: surveysReducer
-    }
+import surveysReducer from './surveysController'
+
+const rootReducer = combineReducers({
+    surveys: surveysReducer,
 })
 
-
-
-
+export default rootReducer
