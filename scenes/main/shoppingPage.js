@@ -8,8 +8,14 @@ import ContentContainer from "../../components/common/Containers/contentContaine
 import ScrollableContainer from "../../components/common/Containers/scrollableContainer";
 import ViewContainer from "../../components/common/Containers/viewContainer";
 import Wallet from "../../components/combined/wallet";
+import {useSelector} from "react-redux";
+import {selectAccountData} from "../../components/redux_components/accountController";
+import {selectProfileData} from "../../components/redux_components/profileController";
 
 const ShoppingPage = ({ navigation, onSignOut }) => {
+    const {account} = useSelector(selectAccountData)
+    const {profile} = useSelector(selectProfileData)
+
   return (
     <PrimaryContainer>
       <HeaderContainer>

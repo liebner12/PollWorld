@@ -10,20 +10,26 @@ import { FontAwesome5 } from "@expo/vector-icons";
 import SubTitle from "../../components/common/Typography/subTitle";
 import ItemsList from "../../components/combined/itemsList";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  fetchSurveys,
-  surveysSelector,
-} from "../../components/functional/surveys/logic/surveysController";
 import { verticalScale } from "react-native-size-matters";
 import Survey from "../../components/combined/survey";
 import Coupon from "../../components/combined/coupon";
+import {dispatchAccountData, selectAccountData} from "../../components/redux_components/accountController";
+import {dispatchProfileData, selectProfileData} from "../../components/redux_components/profileController";
 
 const HomePage = ({ navigation }) => {
-  const dispatch = useDispatch();
-  const { surveys } = useSelector(surveysSelector);
+  const {account} = useSelector(selectAccountData)
+  const {profile} = useSelector(selectProfileData)
+  const surveys = account.surveys
+
+  const dispatchAccount = useDispatch()
   useEffect(() => {
-    dispatch(fetchSurveys());
-  }, [dispatch]);
+    dispatchAccount(dispatchAccountData())
+  },[dispatchAccount])
+
+  const dispatchProfile = useDispatch()
+  useEffect(( )=> {
+    dispatchProfile(dispatchProfileData())
+  }, [dispatchProfile])
 
   const renderSurveys = () => {
     return surveys
@@ -67,13 +73,13 @@ const HomePage = ({ navigation }) => {
           Twoje punkty:
         </Title>
         <Title color={true} size="big" shadow={true} noMargin={true}>
-          1923 <FontAwesome5 name="money-bill" size={24} color="white" />
+          {account.points}<FontAwesome5 name="money-bill" size={24} color="white" />
         </Title>
       </HeaderContainer>
       <ContentContainer>
         <ScrollableContainer>
           <ViewContainer wider={true}>
-            <Title>Witaj Michał</Title>
+            <Title>Witaj {profile.name}</Title>
             <SubTitle>Mamy dla Ciebie super ankiety!</SubTitle>
             <View style={{ marginTop: verticalScale(20) }}>
               <View>
