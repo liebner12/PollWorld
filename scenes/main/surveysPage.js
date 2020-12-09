@@ -1,86 +1,60 @@
-import React from "react";
-import { ScrollView } from "react-native";
-import Title from "../../components/common/Title";
-import Header from "../../components/common/Header";
-import ItemsList from "../../components/combined/ItemsList";
-import ViewContainer from "../../components/common/ViewContainer";
+import React, { useEffect } from "react";
+import Title from "../../components/common/Typography/title";
+import HeaderContainer from "../../components/common/Containers/headerContainer";
+import ItemsList from "../../components/combined/itemsList";
+import PrimaryContainer from "../../components/common/Containers/primaryContainer";
+import ContentContainer from "../../components/common/Containers/contentContainer";
+import ScrollableContainer from "../../components/common/Containers/scrollableContainer";
+import ViewContainer from "../../components/common/Containers/viewContainer";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  fetchSurveys,
+  surveysSelector,
+} from "../../components/functional/surveys/logic/surveysController";
+import { getAssetByID } from "react-native-web/dist/modules/AssetRegistry";
+import Survey from "../../components/combined/survey";
+
 const SurveysPage = ({ navigation, onSignOut }) => {
+  const dispatch = useDispatch();
+  const { surveys } = useSelector(surveysSelector);
+  useEffect(() => {
+    dispatch(fetchSurveys());
+  }, [dispatch]);
+
+  const renderSurveys = () => {
+    return surveys.map((survey, index) => (
+      <Survey
+        key={index}
+        id={survey.id}
+        name={survey.name}
+        category={survey.category}
+        description={survey.shortDescription}
+        price={survey.price}
+        rate={survey.rate}
+        type="surveys"
+        fit={true}
+        even={index % 2 ? false : true}
+      />
+    ));
+  };
+
   return (
-    <ScrollView
-      contentContainerStyle={{ flexGrow: 1, backgroundColor: "#212121" }}
-    >
-      <Header>
-        <Title color={true} shadow={true}>
+    <PrimaryContainer>
+      <HeaderContainer>
+        <Title size="big" color={true} shadow={true}>
           Ankiety
         </Title>
-      </Header>
-      <ViewContainer wider={true}>
-        <ItemsList
-          title="Ankiety:"
-          type="surveys"
-          fit={true}
-          fields={{
-            1: {
-              name: "Familiada",
-              category: "Familiada",
-              description:
-                "Dołącz do elitarnego grona ankietowanych ludzi Familiady!",
-              price: "150",
-              rate: 4.5,
-            },
-            2: {
-              name: "Smart",
-              category: "Allegro",
-              description:
-                "Pomóż nam udoskonalić usługę Smart, tak by była jeszcze wygodniejsza dla Ciebie!",
-              price: "250",
-            },
-            3: {
-              name: "Familiada",
-              category: "Familiada",
-              description:
-                "Dołącz do elitarnego grona ankietowanych ludzi Familiady!",
-              price: "150",
-            },
-            4: {
-              name: "Smart",
-              category: "Allegro",
-              description:
-                "Pomóż nam udoskonalić usługę Smart, tak by była jeszcze wygodniejsza dla Ciebie!",
-              price: "250",
-            },
-            5: {
-              name: "Familiada",
-              category: "Familiada",
-              description:
-                "Dołącz do elitarnego grona ankietowanych ludzi Familiady!",
-              price: "150",
-            },
-            6: {
-              name: "Smart",
-              category: "Allegro",
-              description:
-                "Pomóż nam udoskonalić usługę Smart, tak by była jeszcze wygodniejsza dla Ciebie!",
-              price: "250",
-            },
-            7: {
-              name: "Familiada",
-              category: "Familiada",
-              description:
-                "Dołącz do elitarnego grona ankietowanych ludzi Familiady!",
-              price: "150",
-            },
-            8: {
-              name: "Smart",
-              category: "Allegro",
-              description:
-                "Pomóż nam udoskonalić usługę Smart, tak by była jeszcze wygodniejsza dla Ciebie!",
-              price: "250",
-            },
-          }}
-        />
-      </ViewContainer>
-    </ScrollView>
+      </HeaderContainer>
+      <ContentContainer>
+        <ScrollableContainer>
+          <ViewContainer wider={true}>
+            <ItemsList title="Ankiety:" fit={true}>
+              {renderSurveys()}
+            </ItemsList>
+          </ViewContainer>
+        </ScrollableContainer>
+      </ContentContainer>
+    </PrimaryContainer>
   );
 };
 

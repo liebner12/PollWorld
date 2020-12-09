@@ -1,14 +1,13 @@
 import React, { createRef } from "react";
 import { View } from "react-native";
-import Title from "../../components/common/Title";
-import Container from "../../components/common/Container";
-import ReturnButton from "../../components/common/ReturnButton";
-import Form from "../../components/form/Form";
+import Title from "../../components/common/Typography/title";
+import ScrollableContainer from "../../components/common/Containers/scrollableContainer";
+import ReturnButton from "../../components/common/returnButton";
+import Form from "../../components/form/form";
 import {
   cantBeEmpty,
   onlyNumbers,
 } from "../../components/form/typingValidation";
-import TitleContainer from "../../components/common/TitleContainer";
 const PhysicalPage = ({ navigation, onSignIn }) => {
   const secondTextField = createRef();
   const handleSubmit = () => {
@@ -16,12 +15,10 @@ const PhysicalPage = ({ navigation, onSignIn }) => {
   };
 
   return (
-    <Container>
-      <ReturnButton onPress={() => navigation.navigate("Personal")} />
+    <ScrollableContainer padding={true}>
+      <ReturnButton />
       <View>
-        <TitleContainer>
-          <Title>Fizyczne statystyki</Title>
-        </TitleContainer>
+        <Title>Fizyczne statystyki</Title>
         <View>
           <Form
             buttonText="Zakończ"
@@ -57,7 +54,7 @@ const PhysicalPage = ({ navigation, onSignIn }) => {
           />
         </View>
       </View>
-    </Container>
+    </ScrollableContainer>
   );
 };
 

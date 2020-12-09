@@ -9,6 +9,7 @@ import {
 } from "../../api/storedTokens";
 import {getFacebookUserToken, getGoogleUserToken} from "./socialMediaSignIn";
 
+
 const expected_status = 200;
 
 export const createAccount = async (email, password) => {
@@ -55,5 +56,6 @@ export const login = async (email, password) => {
     //console.log(getRefreshToken());
     //TODO przejdź do dalszego etapu
   }
+
   return response.response_status;
 };

@@ -1,28 +1,27 @@
 import React from "react";
-import { View, ScrollView } from "react-native";
-import MainButton from "../../components/common/MainButton";
-import Title from "../../components/common/Title";
-import Header from "../../components/common/Header";
-import ViewContainer from "../../components/common/ViewContainer";
-
+import { View } from "react-native";
+import MainButton from "../../components/common/mainButton";
+import Title from "../../components/common/Typography/title";
+import HeaderContainer from "../../components/common/Containers/headerContainer";
+import PrimaryContainer from "../../components/common/Containers/primaryContainer";
+import ContentContainer from "../../components/common/Containers/contentContainer";
+import ViewContainer from "../../components/common/Containers/viewContainer";
 const SettingsPage = ({ navigation, onSignOut }) => {
   return (
-    <ScrollView
-      contentContainerStyle={{ flexGrow: 1, backgroundColor: "#212121" }}
-    >
-      <View style={{ flex: 1, justifyContent: "flex-end" }}>
-        <Header returnButton={() => navigation.goBack()}>
-          <Title color={true} shadow={true}>
-            Ustawienia
-          </Title>
-        </Header>
+    <PrimaryContainer>
+      <HeaderContainer returnButton={() => navigation.goBack()}>
+        <Title size="big" color={true} shadow={true}>
+          Ustawienia
+        </Title>
+      </HeaderContainer>
+      <ContentContainer>
         <ViewContainer wider={true}>
           <View style={{ flex: 1, justifyContent: "flex-end" }}>
             <MainButton name="Wyloguj się" onPress={() => onSignOut()} />
           </View>
         </ViewContainer>
-      </View>
-    </ScrollView>
+      </ContentContainer>
+    </PrimaryContainer>
   );
 };
 

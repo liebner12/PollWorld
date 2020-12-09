@@ -1,8 +1,10 @@
 import React from "react";
-import { View, StyleSheet } from "react-native";
+import { View } from "react-native";
 import { TouchableRipple } from "react-native-paper";
 import { BottomMenuItem } from "./BottomMenuItem";
-
+import { ScaledSheet } from "react-native-size-matters";
+import { backgroundColors, colors } from "../styles/colors";
+import { rounded } from "../styles/base";
 function MyTabBar({ state, descriptors, navigation }) {
   const focusedOptions = descriptors[state.routes[state.index].key].options;
 
@@ -61,20 +63,17 @@ function MyTabBar({ state, descriptors, navigation }) {
   );
 }
 
-const styles = StyleSheet.create({
+const styles = ScaledSheet.create({
   bar: {
     flexDirection: "row",
-    height: 50,
-    backgroundColor: "#444444",
-    borderTopLeftRadius: 16,
-    borderTopRightRadius: 16,
-    marginTop: -20,
-    borderColor: "#000",
-    borderWidth: 1,
-    borderBottomWidth: 0,
+    height: "50@mvs",
+    backgroundColor: backgroundColors.secondary,
+    borderTopLeftRadius: rounded.md,
+    borderTopRightRadius: rounded.md,
+    borderColor: colors.dark,
+    borderTopWidth: 1,
   },
   barItem: {
-    height: "100%",
     justifyContent: "center",
     alignItems: "center",
     flex: 1,
