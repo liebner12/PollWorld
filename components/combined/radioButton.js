@@ -1,24 +1,42 @@
-import React, { useEffect } from "react";
-import { StyleSheet, View, Text } from "react-native";
+import React from "react";
+import { View } from "react-native";
 import { RadioButton } from "react-native-paper";
+import { ScaledSheet } from "react-native-size-matters";
+import Paragraph from "../common/Typography/subTitle";
+import SubTitle from "../common/Typography/subTitle";
 const RadioButtonGroup = ({
   title,
   fields,
   defaultValue,
   value = defaultValue,
   setValue,
+  survey,
 }) => {
   const fieldKeys = Object.keys(fields);
-
+  const styles = ScaledSheet.create({
+    radioContainer: {
+      flexDirection: survey ? "column" : "row",
+      justifyContent: "space-between",
+    },
+    radioButton: {
+      flexDirection: "row-reverse",
+      alignItems: "center",
+      alignSelf: "flex-start",
+    },
+  });
   return (
     <RadioButton.Group onValueChange={setValue} value={value}>
-      <Text style={styles.title}>{title}</Text>
+      {survey ? null : (
+        <SubTitle small={true} color="color">
+          {title}
+        </SubTitle>
+      )}
       <View style={styles.radioContainer}>
         {fieldKeys.map((key) => {
           const field = fields[key];
           return (
             <View key={key} style={styles.radioButton}>
-              <Text style={styles.radioName}>{field.name}</Text>
+              <Paragraph>{field.name}</Paragraph>
               <RadioButton
                 value={field.name}
                 color="#32e0c4"
@@ -31,26 +49,5 @@ const RadioButtonGroup = ({
     </RadioButton.Group>
   );
 };
-const styles = StyleSheet.create({
-  radioContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-  radioButton: {
-    flexDirection: "row-reverse",
-    alignItems: "center",
-  },
-  title: {
-    fontSize: 14,
-    fontFamily: "Asap_600SemiBold",
-    color: "#32e0c4",
-    marginBottom: 10,
-  },
-  radioName: {
-    fontSize: 14,
-    fontFamily: "Asap_400Regular",
-    color: "#d6d6d6",
-  },
-});
 
 export default RadioButtonGroup;

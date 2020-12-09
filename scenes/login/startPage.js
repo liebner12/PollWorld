@@ -1,20 +1,21 @@
 import React from "react";
-import { StyleSheet, View, Text, TouchableOpacity, Image} from "react-native";
-import MainButton from "../../components/common/MainButton";
+import { View, TouchableOpacity, Image } from "react-native";
+import ScrollableContainer from "../../components/common/Containers/scrollableContainer";
+import MainButton from "../../components/common/mainButton";
 import { FontAwesome } from "@expo/vector-icons";
-import Title from "../../components/common/Title";
-import SubTitle from "../../components/common/SubTitle";
-import Container from "../../components/common/Container";
+import Title from "../../components/common/Typography/title";
+import Link from "../../components/common/Typography/link";
+import SubTitle from "../../components/common/Typography/subTitle";
 import superLogoV2 from "../../assets/iconLine.png";
 import {
   handleGoogleLogin,
   handleFacebookLogin,
 } from "../../components/functional/authentication/socialLogInHandler";
-
-
+import { ScaledSheet } from "react-native-size-matters";
+import { ms } from "react-native-size-matters";
 const StartPage = ({ navigation, onSignIn }) => {
   return (
-    <Container>
+    <ScrollableContainer padding={true}>
       <View style={styles.main}>
         <View style={styles.container}>
           <View style={styles.logo}>
@@ -33,42 +34,40 @@ const StartPage = ({ navigation, onSignIn }) => {
           <MainButton
             name="Zaloguj przez Google"
             transparent={true}
-            icon={<FontAwesome name="google" size={24} color="white" />}
+            icon={<FontAwesome name="google" size={ms(24)} color="white" />}
             onPress={() => handleGoogleLogin(onSignIn)}
           />
           <MainButton
             name="Zaloguj przez Facebooka"
             transparent={true}
-            icon={<FontAwesome name="facebook" size={24} color="white" />}
+            icon={<FontAwesome name="facebook" size={ms(24)} color="white" />}
             onPress={() => handleFacebookLogin()}
           />
         </View>
         <TouchableOpacity
           activeOpacity={0.6}
-          onPress={() => {navigation.navigate("Login");}}
+          style={styles.login}
+          onPress={() => {
+            navigation.navigate("Login");
+          }}
         >
-          <Text style={styles.login}>Zaloguj się</Text>
+          <Link center={true}>Zaloguj się</Link>
         </TouchableOpacity>
       </View>
-    </Container>
+    </ScrollableContainer>
   );
 };
 
-const styles = StyleSheet.create({
+const styles = ScaledSheet.create({
   container: {
-    marginBottom: 30,
+    marginBottom: "30@mvs",
   },
   main: {
     flex: 1,
     justifyContent: "flex-end",
-    marginBottom: 30,
   },
   login: {
-    marginTop: 20,
-    fontSize: 16,
-    textAlign: "center",
-    fontFamily: "Quicksand_700Bold",
-    color: "#32e0c4",
+    marginTop: "15@mvs",
   },
   logo: {
     flexDirection: "row",
@@ -76,10 +75,10 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   image: {
-    width: 42,
-    height: 42,
-    marginRight: 10,
-    marginTop: 12,
+    width: "42@s",
+    height: "42@vs",
+    marginRight: "10@ms",
+    marginTop: "12@mvs",
     resizeMode: "contain",
   },
 });

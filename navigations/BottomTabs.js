@@ -1,17 +1,17 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import HomePage from "../scenes/main/homePage";
-import MyTabBar from "./TabBar";
+import TabBar from "./TabBar";
 import SurveysStack from "./SurveysStack";
 import ShoppingStack from "./ShoppingStack";
 import ProfileStack from "./ProfileStack";
+import HomeStack from "./HomeStack";
 const Tab = createBottomTabNavigator();
 
 const BottomTabs = ({ onSignOut }) => {
   return (
-    <Tab.Navigator tabBar={(props) => <MyTabBar {...props} />}>
+    <Tab.Navigator tabBar={(props) => <TabBar {...props} />}>
       <Tab.Screen name="Home">
-        {(props) => <HomePage {...props} onSignOut={onSignOut} />}
+        {(props) => <HomeStack {...props} onSignOut={onSignOut} />}
       </Tab.Screen>
       <Tab.Screen name="Surveys">
         {(props) => <SurveysStack {...props} onSignOut={onSignOut} />}

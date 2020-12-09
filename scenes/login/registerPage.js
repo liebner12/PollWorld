@@ -1,7 +1,6 @@
 import React, { createRef } from "react";
-import { View, Text } from "react-native";
-import Title from "../../components/common/Title";
-import Container from "../../components/common/Container";
+import Title from "../../components/common/Typography/title";
+import ScrollableContainer from "../../components/common/Containers/scrollableContainer";
 import {
   validateTwoPasswords,
   cantBeEmpty,
@@ -9,10 +8,10 @@ import {
   validateEmail,
 } from "../../components/form/typingValidation";
 import { createAccount } from "../../components/functional/authentication/logic/appSignIn";
-import Form from "../../components/form/Form";
-import ReturnButton from "../../components/common/ReturnButton";
-import TitleContainer from "../../components/common/TitleContainer";
-import Link from "../../components/common/Link";
+import Form from "../../components/form/form";
+import ReturnButton from "../../components/common/returnButton";
+import Link from "../../components/common/Typography/link";
+import Paragraph from "../../components/common/Typography/paragraph";
 
 const RegisterPage = ({ navigation }) => {
   const secondTextField = createRef();
@@ -29,60 +28,55 @@ const RegisterPage = ({ navigation }) => {
   };
 
   return (
-    <Container>
-      <ReturnButton onPress={() => navigation.navigate("Start")} />
-      <View>
-        <TitleContainer>
-          <Title>Zarejestruj się</Title>
-        </TitleContainer>
-        <View>
-          <Form
-            buttonText="Zarejestruj się"
-            onSubmit={handleRegister}
-            action={createAccount}
-            fields={{
-              email: {
-                name: "Email",
-                keyboardType: "email-address",
-                validate: [validateEmail],
-                blurOnSubmit: false,
-                onSubmitEditing: () => secondTextField.current.focus(),
-              },
-              password: {
-                name: "Hasło",
-                password: true,
-                secured: true,
-                validate: [validatePasswordLength],
-                ref: secondTextField,
-                blurOnSubmit: false,
-                onSubmitEditing: () => thirdTextField.current.focus(),
-              },
-              secondPassword: {
-                name: "Powtórz hasło",
-                password: true,
-                secured: true,
-                validate: [validateTwoPasswords],
-                ref: thirdTextField,
-              },
+    <ScrollableContainer padding={true}>
+      <ReturnButton />
+      <Title>Zarejestruj się</Title>
+      <Form
+        buttonText="Zarejestruj się"
+        onSubmit={handleRegister}
+        action={createAccount}
+        fields={{
+          email: {
+            name: "Email",
+            keyboardType: "email-address",
+            validate: [validateEmail],
+            blurOnSubmit: false,
+            onSubmitEditing: () => secondTextField.current.focus(),
+          },
+          password: {
+            name: "Hasło",
+            password: true,
+            secured: true,
+            validate: [validatePasswordLength],
+            ref: secondTextField,
+            blurOnSubmit: false,
+            onSubmitEditing: () => thirdTextField.current.focus(),
+          },
+          secondPassword: {
+            name: "Powtórz hasło",
+            password: true,
+            secured: true,
+            validate: [validateTwoPasswords],
+            ref: thirdTextField,
+          },
+          registerPolicy: {
+            type: "checkbox",
+            validate: [cantBeEmpty],
+            fields: {
               registerPolicy: {
-                type: "checkbox",
-                validate: [cantBeEmpty],
-                fields: {
-                  registerPolicy: {
-                    text: (
-                      <Text>
-                        Akceptuję <Link>Warunki świadczenia usług</Link> i{" "}
-                        <Link>Politykę prywatności</Link>
-                      </Text>
-                    ),
-                  },
-                },
+                name: "registerPolicy",
+                text: (
+                  <Paragraph>
+                    Akceptuję <Link>Warunki świadczenia usług</Link> i{" "}
+                    <Link>Politykę prywatności</Link>
+                  </Paragraph>
+                ),
               },
-            }}
-          />
-        </View>
-      </View>
-    </Container>
+            },
+          },
+        }}
+      />
+    </ScrollableContainer>
   );
 };
 

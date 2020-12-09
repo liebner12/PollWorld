@@ -1,11 +1,10 @@
-import React, { createRef } from "react";
-import { View, StyleSheet } from "react-native";
-import Title from "../../components/common/Title";
-import Container from "../../components/common/Container";
-import ReturnButton from "../../components/common/ReturnButton";
-import Form from "../../components/form/Form";
+import React from "react";
+import { View } from "react-native";
+import Title from "../../components/common/Typography/title";
+import ScrollableContainer from "../../components/common/Containers/scrollableContainer";
+import ReturnButton from "../../components/common/returnButton";
+import Form from "../../components/form/form";
 import { cantBeEmpty } from "../../components/form/typingValidation";
-import TitleContainer from "../../components/common/TitleContainer";
 
 const DetailsPage = ({ navigation, onSignIn }) => {
   const handleSubmit = () => {
@@ -13,21 +12,22 @@ const DetailsPage = ({ navigation, onSignIn }) => {
   };
 
   return (
-    <Container>
-      <ReturnButton onPress={() => navigation.navigate("Personal")} />
+    <ScrollableContainer padding={true}>
+      <ReturnButton />
       <View>
-        <TitleContainer>
-          <Title>Fizyczne statystyki</Title>
-        </TitleContainer>
+        <Title>Fizyczne statystyki</Title>
+
         <View>
           <Form
             buttonText="Zakończ"
+            defaultValue="leśnictwo"
             onSubmit={handleSubmit}
             action={() => console.log("fake")}
             fields={{
               job: {
                 type: "list",
                 title: "Branża",
+                defaultValue: "leśnictwo",
                 fields: {
                   1: { name: "przemysł" },
                   2: { name: "budownictwo" },
@@ -77,7 +77,7 @@ const DetailsPage = ({ navigation, onSignIn }) => {
           />
         </View>
       </View>
-    </Container>
+    </ScrollableContainer>
   );
 };
 

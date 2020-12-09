@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { View, StyleSheet, Text } from "react-native";
-import TextField from "../common/TextField";
-import MainButton from "../common/MainButton";
+import TextField from "../combined/textField";
+import MainButton from "../common/mainButton";
 import { validateFields, hasValidationError } from "./validate";
-import RadioButtonGroup from "../common/RadioButtonGroup";
-import CheckboxGroup from "../common/Checkbox";
-import ExpandableList from "../../components/common/List";
-
-const Form = ({ fields, buttonText, onSubmit, action }) => {
+import RadioButtonGroup from "../combined/radioButton";
+import CheckboxGroup from "../combined/checkbox";
+import ExpandableList from "../combined/expandableList";
+import HorizontalLine from "../common/horizontalLine";
+import SubTitle from "../common/Typography/subTitle";
+import { backgroundColors, colors } from "../../styles/colors";
+const Form = ({ fields, buttonText, onSubmit, action, survey }) => {
   const fieldKeys = Object.keys(fields);
   const [values, setValues] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -15,15 +17,11 @@ const Form = ({ fields, buttonText, onSubmit, action }) => {
 
   const onChangeValue = (key, value) => {
     const newState = { ...values, [key]: value };
-    console.log(newState);
     setValues(newState);
     if (validationErrors[key]) {
       const newErrors = { ...validationErrors, [key]: "" };
       setValidationErrors(newErrors);
     }
-  };
-  const changeHandler = (key) => {
-    setValues({ ...values, [e.target.name]: e.target.value });
   };
 
   const getValues = () => {
@@ -56,36 +54,44 @@ const Form = ({ fields, buttonText, onSubmit, action }) => {
       {fieldKeys.map((key) => {
         const field = fields[key];
         const fieldError = validationErrors[key];
-        
         return (
-          <View key={key}>
+          <View key={key} style={survey ? styles.container : ""}>
+            {survey ? (
+              <View>
+                <SubTitle small={true}>{field.name}</SubTitle>
+                <HorizontalLine />
+              </View>
+            ) : null}
             {field.type == "radio" ? (
               <RadioButtonGroup
                 {...field}
                 value={values[key]}
+                survey={survey}
                 setValue={(value) => onChangeValue(key, value)}
               />
             ) : field.type == "checkbox" ? (
               <CheckboxGroup
                 {...field}
                 value={values[key]}
-                onPress={() => onChangeValue(key, !values[key])}
+                survey={survey}
+                onPress={(value) => onChangeValue(key, value)}
               />
             ) : field.type == "list" ? (
               <ExpandableList
                 {...field}
                 value={values[key]}
+                survey={survey}
                 onPress={(value) => onChangeValue(key, value)}
               />
             ) : (
               <TextField
                 {...field}
                 value={values[key]}
+                survey={survey}
                 onChangeText={(text) => onChangeValue(key, text)}
               />
-              
             )}
-            <Text style={styles.error}>{fieldError}</Text>
+            {survey ? null : <Text style={styles.error}>{fieldError}</Text>}
           </View>
         );
       })}
@@ -97,8 +103,18 @@ const styles = StyleSheet.create({
   error: {
     fontFamily: "Asap_400Regular",
     minHeight: 20,
-    color: "#cf6679",
+    color: colors.error,
     marginBottom: "1%",
+  },
+  container: {
+    backgroundColor: backgroundColors.secondary,
+    borderRadius: 14,
+    padding: 25,
+    marginBottom: 25,
+    elevation: 6,
+  },
+  line: {
+    height: 2,
   },
 });
 export default Form;

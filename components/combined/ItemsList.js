@@ -1,10 +1,9 @@
 import React from "react";
-import { StyleSheet, View, ScrollView, TouchableOpacity } from "react-native";
-import Title from "../common/Title";
-import Item from "./Item";
-import Link from "../common/Link";
-const ItemsList = ({ fields, title, type, subTitle, action, fit }) => {
-  const fieldKeys = Object.keys(fields);
+import { View, ScrollView, TouchableOpacity } from "react-native";
+import Title from "../common/Typography/title";
+import Link from "../common/Typography/link";
+import { ScaledSheet } from 'react-native-size-matters';
+const ItemsList = ({ children, title, subTitle, action, fit }) => {
   return (
     <View>
       <View style={styles.title}>
@@ -13,61 +12,28 @@ const ItemsList = ({ fields, title, type, subTitle, action, fit }) => {
         </Title>
         {subTitle ? (
           <TouchableOpacity activeOpacity={0.3} onPress={() => action()}>
-            <Link style={styles.subTitle}>{subTitle}</Link>
+            <Link>{subTitle}</Link>
           </TouchableOpacity>
         ) : null}
       </View>
       {fit ? (
-        <View style={styles.contentContainer}>
-          {fieldKeys.map((key) => {
-            const field = fields[key];
-            return (
-              <Item
-                key={key}
-                name={field.name}
-                category={field.category}
-                description={field.description}
-                price={field.price}
-                coupon={field.coupon}
-                type={type}
-                fit={fit}
-                even={key % 2 ? true : false}
-                rate={field.rate}
-              />
-            );
-          })}
-        </View>
+        <View style={styles.contentContainer}>{children}</View>
       ) : (
-        <ScrollView horizontal={true} style={styles.contentContainer}>
-          {fieldKeys.map((key) => {
-            const field = fields[key];
-            return (
-              <Item
-                key={key}
-                name={field.name}
-                category={field.category}
-                description={field.description}
-                price={field.price}
-                coupon={field.coupon}
-                type={type}
-                fit={fit}
-                rate={field.rate}
-              />
-            );
-          })}
+        <ScrollView horizontal={true} style={styles.contentContainer} >
+          {children}
         </ScrollView>
       )}
     </View>
   );
 };
-const styles = StyleSheet.create({
+const styles = ScaledSheet.create({
   contentContainer: {
     overflow: "visible",
     flexDirection: "row",
     flexWrap: "wrap",
   },
   title: {
-    marginBottom: 10,
+    marginBottom: '10@mvs',
   },
 });
 

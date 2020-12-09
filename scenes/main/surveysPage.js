@@ -1,55 +1,60 @@
-import React, {useEffect} from "react";
-import { ScrollView } from "react-native";
-import Title from "../../components/common/Title";
-import Header from "../../components/common/Header";
-import ItemsList from "../../components/combined/ItemsList";
-import ViewContainer from "../../components/common/ViewContainer";
-import {useDispatch, useSelector} from "react-redux";
-import {fetchSurveys, surveysSelector} from "../../components/functional/surveys/logic/surveysController";
-import {getAssetByID} from "react-native-web/dist/modules/AssetRegistry";
+import React, { useEffect } from "react";
+import Title from "../../components/common/Typography/title";
+import HeaderContainer from "../../components/common/Containers/headerContainer";
+import ItemsList from "../../components/combined/itemsList";
+import PrimaryContainer from "../../components/common/Containers/primaryContainer";
+import ContentContainer from "../../components/common/Containers/contentContainer";
+import ScrollableContainer from "../../components/common/Containers/scrollableContainer";
+import ViewContainer from "../../components/common/Containers/viewContainer";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  fetchSurveys,
+  surveysSelector,
+} from "../../components/functional/surveys/logic/surveysController";
+import { getAssetByID } from "react-native-web/dist/modules/AssetRegistry";
+import Survey from "../../components/combined/survey";
 
 const SurveysPage = ({ navigation, onSignOut }) => {
-    const dispatch = useDispatch()
-    const {surveys} = useSelector(surveysSelector)
-    useEffect(() => {
-        dispatch(fetchSurveys())
-    },[dispatch])
+  const dispatch = useDispatch();
+  const { surveys } = useSelector(surveysSelector);
+  useEffect(() => {
+    dispatch(fetchSurveys());
+  }, [dispatch]);
 
-    //TODO  Trzeba zmienić to jak przechowywane są te dane z fields, ponieważ teraz troche patologicznie to działa
-    const renderSurveys = () => {
-        return surveys.map((survey, index) =>
-            <ItemsList
-                title="Ankiety"
-                type="surveys"
-                fit={true}
-                key={survey.id}
-                fields={{
-                    randomString: {
-                        key: index,
-                        name: survey.name,
-                        category: survey.category,
-                        description: survey.description,
-                        price: survey.price,
-                        rate: survey.rate
-                    }
-                }}
-            />
-        )
-    }
+  const renderSurveys = () => {
+    return surveys.map((survey, index) => (
+      <Survey
+        key={index}
+        id={survey.id}
+        name={survey.name}
+        category={survey.category}
+        description={survey.shortDescription}
+        price={survey.price}
+        rate={survey.rate}
+        type="surveys"
+        fit={true}
+        even={index % 2 ? false : true}
+      />
+    ));
+  };
 
-    return (
-    <ScrollView
-      contentContainerStyle={{ flexGrow: 1, backgroundColor: "#212121" }}
-    >
-      <Header>
-        <Title color={true} shadow={true}>
+  return (
+    <PrimaryContainer>
+      <HeaderContainer>
+        <Title size="big" color={true} shadow={true}>
           Ankiety
         </Title>
-      </Header>
-      <ViewContainer wider={true}>
-          {renderSurveys()}
-      </ViewContainer>
-    </ScrollView>
+      </HeaderContainer>
+      <ContentContainer>
+        <ScrollableContainer>
+          <ViewContainer wider={true}>
+            <ItemsList title="Ankiety:" fit={true}>
+              {renderSurveys()}
+            </ItemsList>
+          </ViewContainer>
+        </ScrollableContainer>
+      </ContentContainer>
+    </PrimaryContainer>
   );
 };
 

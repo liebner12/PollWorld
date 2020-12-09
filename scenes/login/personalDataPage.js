@@ -1,14 +1,13 @@
 import React, { createRef } from "react";
 import { View } from "react-native";
-import Title from "../../components/common/Title";
-import Container from "../../components/common/Container";
-import ReturnButton from "../../components/common/ReturnButton";
-import Form from "../../components/form/Form";
+import Title from "../../components/common/Typography/title";
+import ScrollableContainer from "../../components/common/Containers/scrollableContainer";
+import ReturnButton from "../../components/common/returnButton";
+import Form from "../../components/form/form";
 import {
   cantBeEmpty,
   onlyNumbers,
 } from "../../components/form/typingValidation";
-import TitleContainer from "../../components/common/TitleContainer";
 const PersonalDataPage = ({ navigation }) => {
   const secondTextField = createRef();
   const handleSubmit = () => {
@@ -16,12 +15,10 @@ const PersonalDataPage = ({ navigation }) => {
   };
 
   return (
-    <Container>
-      <ReturnButton onPress={() => navigation.navigate("Register")} />
+    <ScrollableContainer padding={true}>
+      <ReturnButton />
       <View>
-        <TitleContainer>
-          <Title>Dane osobowe</Title>
-        </TitleContainer>
+        <Title>Dane osobowe</Title>
         <Form
           buttonText="Kontynuuj"
           onSubmit={handleSubmit}
@@ -52,7 +49,7 @@ const PersonalDataPage = ({ navigation }) => {
           }}
         />
       </View>
-    </Container>
+    </ScrollableContainer>
   );
 };
 
