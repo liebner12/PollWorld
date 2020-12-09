@@ -20,10 +20,9 @@ import { View } from "react-native";
 import AppNavigator from "./navigations/Navigator";
 import "react-native-gesture-handler";
 import { Provider } from "react-redux";
-import store from "./components/functional/surveys/logic/store";
-import rootReducer from "./components/functional/surveys/logic/store";
 import { configureStore } from "@reduxjs/toolkit";
 import { colors, backgroundColors } from "./styles/colors";
+import rootReducer from "./components/redux_components/store";
 export default function App() {
   let [fontsLoaded] = useFonts({
     Quicksand_400Regular,

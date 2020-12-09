@@ -1,9 +1,10 @@
-import {sendModificationData} from "../communication/userModification";
+import {sendModificationData} from "../communication/fetchUserData";
 import {getAccessToken} from "../../api/storedTokens";
+import {userMockData} from "../../../redux_components/mock";
 
 const expected_status = 200;
 
-export const modifyUser = async () => {
+export const userData = async () => {
     let response = await sendModificationData(await getAccessToken());
     console.log(response.response_headers.get("content-type"));
     console.log(response.response_body);
@@ -15,3 +16,7 @@ export const modifyUser = async () => {
     }
     return response.response_status;
 };
+
+export const fetchUserData =  () => {
+    return userMockData;
+}

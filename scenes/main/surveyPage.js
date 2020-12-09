@@ -7,19 +7,13 @@ import ScrollableContainer from "../../components/common/Containers/scrollableCo
 import ViewContainer from "../../components/common/Containers/viewContainer";
 import { useDispatch, useSelector } from "react-redux";
 import Form from "../../components/form/form";
-import {
-  fetchSurveys,
-  surveysSelector,
-} from "../../components/functional/surveys/logic/surveysController";
 import { getAssetByID } from "react-native-web/dist/modules/AssetRegistry";
+import {selectAccountData} from "../../components/redux_components/accountController";
 
 const SurveyPage = ({ route, navigation, onSignOut }) => {
   const keyId = route.params.itemId;
-  const dispatch = useDispatch();
-  const { surveys } = useSelector(surveysSelector);
-  useEffect(() => {
-    dispatch(fetchSurveys());
-  }, [dispatch]);
+  const {account} = useSelector(selectAccountData)
+    const surveys = account.surveys
   const survey = surveys.find((el) => el.id == keyId);
 
   return (

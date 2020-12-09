@@ -9,20 +9,13 @@ import HeaderContainer from "../../components/common/Containers/headerContainer"
 import ViewContainer from "../../components/common/Containers/viewContainer";
 import SubTitle from "../../components/common/Typography/subTitle";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  fetchSurveys,
-  surveysSelector,
-} from "../../components/functional/surveys/logic/surveysController";
 import HorizontalLine from "../../components/common/horizontalLine";
 import Paragraph from "../../components/common/Typography/paragraph";
+import {selectAccountData} from "../../components/redux_components/accountController";
 const ItemPage = ({ route, navigation }) => {
   const keyId = route.params.itemId;
-  const dispatch = useDispatch();
-  const { surveys } = useSelector(surveysSelector);
-  useEffect(() => {
-    dispatch(fetchSurveys());
-  }, [dispatch]);
-  const survey = surveys.find((el) => el.id == keyId);
+  const {account} = useSelector(selectAccountData)
+  const surveys = account.surveys
 
   return (
     <PrimaryContainer>
