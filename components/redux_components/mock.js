@@ -15,7 +15,7 @@ export const mock_surveys = [
         "company": "Allegro",
         "name": "Allegro Smart",
         "price": 150,
-        "shortDescription": "",
+        "shortDescription": "Dołącz do elitarnego grona ankietowanych ludzi Allegro",
         "rate": 4.6,
         "category": "Familijne",
         "time" : "5:00",
@@ -26,7 +26,7 @@ export const mock_surveys = [
         "company": "PWr",
         "name": "System JSOS",
         "price": 150,
-        "shortDescription": "Krótki opis ankiety",
+        "shortDescription": "Krótki opis ankiety, jest ona bardzo ciekawa",
         "rate": 4.6,
         "category": "Edukacja",
         "time" : "5:00",
@@ -37,7 +37,7 @@ export const mock_surveys = [
         "company": "Firma",
         "name": "Nazwa Ankiety",
         "price": 150,
-        "shortDescription": "Krótki opis ankiety",
+        "shortDescription": "Krótki opis ankiety o bardzo ciekawej firmie",
         "rate": 4.6,
         "category": "Jeszcze inna kategoria",
         "time" : "5:00",
@@ -48,7 +48,7 @@ export const mock_surveys = [
         "company": "Firma Kolejna",
         "name": "Ciekawa ankieta",
         "price": 111,
-        "shortDescription": "",
+        "shortDescription": "Krótki opis ankiety, jest ona bardzo ciekawa",
         "rate": 5.0,
         "category": "Zakupy",
         "time" : "10:00",
@@ -57,13 +57,14 @@ export const mock_surveys = [
 ]
 export const userMockData ={
     "name": "Norbert",
-    "age": 0,
+    "email": "asdf@gmail.com",
+    "age": 16,
     "sex": true,
-    "profession": "string",
+    "profession": "IT",
     "place_of_residence": 1,
-    "growth": 0,
-    "weight": 0,
-    "level_of_fitness": 1
+    "growth": 163,
+    "weight": 40,
+    "level_of_fitness": 4
 }
 
 export const mockUserPoints=1231
@@ -72,23 +73,22 @@ export const mockOwnedCoupons =[
     {
         "id": 1,
         "company": "Firma",
-        "category": "kategoria kuponu",
-        "description": "opis kuponu",
-        "code": "kod_kuponu"
+        "category": "Obuwie",
+        "description": "10% zniżki na buty",
+        "code": "AXADSFX"
     },
-
     {
         "id": 2,
         "company": "Firma2",
-        "category": "kategoria kuponu",
-        "description": "opis kuponu",
-        "code": "kod_kuponu"
+        "category": "Akcesoria",
+        "description": "50% zniżki na akcesoria",
+        "code": "HFDABZC"
     },
     {
         "id": 3,
         "company": "Firma3",
-        "category": "kategoria kuponu",
-        "description": "opis kuponu",
+        "category": "Sprzęt komputerowy",
+        "description": "40zł mniej za zakupy powyzej 20 zł",
         "code": "kod_kuponu"
     },
     {
@@ -119,22 +119,22 @@ export const mockCouponsToBuy=[
     {
         "id": 1,
         "company": "Firma",
-        "category": "kategoria kuponu",
-        "description": "opis kuponu",
+        "category": "Obuwie",
+        "description": "10% zniżki na buty",
         "price": 120
     },
     {
         "id": 2,
         "company": "Firma2",
-        "category": "kategoria kuponu",
-        "description": "opis kuponu",
+        "category": "Akcesoria",
+        "description": "50% zniżki na akcesoria",
         "price": 120
     },
     {
         "id": 3,
         "company": "Firma3",
-        "category": "kategoria kuponu",
-        "description": "opis kuponu",
+        "category": "Sprzęt komputerowy",
+        "description": "40zł mniej za zakupy powyzej 40 zł",
         "price": 120
     },
     {

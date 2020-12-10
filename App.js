@@ -1,6 +1,5 @@
 import { StatusBar } from "expo-status-bar";
 import React from "react";
-
 import { AppLoading } from "expo";
 import {
   useFonts,
@@ -23,6 +22,7 @@ import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import { colors, backgroundColors } from "./styles/colors";
 import rootReducer from "./components/redux_components/store";
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 export default function App() {
   let [fontsLoaded] = useFonts({
     Quicksand_400Regular,
@@ -50,12 +50,19 @@ export default function App() {
   const store = configureStore({ reducer: rootReducer });
   return (
     <Provider store={store}>
-      <View style={{ backgroundColor: backgroundColors.primary, flex: 1 }}>
-        <PaperProvider theme={theme}>
-          <StatusBar style="light" />
-          <AppNavigator />
-        </PaperProvider>
-      </View>
+      <SafeAreaProvider>
+        <SafeAreaView style={{ flex: 1 }} forceInset={{ top: "never" }}>
+          <View style={{ backgroundColor: backgroundColors.primary, flex: 1 }}>
+            <PaperProvider theme={theme}>
+              <StatusBar
+                style="light"
+                backgroundColor={backgroundColors.primary}
+              />
+              <AppNavigator />
+            </PaperProvider>
+          </View>
+        </SafeAreaView>
+      </SafeAreaProvider>
     </Provider>
   );
 }

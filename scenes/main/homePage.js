@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { View } from "react-native";
+import { View} from "react-native";
 import PrimaryContainer from "../../components/common/Containers/primaryContainer";
 import ContentContainer from "../../components/common/Containers/contentContainer";
 import ScrollableContainer from "../../components/common/Containers/scrollableContainer";
@@ -10,26 +10,33 @@ import { FontAwesome5 } from "@expo/vector-icons";
 import SubTitle from "../../components/common/Typography/subTitle";
 import ItemsList from "../../components/combined/itemsList";
 import { useDispatch, useSelector } from "react-redux";
-import { verticalScale } from "react-native-size-matters";
 import Survey from "../../components/combined/survey";
 import Coupon from "../../components/combined/coupon";
-import {dispatchAccountData, selectAccountData} from "../../components/redux_components/accountController";
-import {dispatchProfileData, selectProfileData} from "../../components/redux_components/profileController";
-
+import {
+  dispatchAccountData,
+  selectAccountData,
+} from "../../components/redux_components/accountController";
+import {
+  dispatchProfileData,
+  selectProfileData,
+} from "../../components/redux_components/profileController";
+import MarginContainer from "../../components/common/Containers/marginContainer";
+import { StatusBar } from "expo-status-bar";
+import { backgroundColors } from "../../styles/colors";
 const HomePage = ({ navigation }) => {
-  const {account} = useSelector(selectAccountData)
-  const {profile} = useSelector(selectProfileData)
-  const surveys = account.surveys
-
-  const dispatchAccount = useDispatch()
+  const { account } = useSelector(selectAccountData);
+  const { profile } = useSelector(selectProfileData);
+  const surveys = account.surveys;
+  const coupons = account.coupons_to_buy;
+  const dispatchAccount = useDispatch();
   useEffect(() => {
-    dispatchAccount(dispatchAccountData())
-  },[dispatchAccount])
+    dispatchAccount(dispatchAccountData());
+  }, [dispatchAccount]);
 
-  const dispatchProfile = useDispatch()
-  useEffect(( )=> {
-    dispatchProfile(dispatchProfileData())
-  }, [dispatchProfile])
+  const dispatchProfile = useDispatch();
+  useEffect(() => {
+    dispatchProfile(dispatchProfileData());
+  }, [dispatchProfile]);
 
   const renderSurveys = () => {
     return surveys
@@ -43,37 +50,35 @@ const HomePage = ({ navigation }) => {
           description={survey.shortDescription}
           price={survey.price}
           rate={survey.rate}
-          type="surveys"
         />
       ));
   };
 
   const renderCoupons = () => {
-    return surveys
+    return coupons
       .slice(0, 4)
-      .map((survey, index) => (
+      .map((coupon, index) => (
         <Coupon
           key={index}
-          id={survey.id}
-          name={survey.name}
-          category={survey.category}
-          description={survey.shortDescription}
-          price={survey.price}
-          rate={survey.rate}
-          type="coupons"
-          horizontal={true}
+          id={coupon.id}
+          name={coupon.company}
+          category={coupon.category}
+          description={coupon.description}
+          price={coupon.price}
         />
       ));
   };
 
   return (
     <PrimaryContainer>
+      <StatusBar style="light" backgroundColor={backgroundColors.green} />
       <HeaderContainer>
         <Title color={true} shadow={true} size="big">
           Twoje punkty:
         </Title>
         <Title color={true} size="big" shadow={true} noMargin={true}>
-          {account.points}<FontAwesome5 name="money-bill" size={24} color="white" />
+          {account.points}{" "}
+          <FontAwesome5 name="money-bill" size={24} color="white" />
         </Title>
       </HeaderContainer>
       <ContentContainer>
@@ -81,8 +86,8 @@ const HomePage = ({ navigation }) => {
           <ViewContainer wider={true}>
             <Title>Witaj {profile.name}</Title>
             <SubTitle>Mamy dla Ciebie super ankiety!</SubTitle>
-            <View style={{ marginTop: verticalScale(20) }}>
-              <View>
+            <View>
+              <MarginContainer>
                 <ItemsList
                   title="Nowe ankiety"
                   subTitle="Zobacz wszystkie:"
@@ -90,8 +95,8 @@ const HomePage = ({ navigation }) => {
                 >
                   {renderSurveys()}
                 </ItemsList>
-              </View>
-              <View style={{ marginTop: verticalScale(20) }}>
+              </MarginContainer>
+              <MarginContainer>
                 <ItemsList
                   title="Kupony"
                   subTitle="Zobacz wszystkie:"
@@ -100,7 +105,7 @@ const HomePage = ({ navigation }) => {
                 >
                   {renderCoupons()}
                 </ItemsList>
-              </View>
+              </MarginContainer>
             </View>
           </ViewContainer>
         </ScrollableContainer>

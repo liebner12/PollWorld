@@ -1,5 +1,4 @@
 import React from "react";
-import { StyleSheet } from "react-native";
 import Title from "../../components/common/Typography/title";
 import HeaderContainer from "../../components/common/Containers/headerContainer";
 import ItemsList from "../../components/combined/itemsList";
@@ -8,13 +7,42 @@ import ContentContainer from "../../components/common/Containers/contentContaine
 import ScrollableContainer from "../../components/common/Containers/scrollableContainer";
 import ViewContainer from "../../components/common/Containers/viewContainer";
 import Wallet from "../../components/combined/wallet";
-import {useSelector} from "react-redux";
-import {selectAccountData} from "../../components/redux_components/accountController";
-import {selectProfileData} from "../../components/redux_components/profileController";
+import { useSelector } from "react-redux";
+import { selectAccountData } from "../../components/redux_components/accountController";
+import Coupon from "../../components/combined/coupon";
 
 const ShoppingPage = ({ navigation, onSignOut }) => {
-    const {account} = useSelector(selectAccountData)
-    const {profile} = useSelector(selectProfileData)
+  const { account } = useSelector(selectAccountData);
+  const ownedCoupons = account.owned_coupons;
+  const couponsToBuy = account.coupons_to_buy;
+
+  const renderOwnedCoupons = () => {
+    return ownedCoupons.map((coupon, index) => (
+      <Coupon
+        key={index}
+        id={coupon.id}
+        name={coupon.company}
+        category={coupon.category}
+        description={coupon.description}
+        code={coupon.code}
+      />
+    ));
+  };
+
+  const renderCouponsToBuy = () => {
+    return couponsToBuy.map((coupon, index) => (
+      <Coupon
+        key={index}
+        id={coupon.id}
+        name={coupon.company}
+        category={coupon.category}
+        description={coupon.description}
+        price={coupon.price}
+        fit={true}
+        even={index % 2 ? false : true}
+      />
+    ));
+  };
 
   return (
     <PrimaryContainer>
@@ -26,87 +54,16 @@ const ShoppingPage = ({ navigation, onSignOut }) => {
       <ContentContainer>
         <ScrollableContainer>
           <ViewContainer wider={true}>
-            <ItemsList
-              title="Twoje kupony:"
-              type="coupons"
-              fields={{
-                1: {
-                  name: "bonprix",
-                  category: "Ubrania i buty",
-                  description: "Czwarta sztuka gratis!",
-                  coupon: "AXJZ31BD241A",
-                },
-                2: {
-                  name: "eobuwie",
-                  category: "Ubrania i buty",
-                  description: "-10% na cały asortyment",
-                  coupon: "D1SS",
-                },
-              }}
-            />
-            <Wallet amount="1923" />
-            <ItemsList
-              title="Kupony:"
-              type="coupons"
-              fit={true}
-              fields={{
-                1: {
-                  name: "bonprix",
-                  category: "Ubrania i buty",
-                  description: "Czwarta sztuka gratis!",
-                  price: "1500",
-                },
-                2: {
-                  name: "eobuwie",
-                  category: "Ubrania i buty",
-                  description: "-10% na cały asortyment",
-                  price: "2100",
-                },
-                3: {
-                  name: "bonprix",
-                  category: "Ubrania i buty",
-                  description: "Czwarta sztuka gratis!",
-                  price: "1500",
-                },
-                4: {
-                  name: "eobuwie",
-                  category: "Ubrania i buty",
-                  description: "-10% na cały asortyment",
-                  price: "2100",
-                },
-                5: {
-                  name: "bonprix",
-                  category: "Ubrania i buty",
-                  description: "Czwarta sztuka gratis!",
-                  price: "1500",
-                },
-                6: {
-                  name: "eobuwie",
-                  category: "Ubrania i buty",
-                  description: "-10% na cały asortyment",
-                  price: "2100",
-                },
-                7: {
-                  name: "bonprix",
-                  category: "Ubrania i buty",
-                  description: "Czwarta sztuka gratis!",
-                  price: "1500",
-                },
-                8: {
-                  name: "eobuwie",
-                  category: "Ubrania i buty",
-                  description: "-10% na cały asortyment",
-                  price: "2100",
-                },
-              }}
-            />
+            <ItemsList title="Twoje kupony:">{renderOwnedCoupons()}</ItemsList>
+            <Wallet amount={account.points} />
+            <ItemsList title="Kupony:" fit={true}>
+              {renderCouponsToBuy()}
+            </ItemsList>
           </ViewContainer>
         </ScrollableContainer>
       </ContentContainer>
     </PrimaryContainer>
   );
 };
-
-const styles = StyleSheet.create({});
 
 export default ShoppingPage;

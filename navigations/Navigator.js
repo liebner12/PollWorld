@@ -7,9 +7,10 @@ import RegisterPage from "../scenes/login/registerPage";
 import PhysicalPage from "../scenes/login/physicalPage";
 import PersonalDataPage from "../scenes/login/personalDataPage";
 import DetailsPage from "../scenes/login/detailsPage";
-import BottomTabs from "./BottomTabs";
+import MainNavigations from "./MainNavigations";
 import { DefaultTheme, DarkTheme } from "@react-navigation/native";
-import { darkTheme } from "../styles/themes"
+import { darkTheme } from "../styles/themes";
+
 //import { setRefreshToken } from "../api/token";
 
 const Stack = createStackNavigator();
@@ -28,10 +29,13 @@ const AppNavigator = () => {
 
   return (
     <NavigationContainer theme={darkTheme}>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Navigator screenOptions={{ headerShown: false }} headerMode="none">
         {isAuthenticated ? (
           <Stack.Screen name="Home">
-            {(props) => <BottomTabs {...props} onSignOut={handleSignOut} />}
+            {(props) => (
+              <MainNavigations {...props} onSignOut={handleSignOut} />
+              
+            )}
           </Stack.Screen>
         ) : (
           <>
