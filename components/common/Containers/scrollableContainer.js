@@ -2,7 +2,7 @@ import React from "react";
 import { ScrollView, Animated } from "react-native";
 import { backgroundColors } from "../../../styles/colors";
 import { rounded } from "../../../styles/base";
-const ScrollableContainer = ({ children, padding, list, offset = 0 }) => {
+const ScrollableContainer = ({ children, padding, list, offset }) => {
   return (
     <ScrollView
       contentContainerStyle={{
@@ -15,10 +15,14 @@ const ScrollableContainer = ({ children, padding, list, offset = 0 }) => {
         borderBottomLeftRadius: list ? rounded.md : 0,
         borderBottomRightRadius: list ? rounded.md : 0,
       }}
-      onScroll={Animated.event(
-        [{ nativeEvent: { contentOffset: { y: offset } } }],
-        { useNativeDriver: false }
-      )}
+      onScroll={
+        offset
+          ? Animated.event(
+              [{ nativeEvent: { contentOffset: { y: offset } } }],
+              { useNativeDriver: false }
+            )
+          : null
+      }
       scrollEventThrottle={16}
     >
       {children}
