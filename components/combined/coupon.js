@@ -15,11 +15,13 @@ const Coupon = ({
   fit,
   even,
   price,
+  code,
 }) => {
   const styles = ScaledSheet.create({
     item: {
       backgroundColor: backgroundColors.secondary,
       width: fit ? "47%" : "200@s",
+      minHeight: fit ? 200 : 150,
       borderRadius: rounded.md,
       elevation: elevation.elevation,
       paddingTop: "10@mvs",
@@ -52,6 +54,10 @@ const Coupon = ({
       justifyContent: "flex-end",
       alignItems: "center",
     },
+    codeAlign: {
+      textAlign: "center",
+      flex: 1,
+    },
   });
 
   return (
@@ -65,12 +71,16 @@ const Coupon = ({
         </Text>
       </View>
       <TouchableOpacity style={styles.footer} activeOpacity={0.6}>
-        <View style={styles.priceContainer}>
-          <SubTitle color="white">
-            {price}{" "}
-          </SubTitle>
-          <FontAwesome5 name="money-bill" size={fonts.sm} color="white" />
-        </View>
+        {code ? (
+          <Text style={styles.codeAlign}>
+            <SubTitle color="white">{code}</SubTitle>
+          </Text>
+        ) : (
+          <View style={styles.priceContainer}>
+            <SubTitle color="white">{price} </SubTitle>
+            <FontAwesome5 name="money-bill" size={fonts.sm} color="white" />
+          </View>
+        )}
       </TouchableOpacity>
     </View>
   );

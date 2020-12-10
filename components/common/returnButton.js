@@ -15,7 +15,7 @@ const ReturnButton = ({ white }) => {
     container: {
       marginRight: white ? "auto" : 0,
       marginLeft: white ? 30 : 0,
-      marginVertical: white ? 0 : 20,
+      marginBottom: white ? 0 : 20,
     },
   });
   const navigation = useNavigation();

@@ -7,11 +7,21 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { colors, backgroundColors } from "../../styles/colors";
 import { elevation, rounded } from "../../styles/base";
 import HorizontalLine from "../common/horizontalLine";
-const PersonalData = ({ onPress, age, sex, living, job, height, weight }) => {
+
+const PersonalData = ({
+  onPress,
+  age,
+  sex,
+  living,
+  job,
+  height,
+  weight,
+  fitness,
+}) => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Title size="small">Twoje dane:</Title>
+        <Title size="small">Twoje dane osobowe:</Title>
         <TouchableOpacity onPress={onPress}>
           <Title>
             <MaterialIcons name="edit" size={24} color={colors.primary} />
@@ -87,6 +97,17 @@ const PersonalData = ({ onPress, age, sex, living, job, height, weight }) => {
             {weight}
           </Title>
           <SubTitle small={true}>Waga</SubTitle>
+        </View>
+      </View>
+      <View style={styles.spaceBetween}>
+        <View style={styles.icon}>
+          <MaterialIcons name="directions-run" size={24} color="black" />
+        </View>
+        <View>
+          <Title noMargin={true} size="small" color={true}>
+            {fitness}
+          </Title>
+          <SubTitle small={true}>Poziom sprawności fizycznej</SubTitle>
         </View>
       </View>
     </View>

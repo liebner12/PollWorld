@@ -14,5 +14,6 @@ export const backgroundColors = {
   secondary: "#444",
   lightDark: "#313131",
   lightGrey: "#616161",
-  transparentBackground: "rgba(50, 224, 196, 0.7)",
+  transparentBackground: "#2DA794",
+  green: "#2DA794",
 };

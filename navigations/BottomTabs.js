@@ -1,26 +1,27 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import TabBar from "./TabBar";
-import SurveysStack from "./SurveysStack";
-import ShoppingStack from "./ShoppingStack";
-import ProfileStack from "./ProfileStack";
-import HomeStack from "./HomeStack";
+import HomePage from "../scenes/main/homePage"
+import SurveysPage from "../scenes/main/surveysPage"
+import ShoppingPage from "../scenes/main/shoppingPage"
+import ProfilePage from "../scenes/main/profilePage"
+
 const Tab = createBottomTabNavigator();
 
 const BottomTabs = ({ onSignOut }) => {
   return (
     <Tab.Navigator tabBar={(props) => <TabBar {...props} />}>
       <Tab.Screen name="Home">
-        {(props) => <HomeStack {...props} onSignOut={onSignOut} />}
+        {(props) => <HomePage {...props} onSignOut={onSignOut} />}
       </Tab.Screen>
       <Tab.Screen name="Surveys">
-        {(props) => <SurveysStack {...props} onSignOut={onSignOut} />}
+        {(props) => <SurveysPage {...props} onSignOut={onSignOut} />}
       </Tab.Screen>
       <Tab.Screen name="Shopping">
-        {(props) => <ShoppingStack {...props} onSignOut={onSignOut} />}
+        {(props) => <ShoppingPage {...props} onSignOut={onSignOut} />}
       </Tab.Screen>
       <Tab.Screen name="Profile">
-        {(props) => <ProfileStack {...props} onSignOut={onSignOut} />}
+        {(props) => <ProfilePage {...props} onSignOut={onSignOut} />}
       </Tab.Screen>
     </Tab.Navigator>
   );

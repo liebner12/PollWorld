@@ -1,13 +1,12 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Title from "../../components/common/Typography/title";
 import HeaderContainer from "../../components/common/Containers/headerContainer";
 import PrimaryContainer from "../../components/common/Containers/primaryContainer";
 import ContentContainer from "../../components/common/Containers/contentContainer";
 import ScrollableContainer from "../../components/common/Containers/scrollableContainer";
 import ViewContainer from "../../components/common/Containers/viewContainer";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import Form from "../../components/form/form";
-import { getAssetByID } from "react-native-web/dist/modules/AssetRegistry";
 import {selectAccountData} from "../../components/redux_components/accountController";
 
 const SurveyPage = ({ route, navigation, onSignOut }) => {

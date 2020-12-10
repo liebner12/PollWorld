@@ -23,6 +23,7 @@ const Survey = ({
     item: {
       backgroundColor: backgroundColors.secondary,
       width: fit ? "47%" : "200@s",
+      minHeight: fit ? 250 : 0,
       borderRadius: rounded.md,
       elevation: elevation.elevation,
       paddingTop: "10@mvs",

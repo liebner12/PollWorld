@@ -1,4 +1,4 @@
-const server = `http://localhost:8000`;
+const server = `http://10.0.2.2:8000`;
 
 const getHeaders = (token) => {
   const headers = {

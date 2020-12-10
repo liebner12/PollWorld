@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useRef } from "react";
 import Title from "../../components/common/Typography/title";
 import HeaderContainer from "../../components/common/Containers/headerContainer";
 import ItemsList from "../../components/combined/itemsList";
@@ -6,14 +6,14 @@ import PrimaryContainer from "../../components/common/Containers/primaryContaine
 import ContentContainer from "../../components/common/Containers/contentContainer";
 import ScrollableContainer from "../../components/common/Containers/scrollableContainer";
 import ViewContainer from "../../components/common/Containers/viewContainer";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import Survey from "../../components/combined/survey";
-import {selectAccountData} from "../../components/redux_components/accountController";
-
+import { selectAccountData } from "../../components/redux_components/accountController";
+import { Animated } from "react-native";
 const SurveysPage = ({ navigation, onSignOut }) => {
-  const {account} = useSelector(selectAccountData)
-  const surveys = account.surveys
-
+  const { account } = useSelector(selectAccountData);
+  const surveys = account.surveys;
+  const offset = useRef(new Animated.Value(0)).current;
   const renderSurveys = () => {
     return surveys.map((survey, index) => (
       <Survey
@@ -33,13 +33,13 @@ const SurveysPage = ({ navigation, onSignOut }) => {
 
   return (
     <PrimaryContainer>
-      <HeaderContainer>
+      <HeaderContainer animatedValue={offset}>
         <Title size="big" color={true} shadow={true}>
           Ankiety
         </Title>
       </HeaderContainer>
       <ContentContainer>
-        <ScrollableContainer>
+        <ScrollableContainer offset={offset}>
           <ViewContainer wider={true}>
             <ItemsList title="Ankiety:" fit={true}>
               {renderSurveys()}
