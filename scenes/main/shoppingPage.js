@@ -12,9 +12,9 @@ import { selectAccountData } from "../../components/redux_components/accountCont
 import Coupon from "../../components/combined/coupon";
 
 const ShoppingPage = ({ navigation, onSignOut }) => {
-  const { account } = useSelector(selectAccountData);
-  const ownedCoupons = account.owned_coupons;
-  const couponsToBuy = account.coupons_to_buy;
+  let { account } = useSelector(selectAccountData);
+  let ownedCoupons = account.owned_coupons;
+  let couponsToBuy = account.coupons_to_buy;
 
   const renderOwnedCoupons = () => {
     return ownedCoupons.map((coupon, index) => (

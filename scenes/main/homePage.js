@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { View} from "react-native";
+import { View } from "react-native";
 import PrimaryContainer from "../../components/common/Containers/primaryContainer";
 import ContentContainer from "../../components/common/Containers/contentContainer";
 import ScrollableContainer from "../../components/common/Containers/scrollableContainer";
@@ -10,33 +10,27 @@ import { FontAwesome5 } from "@expo/vector-icons";
 import SubTitle from "../../components/common/Typography/subTitle";
 import ItemsList from "../../components/combined/itemsList";
 import { useDispatch, useSelector } from "react-redux";
+import { verticalScale } from "react-native-size-matters";
 import Survey from "../../components/combined/survey";
 import Coupon from "../../components/combined/coupon";
 import {
   dispatchAccountData,
-  selectAccountData,
+  selectAccountData
 } from "../../components/redux_components/accountController";
-import {
-  dispatchProfileData,
-  selectProfileData,
-} from "../../components/redux_components/profileController";
-import MarginContainer from "../../components/common/Containers/marginContainer";
-import { StatusBar } from "expo-status-bar";
-import { backgroundColors } from "../../styles/colors";
-const HomePage = ({ navigation }) => {
-  const { account } = useSelector(selectAccountData);
-  const { profile } = useSelector(selectProfileData);
-  const surveys = account.surveys;
-  const coupons = account.coupons_to_buy;
-  const dispatchAccount = useDispatch();
-  useEffect(() => {
-    dispatchAccount(dispatchAccountData());
-  }, [dispatchAccount]);
+import {dispatchProfileData, selectProfileData} from "../../components/redux_components/profileController";
+import {selectPersonalData} from "../../components/redux_components/personalDataController";
+import {getAccessToken} from "../../components/functional/api/storedTokens";
+import {putUserDataForUser} from "../../components/functional/profile/logic/userData";
+import {profileDataJoiner} from "../../components/functional/profile/logic/profileDataHandlers";
+import {selectPhysicalData} from "../../components/redux_components/physicalDataController";
+import {selectDetailsData} from "../../components/redux_components/detailsDataController";
 
-  const dispatchProfile = useDispatch();
-  useEffect(() => {
-    dispatchProfile(dispatchProfileData());
-  }, [dispatchProfile]);
+
+const HomePage = ({ navigation }) => {
+  const {account} = useSelector(selectAccountData)
+  const {personal} = useSelector(selectPersonalData)
+
+  const surveys = account.surveys
 
   const renderSurveys = () => {
     return surveys
@@ -50,44 +44,46 @@ const HomePage = ({ navigation }) => {
           description={survey.shortDescription}
           price={survey.price}
           rate={survey.rate}
+          type="surveys"
         />
       ));
   };
 
   const renderCoupons = () => {
-    return coupons
+    return surveys
       .slice(0, 4)
-      .map((coupon, index) => (
+      .map((survey, index) => (
         <Coupon
           key={index}
-          id={coupon.id}
-          name={coupon.company}
-          category={coupon.category}
-          description={coupon.description}
-          price={coupon.price}
+          id={survey.id}
+          name={survey.name}
+          category={survey.category}
+          description={survey.shortDescription}
+          price={survey.price}
+          rate={survey.rate}
+          type="coupons"
+          horizontal={true}
         />
       ));
   };
 
   return (
     <PrimaryContainer>
-      <StatusBar style="light" backgroundColor={backgroundColors.green} />
       <HeaderContainer>
         <Title color={true} shadow={true} size="big">
           Twoje punkty:
         </Title>
         <Title color={true} size="big" shadow={true} noMargin={true}>
-          {account.points}{" "}
-          <FontAwesome5 name="money-bill" size={24} color="white" />
+          {account.points}<FontAwesome5 name="money-bill" size={24} color="white" />
         </Title>
       </HeaderContainer>
       <ContentContainer>
         <ScrollableContainer>
           <ViewContainer wider={true}>
-            <Title>Witaj {profile.name}</Title>
+            <Title>Witaj {personal.name}</Title>
             <SubTitle>Mamy dla Ciebie super ankiety!</SubTitle>
-            <View>
-              <MarginContainer>
+            <View style={{ marginTop: verticalScale(20) }}>
+              <View>
                 <ItemsList
                   title="Nowe ankiety"
                   subTitle="Zobacz wszystkie:"
@@ -95,8 +91,8 @@ const HomePage = ({ navigation }) => {
                 >
                   {renderSurveys()}
                 </ItemsList>
-              </MarginContainer>
-              <MarginContainer>
+              </View>
+              <View style={{ marginTop: verticalScale(20) }}>
                 <ItemsList
                   title="Kupony"
                   subTitle="Zobacz wszystkie:"
@@ -105,7 +101,7 @@ const HomePage = ({ navigation }) => {
                 >
                   {renderCoupons()}
                 </ItemsList>
-              </MarginContainer>
+              </View>
             </View>
           </ViewContainer>
         </ScrollableContainer>

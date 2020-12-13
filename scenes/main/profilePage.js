@@ -12,14 +12,20 @@ import { ScaledSheet } from "react-native-size-matters";
 import { useSelector } from "react-redux";
 import { selectProfileData } from "../../components/redux_components/profileController";
 import MarginContainer from "../../components/common/Containers/marginContainer";
+import {selectPersonalData} from "../../components/redux_components/personalDataController";
+import {selectPhysicalData} from "../../components/redux_components/physicalDataController";
+import {selectDetailsData} from "../../components/redux_components/detailsDataController";
 
 const ProfilePage = ({ navigation, onSignOut }) => {
-  const { profile } = useSelector(selectProfileData);
+  let { personal } = useSelector(selectPersonalData);
+  let { physical } = useSelector(selectPhysicalData);
+  let { details } = useSelector(selectDetailsData);
+
   const offset = useRef(new Animated.Value(0)).current;
   const job =
-    profile.place_of_residence == 1
+   details.place_of_residence == 1
       ? "metropolia"
-      : profile.place_of_residence == 2
+      : details.place_of_residence == 2
       ? "miasto"
       : "wieś";
   return (
@@ -33,25 +39,25 @@ const ProfilePage = ({ navigation, onSignOut }) => {
         <ScrollableContainer offset={offset}>
           <View style={styles.name}>
             <Title size="big" color={true}>
-              Cześć {profile.name}
+              Cześć {personal.name}
             </Title>
           </View>
           <ViewContainer wider={true}>
             <ImportantData
               onPress={() => navigation.navigate("Edit")}
-              email={profile.email}
+              email={personal.email}
               password="********"
             />
             <MarginContainer>
               <PersonalData
                 onPress={() => navigation.navigate("Edit")}
-                age={profile.age}
+                age={personal.age}
                 sex="mężczyzna"
                 living={job}
-                job={profile.profession}
-                height={profile.growth}
-                weight={profile.weight}
-                fitness={profile.level_of_fitness}
+                job={details.profession}
+                height={physical.growth}
+                weight={physical.weight}
+                fitness={physical.level_of_fitness}
               />
             </MarginContainer>
           </ViewContainer>

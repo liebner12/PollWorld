@@ -8,11 +8,23 @@ import {
   cantBeEmpty,
   onlyNumbers,
 } from "../../components/form/typingValidation";
+import {useDispatch} from "react-redux";
+import {dispatchPersonalData} from "../../components/redux_components/personalDataController";
 const PersonalDataPage = ({ navigation }) => {
   const secondTextField = createRef();
+  const dispatchPersonal = useDispatch()
+
+  const handleDispatcher = (age, name, sex) => {
+      dispatchPersonal(dispatchPersonalData({
+          name: name,
+          age: age,
+          sex: sex,
+      }))
+  }
   const handleSubmit = () => {
-    navigation.navigate("Details");
+      navigation.navigate("Details");
   };
+
 
   return (
     <ScrollableContainer padding={true}>
@@ -22,7 +34,7 @@ const PersonalDataPage = ({ navigation }) => {
         <Form
           buttonText="Kontynuuj"
           onSubmit={handleSubmit}
-          action={() => console.log("fake")}
+          action={handleDispatcher}
           fields={{
             name: {
               name: "Imię",

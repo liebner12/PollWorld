@@ -23,6 +23,7 @@ export const profileSlice = createSlice({
     userData: (state, { payload }) => {
       state.profile = payload;
     },
+
   },
 });
 
@@ -30,6 +31,17 @@ export const { userData } = profileSlice.actions;
 export const selectProfileData = (state) => state.profile;
 export default profileSlice.reducer;
 
+
+export function dispatchProfileDataWithValues(values){
+  return (dispatch) => {
+    dispatch(userData(values));
+  };
+}
+export function dispatchPersonalData(age,growth,sex){
+  return (dispatch) => {
+    dispatch(userData(values));
+  };
+}
 export function dispatchProfileData() {
   return (dispatch) => {
     const profile = fetchUserData();
