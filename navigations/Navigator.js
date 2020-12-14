@@ -16,8 +16,7 @@ import {
   dispatchEmail,
   dispatchSurveysWithValue
 } from "../components/redux_components/accountController";
-import {dispatchProfileData} from "../components/redux_components/profileController";
-import {getAccessToken} from "../components/functional/api/storedTokens";
+import {getAccessToken, setAccessToken} from "../components/functional/api/storedTokens";
 import {getSurveysForUser} from "../components/functional/surveys/logic/survey";
 import {serverToSurvey} from "../components/functional/surveys/logic/surveyConverter";
 import {getUserData} from "../components/functional/profile/communication/fetchUserData";
@@ -35,6 +34,7 @@ const AppNavigator = () => {
   const dispatchPersonal = useDispatch();
   const dispatchDetails = useDispatch();
   const dispatchPhysical = useDispatch();
+  const dispatchAccount = useDispatch();
   const dispatchSurveysWithData = useDispatch();
 
   const handleSignInShorter = async() =>
@@ -42,16 +42,17 @@ const AppNavigator = () => {
     const token = await getAccessToken()
     const surveys = await getSurveysForUser(token)
     await dispatchSurveysWithData(dispatchSurveysWithValue(surveys.map(serverToSurvey)));
+    await dispatchAccount(dispatchAccountData());
     setIsAuthenticated(true);
   }
+
+
   const handleSignIn = async () => {
-    //dispatchProfile(dispatchAccountData())
     const token = await getAccessToken();
     const surveys = await getSurveysForUser(token);
     const profileData = await getUserDataForUser(token);
 
-    console.log("PROFILE DATA:", profileData)
-
+    await dispatchAccount(dispatchAccountData());
     await dispatchSurveysWithData(dispatchSurveysWithValue(surveys.map(serverToSurvey)));
     await dispatchPersonal(dispatchPersonalData(profileDataSeparator(profileData).personal))
     await dispatchPhysical(dispatchPhysicalData(profileDataSeparator(profileData).physical))
@@ -61,7 +62,9 @@ const AppNavigator = () => {
   };
 
   const handleSignOut = async () => {
-    // await setToken("");
+    await setAccessToken("");
+    console.log("wylogowano")
+    await console.log(await getAccessToken())
     setIsAuthenticated(false);
   };
 

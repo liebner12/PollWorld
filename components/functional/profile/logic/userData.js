@@ -5,11 +5,11 @@ import {fetchSurveysForUser} from "../../surveys/communication/fetchSurveys";
 
 
 export const getUserDataForUser = async (user_token) => {
-    return  (await getUserData(user_token)).response_body}
+    let response =  await getUserData(user_token)
+    return response.response_body.data}
 
 export const putUserDataForUser = async (user_token, body) => {
     let response = await putUserData(user_token, body)
-    console.log("RESPONSE", response)
     return response
 }
 

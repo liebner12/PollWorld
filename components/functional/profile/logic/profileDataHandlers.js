@@ -28,9 +28,6 @@ export const profileDataSeparator = (profile) =>{
         place_of_residence: profile.place_of_residence
     }
 
-    console.log(personal)
-    console.log(physical)
-    console.log(details)
     return {personal, physical, details};
 }
 

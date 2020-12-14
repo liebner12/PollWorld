@@ -27,11 +27,11 @@ import {selectDetailsData} from "../../components/redux_components/detailsDataCo
 
 
 const HomePage = ({ navigation }) => {
-  const {account} = useSelector(selectAccountData)
-  const {personal} = useSelector(selectPersonalData)
+  let {account} = useSelector(selectAccountData)
+  let {personal} = useSelector(selectPersonalData)
 
   const surveys = account.surveys
-
+  let coupons = account.coupons_to_buy
   const renderSurveys = () => {
     return surveys
       .slice(0, 4)
@@ -50,19 +50,16 @@ const HomePage = ({ navigation }) => {
   };
 
   const renderCoupons = () => {
-    return surveys
+    return coupons
       .slice(0, 4)
-      .map((survey, index) => (
+      .map((coupon, index) => (
         <Coupon
           key={index}
-          id={survey.id}
-          name={survey.name}
-          category={survey.category}
-          description={survey.shortDescription}
-          price={survey.price}
-          rate={survey.rate}
-          type="coupons"
-          horizontal={true}
+          id={coupon.id}
+          name={coupon.company}
+          category={coupon.category}
+          description={coupon.description}
+          price={coupon.price}
         />
       ));
   };

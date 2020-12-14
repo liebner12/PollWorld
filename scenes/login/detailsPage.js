@@ -18,7 +18,7 @@ const DetailsPage = ({ navigation, onSignIn }) => {
   const handleDispatcher = (hometown,job) =>{
     dispatchDetails(dispatchDetailsData({
       profession: job,
-      hometown: hometown
+      place_of_residence: hometown
     }))
   }
 

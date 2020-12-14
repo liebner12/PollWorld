@@ -47,12 +47,10 @@ export default accountSlice.reducer
 
 export function dispatchAccountData() {
     return dispatch => {
-        const surveys = getMockSurveysForUser();
         const owned_coupons = getOwnedCoupons();
         const coupons_to_buy = getCouponsToBuy();
         const points = getUserPoints()
 
-        dispatch(userSurveys(surveys))
         dispatch(userPoints(points))
         dispatch(ownedCoupons(owned_coupons))
         dispatch(couponsToBuy(coupons_to_buy))
