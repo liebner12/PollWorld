@@ -9,6 +9,7 @@ export const profileDataJoiner = (personal, physical, details) =>{
         weight: physical.weight,
         level_of_fitness: physical.level_of_fitness
     }
+    console.log("joined:", result)
     return result
 }
 export const profileDataSeparator = (profile) =>{
@@ -31,4 +32,28 @@ export const profileDataSeparator = (profile) =>{
     return {personal, physical, details};
 }
 
+export const placeOfResidenceToNumber = (place_of_residence) => {
+    switch(place_of_residence) {
+        case "metropolia":
+            return 1
+        case "wieś":
+            return 2
+        case "miasto":
+            return 3
+        // code block
+    }
+    return 3
+}
+
+export const numberToPlaceOfResidence = (number) => {
+    switch (number){
+        case 1:
+            return "metropolia"
+        case 2:
+            return "wieś"
+        case 3:
+            return "miasto"
+    }
+    return "miasto"
+}
 

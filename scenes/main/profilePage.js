@@ -16,6 +16,7 @@ import {selectPersonalData} from "../../components/redux_components/personalData
 import {selectPhysicalData} from "../../components/redux_components/physicalDataController";
 import {selectDetailsData} from "../../components/redux_components/detailsDataController";
 import {selectAccountData} from "../../components/redux_components/accountController";
+import {numberToPlaceOfResidence} from "../../components/functional/profile/logic/profileDataHandlers";
 
 const ProfilePage = ({ navigation, onSignOut }) => {
   let { personal } = useSelector(selectPersonalData);
@@ -49,7 +50,7 @@ const ProfilePage = ({ navigation, onSignOut }) => {
                 onPress={() => navigation.navigate("Edit")}
                 age={personal.age}
                 sex={personal.sex}
-                living={details.place_of_residence}
+                living={numberToPlaceOfResidence(details.place_of_residence)}
                 job={details.profession}
                 height={physical.growth}
                 weight={physical.weight}

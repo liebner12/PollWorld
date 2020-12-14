@@ -11,6 +11,7 @@ import {selectPersonalData} from "../../components/redux_components/personalData
 import {selectPhysicalData} from "../../components/redux_components/physicalDataController";
 import {putUserDataForUser} from "../../components/functional/profile/logic/userData";
 import {getAccessToken} from "../../components/functional/api/storedTokens";
+import {placeOfResidenceToNumber} from "../../components/functional/profile/logic/profileDataHandlers";
 
 const DetailsPage = ({ navigation, onSignIn }) => {
   const dispatchDetails = useDispatch()
@@ -18,7 +19,7 @@ const DetailsPage = ({ navigation, onSignIn }) => {
   const handleDispatcher = (hometown,job) =>{
     dispatchDetails(dispatchDetailsData({
       profession: job,
-      place_of_residence: hometown
+      place_of_residence: placeOfResidenceToNumber(hometown)
     }))
   }
 
