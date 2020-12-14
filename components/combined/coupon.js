@@ -7,6 +7,7 @@ import SubTitle from "../common/Typography/subTitle";
 import ItemHeader from "../common/itemHeader";
 import { fonts } from "../../styles/fonts";
 import { elevation, rounded } from "../../styles/base";
+
 const Coupon = ({
   id,
   name,
@@ -16,6 +17,8 @@ const Coupon = ({
   even,
   price,
   code,
+  setModalVisible,
+  setCouponId 
 }) => {
   const styles = ScaledSheet.create({
     item: {
@@ -70,7 +73,11 @@ const Coupon = ({
           </SubTitle>
         </Text>
       </View>
-      <TouchableOpacity style={styles.footer} activeOpacity={0.6}>
+      <TouchableOpacity
+        style={styles.footer}
+        activeOpacity={0.6}
+        onPress={() => (code ? null : (setModalVisible(true), setCouponId(id)))}
+      >
         {code ? (
           <Text style={styles.codeAlign}>
             <SubTitle color="white">{code}</SubTitle>

@@ -27,7 +27,6 @@ const LoginPage = ({ navigation, onSignIn }) => {
     } else {
       onSignIn();
       throw new Error("Coś poszło nie tak.");
-      
     }
   };
 
@@ -81,7 +80,10 @@ const LoginPage = ({ navigation, onSignIn }) => {
           </View>
         </View>
         <View style={styles.buttonsContainer}>
-          <TouchableOpacity activeOpacity={0.6}>
+          <TouchableOpacity
+            activeOpacity={0.6}
+            style={{ flexWrap: "wrap", flex: 1 }}
+          >
             <Paragraph>Zapomniałeś hasła?</Paragraph>
           </TouchableOpacity>
           <TouchableOpacity

@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { View, Animated } from "react-native";
 import PrimaryContainer from "../../components/common/Containers/primaryContainer";
 import ContentContainer from "../../components/common/Containers/contentContainer";
@@ -12,7 +12,8 @@ import { ScaledSheet } from "react-native-size-matters";
 import { useSelector } from "react-redux";
 import { selectProfileData } from "../../components/redux_components/profileController";
 import MarginContainer from "../../components/common/Containers/marginContainer";
-
+import PopUp from "../../components/common/popUp";
+import icon from "../../assets/user.jpg";
 const ProfilePage = ({ navigation, onSignOut }) => {
   const { profile } = useSelector(selectProfileData);
   const offset = useRef(new Animated.Value(0)).current;
@@ -22,11 +23,19 @@ const ProfilePage = ({ navigation, onSignOut }) => {
       : profile.place_of_residence == 2
       ? "miasto"
       : "wieś";
+
+  const [visible, setVisible] = useState(false);
+  const [message, setMessage] = useState("");
+  const onToggleSnackBar = (text) => {
+    setVisible(!visible);
+    setMessage(text);
+  };
+
   return (
     <PrimaryContainer>
       <HeaderContainer
         settings={() => navigation.navigate("Settings")}
-        icon={true}
+        icon={icon}
         animatedValue={offset}
       ></HeaderContainer>
       <ContentContainer>
@@ -38,13 +47,14 @@ const ProfilePage = ({ navigation, onSignOut }) => {
           </View>
           <ViewContainer wider={true}>
             <ImportantData
-              onPress={() => navigation.navigate("Edit")}
               email={profile.email}
               password="********"
             />
             <MarginContainer>
               <PersonalData
-                onPress={() => navigation.navigate("Edit")}
+                onPress={() =>
+                  navigation.navigate("Edit", { snackbar: onToggleSnackBar })
+                }
                 age={profile.age}
                 sex="mężczyzna"
                 living={job}
@@ -56,6 +66,7 @@ const ProfilePage = ({ navigation, onSignOut }) => {
             </MarginContainer>
           </ViewContainer>
         </ScrollableContainer>
+        <PopUp visible={visible} setVisible={setVisible} message={message} />
       </ContentContainer>
     </PrimaryContainer>
   );

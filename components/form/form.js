@@ -9,14 +9,28 @@ import ExpandableList from "../combined/expandableList";
 import HorizontalLine from "../common/horizontalLine";
 import SubTitle from "../common/Typography/subTitle";
 import { backgroundColors, colors } from "../../styles/colors";
-const Form = ({ fields, buttonText, onSubmit, action, survey }) => {
+const Form = ({ fields, buttonText, onSubmit, action, survey, edit }) => {
   const fieldKeys = Object.keys(fields);
-  const [values, setValues] = useState("");
+  const [values, setValues] = useState(
+    edit
+      ? {
+          name: "Michał",
+          age: "16",
+          sex: "mężczyzna",
+          job: "transport",
+          hometown: "metropolia",
+          height: "169",
+          weight: "40",
+          activity: "3",
+        }
+      : ""
+  );
   const [errorMessage, setErrorMessage] = useState("");
   const [validationErrors, setValidationErrors] = useState("");
 
   const onChangeValue = (key, value) => {
     const newState = { ...values, [key]: value };
+
     setValues(newState);
     if (validationErrors[key]) {
       const newErrors = { ...validationErrors, [key]: "" };
@@ -41,8 +55,8 @@ const Form = ({ fields, buttonText, onSubmit, action, survey }) => {
       return setValidationErrors(errors);
     }
     try {
-      //const result = await action(...getValues());
-      await onSubmit();
+      const result = await action(...getValues());
+      await onSubmit(result);
     } catch (e) {
       setErrorMessage(e.message);
     }

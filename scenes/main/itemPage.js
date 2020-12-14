@@ -19,6 +19,7 @@ const ItemPage = ({ route, navigation }) => {
   const { account } = useSelector(selectAccountData);
   const survey = account.surveys.find((el) => el.id == keyId);
   const offset = useRef(new Animated.Value(0)).current;
+
   return (
     <PrimaryContainer>
       <HeaderContainer
@@ -80,6 +81,7 @@ const ItemPage = ({ route, navigation }) => {
                   navigation.navigate("Survey", {
                     itemId: keyId,
                     survey: survey,
+                    snackbar: route.params.snackbar,
                   })
                 }
               />

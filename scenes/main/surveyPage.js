@@ -7,14 +7,17 @@ import ScrollableContainer from "../../components/common/Containers/scrollableCo
 import ViewContainer from "../../components/common/Containers/viewContainer";
 import { useSelector } from "react-redux";
 import Form from "../../components/form/form";
-import {selectAccountData} from "../../components/redux_components/accountController";
+import { selectAccountData } from "../../components/redux_components/accountController";
 
 const SurveyPage = ({ route, navigation, onSignOut }) => {
   const keyId = route.params.itemId;
-  const {account} = useSelector(selectAccountData)
-    const surveys = account.surveys
+  const { account } = useSelector(selectAccountData);
+  const surveys = account.surveys;
   const survey = surveys.find((el) => el.id == keyId);
-
+  const onSubmit = () => {
+    navigation.popToTop();
+    route.params.snackbar("Wypełniono pomyślnie ankietę!");
+  };
   return (
     <PrimaryContainer>
       <HeaderContainer returnButton={() => navigation.goBack()}>
@@ -27,8 +30,8 @@ const SurveyPage = ({ route, navigation, onSignOut }) => {
           <ViewContainer wider={true}>
             <Form
               buttonText="Zakończ"
-              onSubmit={() => console.log("ha")}
-              action={() => navigation.goBack()}
+              onSubmit={() => onSubmit()}
+              action={() => console.log("ha")}
               survey={true}
               fields={{
                 name: {

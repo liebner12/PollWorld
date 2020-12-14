@@ -13,11 +13,13 @@ const PersonalData = ({ onPress, email, password }) => {
     <View style={styles.container}>
       <View style={styles.header}>
         <Title size="small">Twoje dane prywatne:</Title>
-        <TouchableOpacity onPress={onPress}>
-          <Title>
-            <MaterialIcons name="edit" size={24} color={colors.primary} />
-          </Title>
-        </TouchableOpacity>
+        {onPress ? (
+          <TouchableOpacity onPress={onPress}>
+            <Title>
+              <MaterialIcons name="edit" size={24} color={colors.primary} />
+            </Title>
+          </TouchableOpacity>
+        ) : null}
       </View>
       <HorizontalLine />
       <View style={styles.spaceBetween}>

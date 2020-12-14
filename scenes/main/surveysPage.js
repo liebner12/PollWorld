@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState} from "react";
 import Title from "../../components/common/Typography/title";
 import HeaderContainer from "../../components/common/Containers/headerContainer";
 import ItemsList from "../../components/combined/itemsList";
@@ -10,10 +10,19 @@ import { useSelector } from "react-redux";
 import Survey from "../../components/combined/survey";
 import { selectAccountData } from "../../components/redux_components/accountController";
 import { Animated } from "react-native";
+import PopUp from "../../components/common/popUp";
 const SurveysPage = ({ navigation, onSignOut }) => {
   const { account } = useSelector(selectAccountData);
   const surveys = account.surveys;
   const offset = useRef(new Animated.Value(0)).current;
+
+  const [visible, setVisible] = useState(false);
+  const [message, setMessage] = useState("");
+  const onToggleSnackBar = (text) => {
+    setVisible(!visible);
+    setMessage(text);
+  };
+
   const renderSurveys = () => {
     return surveys.map((survey, index) => (
       <Survey
@@ -27,6 +36,7 @@ const SurveysPage = ({ navigation, onSignOut }) => {
         type="surveys"
         fit={true}
         even={index % 2 ? false : true}
+        snackbar={onToggleSnackBar}
       />
     ));
   };
@@ -47,6 +57,7 @@ const SurveysPage = ({ navigation, onSignOut }) => {
           </ViewContainer>
         </ScrollableContainer>
       </ContentContainer>
+      <PopUp visible={visible} setVisible={setVisible} message={message} />
     </PrimaryContainer>
   );
 };

@@ -22,7 +22,6 @@ const RegisterPage = ({ navigation }) => {
     } else if (result === 400) {
       throw new Error("Ten adres email jest już używany.");
     } else {
-      console.log(result)
       throw new Error("Coś poszło nie tak.");
     }
   };

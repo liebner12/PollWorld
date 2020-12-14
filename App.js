@@ -25,12 +25,9 @@ import rootReducer from "./components/redux_components/store";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 export default function App() {
   let [fontsLoaded] = useFonts({
-    Quicksand_400Regular,
-    Quicksand_500Medium,
     Quicksand_600SemiBold,
     Quicksand_700Bold,
     Asap_400Regular,
-    Asap_500Medium,
     Asap_600SemiBold,
     Asap_700Bold,
   });

@@ -10,16 +10,22 @@ import {
   cantBeEmpty,
   onlyNumbers,
 } from "../../components/form/typingValidation";
-import {useSelector} from "react-redux";
-import {selectAccountData} from "../../components/redux_components/accountController";
-import {selectProfileData} from "../../components/redux_components/profileController";
+import { useSelector } from "react-redux";
+import { selectAccountData } from "../../components/redux_components/accountController";
+import { selectProfileData } from "../../components/redux_components/profileController";
 
-const EdditPage = ({ navigation }) => {
-  const {account} = useSelector(selectAccountData)
-  const {profile} = useSelector(selectProfileData)
+const EdditPage = ({ route, navigation }) => {
+  const { account } = useSelector(selectAccountData);
+  const { profile } = useSelector(selectProfileData);
 
   const secondTextField = createRef();
   const thirdTextField = createRef();
+
+  const onSubmit = () => {
+    navigation.goBack();
+    route.params.snackbar("Zedtyowano pomyślnie dane!");
+  };
+
   return (
     <PrimaryContainer>
       <HeaderContainer returnButton={() => navigation.goBack()}>
@@ -32,19 +38,18 @@ const EdditPage = ({ navigation }) => {
           <ViewContainer>
             <Form
               buttonText="Zakończ"
-              onSubmit={() => console.log("ha")}
+              onSubmit={onSubmit}
               action={() => console.log("fake")}
+              edit={true}
               fields={{
                 name: {
                   name: "Imię",
-                  defaultValue: "Michał",
                   validate: [cantBeEmpty],
                   blurOnSubmit: false,
                   onSubmitEditing: () => secondTextField.current.focus(),
                 },
                 age: {
                   name: "Wiek",
-                  defaultValue: "16",
                   keyboardType: "numeric",
                   validate: [onlyNumbers, cantBeEmpty],
                   ref: secondTextField,
@@ -52,7 +57,6 @@ const EdditPage = ({ navigation }) => {
                 sex: {
                   type: "radio",
                   title: "Płeć",
-                  defaultValue: "mężczyzna",
                   fields: {
                     male: { name: "mężczyzna" },
                     female: { name: "kobieta" },
@@ -63,7 +67,6 @@ const EdditPage = ({ navigation }) => {
                 job: {
                   type: "list",
                   title: "Branża",
-                  defaultValue: "przemysł",
                   fields: {
                     1: { name: "przemysł" },
                     2: { name: "budownictwo" },
@@ -102,7 +105,6 @@ const EdditPage = ({ navigation }) => {
                 hometown: {
                   type: "radio",
                   title: "Miejsce zamieszkania",
-                  defaultValue: "metropolia",
                   fields: {
                     city: { name: "metropolia" },
                     town: { name: "miasto" },
@@ -113,7 +115,6 @@ const EdditPage = ({ navigation }) => {
                 height: {
                   name: "Wzrost",
                   keyboardType: "numeric",
-                  defaultValue: "169",
                   validate: [onlyNumbers, cantBeEmpty],
                   blurOnSubmit: false,
                   onSubmitEditing: () => thirdTextField.current.focus(),
@@ -121,14 +122,12 @@ const EdditPage = ({ navigation }) => {
                 weight: {
                   name: "Waga",
                   keyboardType: "numeric",
-                  defaultValue: "40",
                   validate: [onlyNumbers, cantBeEmpty],
                   ref: thirdTextField,
                 },
                 activity: {
                   type: "radio",
                   title: "Poziom aktywności fizycznej",
-                  defaultValue: "3",
                   fields: {
                     1: { name: "1" },
                     2: { name: "2" },

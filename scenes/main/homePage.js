@@ -1,5 +1,4 @@
-import React, { useEffect } from "react";
-import { View} from "react-native";
+import React, { useEffect, useState } from "react";
 import PrimaryContainer from "../../components/common/Containers/primaryContainer";
 import ContentContainer from "../../components/common/Containers/contentContainer";
 import ScrollableContainer from "../../components/common/Containers/scrollableContainer";
@@ -23,12 +22,23 @@ import {
 import MarginContainer from "../../components/common/Containers/marginContainer";
 import { StatusBar } from "expo-status-bar";
 import { backgroundColors } from "../../styles/colors";
+import PopUp from "../../components/common/popUp";
+import BuyingWindow from "../../components/combined/buyingWindow";
 const HomePage = ({ navigation }) => {
   const { account } = useSelector(selectAccountData);
   const { profile } = useSelector(selectProfileData);
   const surveys = account.surveys;
   const coupons = account.coupons_to_buy;
   const dispatchAccount = useDispatch();
+  const [modalVisible, setModalVisible] = useState(false);
+  const [visible, setVisible] = useState(false);
+  const [message, setMessage] = useState("");
+  const [couponId, setCouponId] = useState(1);
+  const onToggleSnackBar = (text) => {
+    setVisible(!visible);
+    setMessage(text);
+  };
+
   useEffect(() => {
     dispatchAccount(dispatchAccountData());
   }, [dispatchAccount]);
@@ -50,6 +60,7 @@ const HomePage = ({ navigation }) => {
           description={survey.shortDescription}
           price={survey.price}
           rate={survey.rate}
+          snackbar={onToggleSnackBar}
         />
       ));
   };
@@ -65,8 +76,16 @@ const HomePage = ({ navigation }) => {
           category={coupon.category}
           description={coupon.description}
           price={coupon.price}
+          setModalVisible={setModalVisible}
+          setCouponId={setCouponId}
         />
       ));
+  };
+
+  const renderCheckout = (couponId) => {
+    const coupon = coupons.find((item) => item.id == couponId);
+    console.log(couponId)
+    console.log(coupon)
   };
 
   return (
@@ -86,30 +105,30 @@ const HomePage = ({ navigation }) => {
           <ViewContainer wider={true}>
             <Title>Witaj {profile.name}</Title>
             <SubTitle>Mamy dla Ciebie super ankiety!</SubTitle>
-            <View>
-              <MarginContainer>
-                <ItemsList
-                  title="Nowe ankiety"
-                  subTitle="Zobacz wszystkie:"
-                  action={() => navigation.navigate("Surveys")}
-                >
-                  {renderSurveys()}
-                </ItemsList>
-              </MarginContainer>
-              <MarginContainer>
-                <ItemsList
-                  title="Kupony"
-                  subTitle="Zobacz wszystkie:"
-                  type="coupons"
-                  action={() => navigation.navigate("Shopping")}
-                >
-                  {renderCoupons()}
-                </ItemsList>
-              </MarginContainer>
-            </View>
+            <MarginContainer>
+              <ItemsList
+                title="Nowe ankiety"
+                subTitle="Zobacz wszystkie:"
+                action={() => navigation.navigate("Surveys")}
+              >
+                {renderSurveys()}
+              </ItemsList>
+            </MarginContainer>
+            <MarginContainer>
+              <ItemsList
+                title="Kupony"
+                subTitle="Zobacz wszystkie:"
+                type="coupons"
+                action={() => navigation.navigate("Shopping")}
+              >
+                {renderCoupons()}
+              </ItemsList>
+            </MarginContainer>
           </ViewContainer>
         </ScrollableContainer>
+        <PopUp visible={visible} setVisible={setVisible} message={message} />
       </ContentContainer>
+      {renderCheckout(couponId)}
     </PrimaryContainer>
   );
 };
