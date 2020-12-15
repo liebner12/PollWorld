@@ -52,14 +52,13 @@ const AppNavigator = () => {
     const surveys = await getSurveysForUser(token);
     const profileData = await getUserDataForUser(token);
 
-    console.log("ZAlogowano")
     console.log(profileData)
 
     await dispatchSurveysWithData(dispatchSurveysWithValue(surveys.map(serverToSurvey)));
     await dispatchPersonal(dispatchPersonalData(profileDataSeparator(profileData).personal))
     await dispatchPhysical(dispatchPhysicalData(profileDataSeparator(profileData).physical))
     await dispatchDetails(dispatchDetailsData(profileDataSeparator(profileData).details))
-    //await dispatchAccount(dispatchAccountData());
+    await dispatchAccount(dispatchAccountData());
 
     setIsAuthenticated(true);
   };

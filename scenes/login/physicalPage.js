@@ -23,7 +23,7 @@ const PhysicalPage = ({ navigation, onSignIn }) => {
     let { details } = useSelector(selectDetailsData);
     let data = {}
 
-    const handleDispatcher = (activity, height, weight) =>{
+    const handleDispatcher = (height, weight,activity) =>{
         data.growth=height
         data.weight=weight
         data.level_of_fitness=activity

@@ -25,7 +25,7 @@ const Form = ({ fields, buttonText, onSubmit, action, survey }) => {
   };
 
   const getValues = () => {
-    return fieldKeys.sort().map((key) => values[key]);
+    return fieldKeys.map((key) => values[key]);
   };
 
   const submit = async () => {
