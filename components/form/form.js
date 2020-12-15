@@ -39,7 +39,7 @@ const Form = ({ fields, buttonText, onSubmit, action, survey, edit }) => {
   };
 
   const getValues = () => {
-    return fieldKeys.sort().map((key) => values[key]);
+    return fieldKeys.map((key) => values[key]);
   };
 
   const submit = async () => {
@@ -55,6 +55,7 @@ const Form = ({ fields, buttonText, onSubmit, action, survey, edit }) => {
       return setValidationErrors(errors);
     }
     try {
+      console.log(...getValues())
       const result = await action(...getValues());
       await onSubmit(result);
     } catch (e) {

@@ -10,7 +10,6 @@ import PersonalData from "../../components/combined/personalData";
 import ImportantData from "../../components/combined/importantData";
 import { ScaledSheet } from "react-native-size-matters";
 import { useSelector } from "react-redux";
-
 import MarginContainer from "../../components/common/Containers/marginContainer";
 import PopUp from "../../components/common/popUp";
 import icon from "../../assets/user.jpg";
@@ -27,13 +26,6 @@ const ProfilePage = ({ navigation, onSignOut }) => {
   let { account } = useSelector(selectAccountData)
 
   const offset = useRef(new Animated.Value(0)).current;
-  const job =
-    profile.place_of_residence == 1
-      ? "metropolia"
-      : profile.place_of_residence == 2
-      ? "miasto"
-      : "wieś";
-
   const [visible, setVisible] = useState(false);
   const [message, setMessage] = useState("");
   const onToggleSnackBar = (text) => {
@@ -57,7 +49,7 @@ const ProfilePage = ({ navigation, onSignOut }) => {
           </View>
           <ViewContainer wider={true}>
             <ImportantData
-              email={profile.email}
+              email={account.email}
               password="********"
             />
             <MarginContainer>

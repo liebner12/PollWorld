@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Title from "../../components/common/Typography/title";
 import HeaderContainer from "../../components/common/Containers/headerContainer";
 import ItemsList from "../../components/combined/itemsList";
@@ -10,11 +10,14 @@ import Wallet from "../../components/combined/wallet";
 import { useSelector } from "react-redux";
 import { selectAccountData } from "../../components/redux_components/accountController";
 import Coupon from "../../components/combined/coupon";
+import BuyingWindow from "../../components/combined/buyingWindow";
 
 const ShoppingPage = ({ navigation, onSignOut }) => {
   let { account } = useSelector(selectAccountData);
   let ownedCoupons = account.owned_coupons;
   let couponsToBuy = account.coupons_to_buy;
+  const [modalVisible, setModalVisible] = useState(false);
+  const [couponId, setCouponId] = useState(1);
 
   const renderOwnedCoupons = () => {
     return ownedCoupons.map((coupon, index) => (
@@ -40,8 +43,26 @@ const ShoppingPage = ({ navigation, onSignOut }) => {
         price={coupon.price}
         fit={true}
         even={index % 2 ? false : true}
+        setModalVisible={setModalVisible}
+        setCouponId={setCouponId}
       />
     ));
+  };
+
+  const renderCheckout = (couponId) => {
+    const coupon = couponsToBuy.find((item) => item.id == couponId);
+    return (
+      <BuyingWindow
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+        id={coupon.id}
+        name={coupon.company}
+        category={coupon.category}
+        description={coupon.description}
+        price={coupon.price}
+        points={account.points}
+      />
+    );
   };
 
   return (
@@ -62,6 +83,7 @@ const ShoppingPage = ({ navigation, onSignOut }) => {
           </ViewContainer>
         </ScrollableContainer>
       </ContentContainer>
+      {renderCheckout(couponId)}
     </PrimaryContainer>
   );
 };

@@ -10,14 +10,8 @@ import {
   cantBeEmpty,
   onlyNumbers,
 } from "../../components/form/typingValidation";
-import { useSelector } from "react-redux";
-import { selectAccountData } from "../../components/redux_components/accountController";
-import { selectProfileData } from "../../components/redux_components/profileController";
 
 const EdditPage = ({ route, navigation }) => {
-  const { account } = useSelector(selectAccountData);
-  const { profile } = useSelector(selectProfileData);
-
   const secondTextField = createRef();
   const thirdTextField = createRef();
 

@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import { StatusBar } from "expo-status-bar";
 import PrimaryContainer from "../../components/common/Containers/primaryContainer";
 import ContentContainer from "../../components/common/Containers/contentContainer";
 import ScrollableContainer from "../../components/common/Containers/scrollableContainer";
@@ -15,8 +16,11 @@ import { selectAccountData } from "../../components/redux_components/accountCont
 import MarginContainer from "../../components/common/Containers/marginContainer";
 import PopUp from "../../components/common/popUp";
 import BuyingWindow from "../../components/combined/buyingWindow";
+import { selectPersonalData } from "../../components/redux_components/personalDataController";
+import { backgroundColors } from "../../styles/colors";
 const HomePage = ({ navigation }) => {
-  const { account } = useSelector(selectAccountData);
+  let { account } = useSelector(selectAccountData);
+  let { personal } = useSelector(selectPersonalData);
   const surveys = account.surveys;
   const coupons = account.coupons_to_buy;
   const [modalVisible, setModalVisible] = useState(false);
@@ -64,12 +68,23 @@ const HomePage = ({ navigation }) => {
 
   const renderCheckout = (couponId) => {
     const coupon = coupons.find((item) => item.id == couponId);
-    console.log(couponId);
-    console.log(coupon);
+    return (
+      <BuyingWindow
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+        id={coupon.id}
+        name={coupon.company}
+        category={coupon.category}
+        description={coupon.description}
+        price={coupon.price}
+        points={account.points}
+      />
+    );
   };
 
   return (
     <PrimaryContainer>
+      <StatusBar style="light" backgroundColor={backgroundColors.green} />
       <HeaderContainer>
         <Title color={true} shadow={true} size="big">
           Twoje punkty:

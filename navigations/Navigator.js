@@ -59,7 +59,7 @@ const AppNavigator = () => {
     await dispatchPersonal(dispatchPersonalData(profileDataSeparator(profileData).personal))
     await dispatchPhysical(dispatchPhysicalData(profileDataSeparator(profileData).physical))
     await dispatchDetails(dispatchDetailsData(profileDataSeparator(profileData).details))
-    //await dispatchAccount(dispatchAccountData());
+    await dispatchAccount(dispatchAccountData());
 
     setIsAuthenticated(true);
   };

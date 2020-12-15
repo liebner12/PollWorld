@@ -13,7 +13,6 @@ import MainButton from "../common/mainButton";
 import ItemHeader from "../common/itemHeader";
 import HorizontalLine from "../common/horizontalLine";
 import SubTitle from "../common/Typography/subTitle";
-import { getUserPoints } from "../functional/surveys/communication/survey";
 const BuyingWindow = ({
   modalVisible,
   setModalVisible,
