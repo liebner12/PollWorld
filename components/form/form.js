@@ -63,54 +63,54 @@ const Form = ({ fields, buttonText, onSubmit, action, survey, edit }) => {
   };
 
   return (
-    <View>
-      <Text style={styles.error}>{errorMessage}</Text>
-      {fieldKeys.map((key) => {
-        const field = fields[key];
-        const fieldError = validationErrors[key];
-        return (
-          <View key={key} style={survey ? styles.container : ""}>
-            {survey ? (
-              <View>
-                <SubTitle small={true}>{field.name}</SubTitle>
-                <HorizontalLine />
+      <View>
+        <Text style={styles.error}>{errorMessage}</Text>
+        {fieldKeys.map((key) => {
+          const field = fields[key];
+          const fieldError = validationErrors[key];
+          return (
+              <View key={key} style={survey ? styles.container : ""}>
+                {survey ? (
+                    <View>
+                      <SubTitle small={true}>{field.name}</SubTitle>
+                      <HorizontalLine />
+                    </View>
+                ) : null}
+                {field.type == "radio" ? (
+                    <RadioButtonGroup
+                        {...field}
+                        value={values[key]}
+                        survey={survey}
+                        setValue={(value) => onChangeValue(key, value)}
+                    />
+                ) : field.type == "checkbox" ? (
+                    <CheckboxGroup
+                        {...field}
+                        value={values[key]}
+                        survey={survey}
+                        onPress={(value) => onChangeValue(key, value)}
+                    />
+                ) : field.type == "list" ? (
+                    <ExpandableList
+                        {...field}
+                        value={values[key]}
+                        survey={survey}
+                        onPress={(value) => onChangeValue(key, value)}
+                    />
+                ) : (
+                    <TextField
+                        {...field}
+                        value={values[key]}
+                        survey={survey}
+                        onChangeText={(text) => onChangeValue(key, text)}
+                    />
+                )}
+                {survey ? null : <Text style={styles.error}>{fieldError}</Text>}
               </View>
-            ) : null}
-            {field.type == "radio" ? (
-              <RadioButtonGroup
-                {...field}
-                value={values[key]}
-                survey={survey}
-                setValue={(value) => onChangeValue(key, value)}
-              />
-            ) : field.type == "checkbox" ? (
-              <CheckboxGroup
-                {...field}
-                value={values[key]}
-                survey={survey}
-                onPress={(value) => onChangeValue(key, value)}
-              />
-            ) : field.type == "list" ? (
-              <ExpandableList
-                {...field}
-                value={values[key]}
-                survey={survey}
-                onPress={(value) => onChangeValue(key, value)}
-              />
-            ) : (
-              <TextField
-                {...field}
-                value={values[key]}
-                survey={survey}
-                onChangeText={(text) => onChangeValue(key, text)}
-              />
-            )}
-            {survey ? null : <Text style={styles.error}>{fieldError}</Text>}
-          </View>
-        );
-      })}
-      <MainButton name={buttonText} onPress={() => submit()} />
-    </View>
+          );
+        })}
+        <MainButton name={buttonText} onPress={() => submit()} />
+      </View>
   );
 };
 const styles = StyleSheet.create({

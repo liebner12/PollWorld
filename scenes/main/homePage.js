@@ -8,28 +8,17 @@ import HeaderContainer from "../../components/common/Containers/headerContainer"
 import { FontAwesome5 } from "@expo/vector-icons";
 import SubTitle from "../../components/common/Typography/subTitle";
 import ItemsList from "../../components/combined/itemsList";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import Survey from "../../components/combined/survey";
 import Coupon from "../../components/combined/coupon";
-import {
-  dispatchAccountData,
-  selectAccountData,
-} from "../../components/redux_components/accountController";
-import {
-  dispatchProfileData,
-  selectProfileData,
-} from "../../components/redux_components/profileController";
+import { selectAccountData } from "../../components/redux_components/accountController";
 import MarginContainer from "../../components/common/Containers/marginContainer";
-import { StatusBar } from "expo-status-bar";
-import { backgroundColors } from "../../styles/colors";
 import PopUp from "../../components/common/popUp";
 import BuyingWindow from "../../components/combined/buyingWindow";
 const HomePage = ({ navigation }) => {
   const { account } = useSelector(selectAccountData);
-  const { profile } = useSelector(selectProfileData);
   const surveys = account.surveys;
   const coupons = account.coupons_to_buy;
-  const dispatchAccount = useDispatch();
   const [modalVisible, setModalVisible] = useState(false);
   const [visible, setVisible] = useState(false);
   const [message, setMessage] = useState("");
@@ -38,15 +27,6 @@ const HomePage = ({ navigation }) => {
     setVisible(!visible);
     setMessage(text);
   };
-
-  useEffect(() => {
-    dispatchAccount(dispatchAccountData());
-  }, [dispatchAccount]);
-
-  const dispatchProfile = useDispatch();
-  useEffect(() => {
-    dispatchProfile(dispatchProfileData());
-  }, [dispatchProfile]);
 
   const renderSurveys = () => {
     return surveys
@@ -84,26 +64,25 @@ const HomePage = ({ navigation }) => {
 
   const renderCheckout = (couponId) => {
     const coupon = coupons.find((item) => item.id == couponId);
-    console.log(couponId)
-    console.log(coupon)
+    console.log(couponId);
+    console.log(coupon);
   };
 
   return (
     <PrimaryContainer>
-      <StatusBar style="light" backgroundColor={backgroundColors.green} />
       <HeaderContainer>
         <Title color={true} shadow={true} size="big">
           Twoje punkty:
         </Title>
         <Title color={true} size="big" shadow={true} noMargin={true}>
-          {account.points}{" "}
+          {account.points}
           <FontAwesome5 name="money-bill" size={24} color="white" />
         </Title>
       </HeaderContainer>
       <ContentContainer>
         <ScrollableContainer>
           <ViewContainer wider={true}>
-            <Title>Witaj {profile.name}</Title>
+            <Title>Witaj {personal.name}</Title>
             <SubTitle>Mamy dla Ciebie super ankiety!</SubTitle>
             <MarginContainer>
               <ItemsList

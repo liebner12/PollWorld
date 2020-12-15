@@ -1,21 +1,18 @@
-import {sendModificationData} from "../communication/fetchUserData";
+import {getUserData, putUserData} from "../communication/fetchUserData";
 import {getAccessToken} from "../../api/storedTokens";
 import {userMockData} from "../../../redux_components/mock";
+import {fetchSurveysForUser} from "../../surveys/communication/fetchSurveys";
 
-const expected_status = 200;
 
-export const userData = async () => {
-    let response = await sendModificationData(await getAccessToken());
-    console.log(response.response_headers.get("content-type"));
-    console.log(response.response_body);
-    console.log(response.response_status);
+export const getUserDataForUser = async (user_token) => {
+    let response =  await getUserData(user_token)
+    return response.response_body.data}
 
-    if (response.response_status === expected_status) {
-        console.log(response)
-        //Wysztko poszło dobrze, dostaliśmy pozytywną odpowiedź od serwera, automatycznie logujemy
-    }
-    return response.response_status;
-};
+export const putUserDataForUser = async (user_token, body) => {
+    let response = await putUserData(user_token, body)
+    console.log("RESPONSE", response)
+    return response
+}
 
 export const fetchUserData =  () => {
     return userMockData;

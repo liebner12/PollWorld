@@ -10,12 +10,22 @@ import PersonalData from "../../components/combined/personalData";
 import ImportantData from "../../components/combined/importantData";
 import { ScaledSheet } from "react-native-size-matters";
 import { useSelector } from "react-redux";
-import { selectProfileData } from "../../components/redux_components/profileController";
+
 import MarginContainer from "../../components/common/Containers/marginContainer";
 import PopUp from "../../components/common/popUp";
 import icon from "../../assets/user.jpg";
+import {selectPersonalData} from "../../components/redux_components/personalDataController";
+import {selectPhysicalData} from "../../components/redux_components/physicalDataController";
+import {selectDetailsData} from "../../components/redux_components/detailsDataController";
+import {selectAccountData} from "../../components/redux_components/accountController";
+import {numberToPlaceOfResidence} from "../../components/functional/profile/logic/profileDataHandlers";
+
 const ProfilePage = ({ navigation, onSignOut }) => {
-  const { profile } = useSelector(selectProfileData);
+  let { personal } = useSelector(selectPersonalData);
+  let { physical } = useSelector(selectPhysicalData);
+  let { details } = useSelector(selectDetailsData);
+  let { account } = useSelector(selectAccountData)
+
   const offset = useRef(new Animated.Value(0)).current;
   const job =
     profile.place_of_residence == 1
@@ -42,7 +52,7 @@ const ProfilePage = ({ navigation, onSignOut }) => {
         <ScrollableContainer offset={offset}>
           <View style={styles.name}>
             <Title size="big" color={true}>
-              Cześć {profile.name}
+              Cześć {personal.name}
             </Title>
           </View>
           <ViewContainer wider={true}>
@@ -55,13 +65,13 @@ const ProfilePage = ({ navigation, onSignOut }) => {
                 onPress={() =>
                   navigation.navigate("Edit", { snackbar: onToggleSnackBar })
                 }
-                age={profile.age}
-                sex="mężczyzna"
-                living={job}
-                job={profile.profession}
-                height={profile.growth}
-                weight={profile.weight}
-                fitness={profile.level_of_fitness}
+                age={personal.age}
+                sex={personal.sex}
+                living={numberToPlaceOfResidence(details.place_of_residence)}
+                job={details.profession}
+                height={physical.growth}
+                weight={physical.weight}
+                fitness={physical.level_of_fitness}
               />
             </MarginContainer>
           </ViewContainer>

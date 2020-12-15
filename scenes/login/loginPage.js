@@ -15,9 +15,19 @@ import {
 } from "../../components/functional/authentication/socialLogInHandler";
 import Link from "../../components/common/Typography/link";
 import Paragraph from "../../components/common/Typography/paragraph";
+import {useDispatch} from "react-redux";
+import {getAccessToken} from "../../components/functional/api/storedTokens";
+import {dispatchSurveysWithValue} from "../../components/redux_components/accountController";
+import {getSurveysForUser} from "../../components/functional/surveys/logic/survey";
+import {serverToSurvey} from "../../components/functional/surveys/logic/surveyConverter";
+import {getUserDataForUser} from "../../components/functional/profile/logic/userData";
+import {dispatchProfileData, dispatchProfileDataWithValues} from "../../components/redux_components/profileController";
 
 const LoginPage = ({ navigation, onSignIn }) => {
   const secondTextField = createRef();
+  const dispatchSurveysWithData = useDispatch()
+  const dispatchProfileWithData = useDispatch()
+
   const handleLogin = async (result) => {
     if (result === 200) {
       onSignIn();
@@ -27,6 +37,10 @@ const LoginPage = ({ navigation, onSignIn }) => {
     } else {
       onSignIn();
       throw new Error("Coś poszło nie tak.");
+<<<<<<< HEAD
+=======
+
+>>>>>>> 42bb1f7df28cf6eed9526489c767fbe1897bc819
     }
   };
 

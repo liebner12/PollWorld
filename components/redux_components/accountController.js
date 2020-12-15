@@ -2,16 +2,18 @@ import { createSlice } from '@reduxjs/toolkit'
 import {
     getCouponsToBuy,
     getOwnedCoupons,
-    getSurveysForUser,
+    getMockSurveysForUser,
     getUserPoints
-} from "../functional/surveys/communication/survey";
+} from "../functional/surveys/logic/survey";
 
 export const initialState = {
     account: {
         surveys: [],
         owned_coupons: [],
         coupons_to_buy: [],
-        points: "",
+        points: "1337",
+        email: "fakemail@gmail.com",
+
     }
 }
 
@@ -31,23 +33,24 @@ export const accountSlice = createSlice({
         },
         userPoints: (state, {payload}) => {
             state.account.points = payload
+        },
+        userEmail: (state, {payload}) => {
+            state.account.email = payload
         }
     }
 })
 
-export const {userSurveys, ownedCoupons, couponsToBuy, userPoints} = accountSlice.actions
+export const {userSurveys, ownedCoupons, couponsToBuy, userPoints, userEmail} = accountSlice.actions
 export const selectAccountData = state => state.account
 export default accountSlice.reducer
 
 
 export function dispatchAccountData() {
     return dispatch => {
-        const surveys = getSurveysForUser();
         const owned_coupons = getOwnedCoupons();
         const coupons_to_buy = getCouponsToBuy();
         const points = getUserPoints()
 
-        dispatch(userSurveys(surveys))
         dispatch(userPoints(points))
         dispatch(ownedCoupons(owned_coupons))
         dispatch(couponsToBuy(coupons_to_buy))
@@ -56,8 +59,14 @@ export function dispatchAccountData() {
 
 export function dispatchSurveys(){
     return dispatch => {
-        const surveys = getSurveysForUser();
+        const surveys = getMockSurveysForUser();
         dispatch(userSurveys(surveys))
+    }
+}
+
+export function dispatchSurveysWithValue(surveysList) {
+    return dispatch => {
+        dispatch(userSurveys(surveysList))
     }
 }
 
@@ -65,6 +74,12 @@ export function dispatchOwnedCoupons(){
     return dispatch => {
         const coupons = getOwnedCoupons();
         dispatch(ownedCoupons(coupons))
+    }
+}
+
+export function dispatchEmail(mail){
+    return dispatch => {
+        dispatch(userEmail(mail))
     }
 }
 

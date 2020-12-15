@@ -1,3 +1,4 @@
+import React, {useEffect} from "react"
 import {
   sendRegisterData,
   sendLoginData,
@@ -5,11 +6,16 @@ import {
   sendGoogleUserToken,
 } from "../communication/authentication";
 import {
+  getAccessToken,
   getRefreshToken,
   setAccessToken,
   setRefreshToken,
 } from "../../api/storedTokens";
+<<<<<<< HEAD
 import { getFacebookUserToken, getGoogleUserToken } from "./socialMediaSignIn";
+=======
+import {getFacebookUserToken, getGoogleUserToken} from "./socialMediaSignIn";
+>>>>>>> 42bb1f7df28cf6eed9526489c767fbe1897bc819
 
 const expected_status = 200;
 
@@ -20,10 +26,15 @@ export const createAccount = async (email, password) => {
   console.log(response.response_status);
 
   if (response.response_status === expected_status) {
+<<<<<<< HEAD
     return login(email, password);
+=======
+    console.log("Bedzie teraz wszystko wysylane")
+    return await login(email,password);
+>>>>>>> 42bb1f7df28cf6eed9526489c767fbe1897bc819
     //Wysztko poszło dobrze, dostaliśmy pozytywną odpowiedź od serwera, automatycznie logujemy
   }
-  return response.response_status;
+  return await response.response_status;
 };
 
 export const signInWithFacebook = async () => {
@@ -41,22 +52,32 @@ export const signInWithGoogle = async () => {
   console.log("Zalogowano przez googla");
   console.log(user_token);
   return expected_status;
+<<<<<<< HEAD
   // return response.response_status;
 };
+=======
+
+ // return response.response_status;
+}
+>>>>>>> 42bb1f7df28cf6eed9526489c767fbe1897bc819
+
 
 export const login = async (email, password) => {
   let response = await sendLoginData(email, password);
-  console.log(response.response_headers.get("content-type"));
-  console.log(response.response_body.refresh);
-  console.log(response.response_body.access);
-  console.log(response.response_body.user);
-  console.log(response.response_status);
+  let accessToken = ""
+  let refreshToken = ""
   if (response.response_status === expected_status) {
-    await setAccessToken(response.response_body.access);
-    await setRefreshToken(response.response_body.refresh);
-    //console.log(getRefreshToken());
-    //TODO przejdź do dalszego etapu
+    accessToken = response.response_body.access
+    refreshToken = response.response_body.refresh
+    await setAccessToken(accessToken);
+    await setRefreshToken(refreshToken);
   }
+<<<<<<< HEAD
   console.log("asdf");
   return response.response_status;
+=======
+    return response.response_status;
+>>>>>>> 42bb1f7df28cf6eed9526489c767fbe1897bc819
 };
+
+
