@@ -49,25 +49,18 @@ const EdditPage = ({ route, navigation }) => {
 
   const handleSubmit = async () => {
     const accessToken = await getAccessToken();
-    const status = await putUserDataForUser(accessToken, changedValues)
-      .response_status;
-    if (status == 200) {
-      route.params.snackbar("Zedtyowano pomyślnie dane!");
-
-      const profileData = await getUserDataForUser(accessToken);
-
-      dispatchPersonal(
-        dispatchPersonalData(profileDataSeparator(profileData).personal)
-      );
-      dispatchPhysical(
-        dispatchPhysicalData(profileDataSeparator(profileData).physical)
-      );
-      dispatchDetails(
-        dispatchDetailsData(profileDataSeparator(profileData).details)
-      );
-    } else {
-      route.params.snackbar("Błąd!");
-    }
+    await putUserDataForUser(accessToken, changedValues);
+    const profileData = await getUserDataForUser(accessToken);
+    dispatchPersonal(
+      dispatchPersonalData(profileDataSeparator(profileData).personal)
+    );
+    dispatchPhysical(
+      dispatchPhysicalData(profileDataSeparator(profileData).physical)
+    );
+    dispatchDetails(
+      dispatchDetailsData(profileDataSeparator(profileData).details)
+    );
+    route.params.snackbar("Zedtyowano pomyślnie dane!");
     navigation.goBack();
   };
 
