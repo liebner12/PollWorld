@@ -10,15 +10,16 @@ import {
 } from "../../components/form/typingValidation";
 import {useDispatch} from "react-redux";
 import {dispatchPersonalData} from "../../components/redux_components/personalDataController";
+import {sexToBool} from "../../components/functional/profile/logic/profileDataHandlers";
 const PersonalDataPage = ({ navigation }) => {
   const secondTextField = createRef();
   const dispatchPersonal = useDispatch()
 
-  const handleDispatcher = (age, name, sex) => {
+  const handleDispatcher = (name,age,sex) => {
       dispatchPersonal(dispatchPersonalData({
           name: name,
           age: age,
-          sex: sex,
+          sex: sexToBool(sex),
       }))
   }
   const handleSubmit = () => {

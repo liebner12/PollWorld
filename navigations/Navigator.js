@@ -52,7 +52,6 @@ const AppNavigator = () => {
     const surveys = await getSurveysForUser(token);
     const profileData = await getUserDataForUser(token);
 
-    console.log("ZAlogowano")
     console.log(profileData)
 
     await dispatchSurveysWithData(dispatchSurveysWithValue(surveys.map(serverToSurvey)));

@@ -16,7 +16,7 @@ import {placeOfResidenceToNumber} from "../../components/functional/profile/logi
 const DetailsPage = ({ navigation, onSignIn }) => {
   const dispatchDetails = useDispatch()
 
-  const handleDispatcher = (hometown,job) =>{
+  const handleDispatcher = (job,hometown) =>{
     dispatchDetails(dispatchDetailsData({
       profession: job,
       place_of_residence: placeOfResidenceToNumber(hometown)

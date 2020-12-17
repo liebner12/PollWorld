@@ -57,3 +57,12 @@ export const numberToPlaceOfResidence = (number) => {
     return "miasto"
 }
 
+export const sexToBool = (sex) => {
+  return sex !== "kobieta";
+}
+
+export const boolToSex = (data) => {
+    if (!data)
+        return "kobieta"
+    return "mężczyzna"
+}
