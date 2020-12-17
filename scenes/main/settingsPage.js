@@ -6,6 +6,7 @@ import HeaderContainer from "../../components/common/Containers/headerContainer"
 import PrimaryContainer from "../../components/common/Containers/primaryContainer";
 import ContentContainer from "../../components/common/Containers/contentContainer";
 import ViewContainer from "../../components/common/Containers/viewContainer";
+import MarginContainer from "../../components/common/Containers/marginContainer";
 const SettingsPage = ({ navigation, onSignOut }) => {
   return (
     <PrimaryContainer>
@@ -17,7 +18,9 @@ const SettingsPage = ({ navigation, onSignOut }) => {
       <ContentContainer>
         <ViewContainer wider={true}>
           <View style={{ flex: 1, justifyContent: "flex-end" }}>
-            <MainButton name="Wyloguj się" onPress={() => onSignOut()} />
+            <MarginContainer>
+              <MainButton name="Wyloguj się" onPress={() => onSignOut()} />
+            </MarginContainer>
           </View>
         </ViewContainer>
       </ContentContainer>

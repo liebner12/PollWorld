@@ -22,7 +22,7 @@
         "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#212121"
       },
-      "userInterfaceStyle": "dark",
+      "userInterfaceStyle": "automatic",
       "package": "com.pollworld.pollworld",
       "versionCode": 1
     },

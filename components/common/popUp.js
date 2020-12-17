@@ -5,13 +5,15 @@ import { rounded } from "../../styles/base";
 import { backgroundColors } from "../../styles/colors";
 import Title from "./Typography/title";
 
-const PopUp = ({ visible, setVisible, message }) => {
+const PopUp = ({ visible, setVisible, message, action }) => {
   const styles = StyleSheet.create({
     snackbar: {
       backgroundColor: backgroundColors.lightDark,
       borderRadius: rounded.sm,
       borderWidth: 2,
       borderColor: backgroundColors.green,
+      margin: 10,
+      marginBottom: 30,
     },
   });
   const onDismissSnackBar = () => setVisible(false);
@@ -19,8 +21,9 @@ const PopUp = ({ visible, setVisible, message }) => {
     <Snackbar
       visible={visible}
       onDismiss={onDismissSnackBar}
-      duration={1500}
+      duration={action ? 4000 : 1000}
       style={styles.snackbar}
+      action={action}
     >
       <Title size="small">
         {message}

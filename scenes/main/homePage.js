@@ -8,16 +8,15 @@ import Title from "../../components/common/Typography/title";
 import HeaderContainer from "../../components/common/Containers/headerContainer";
 import { FontAwesome5 } from "@expo/vector-icons";
 import SubTitle from "../../components/common/Typography/subTitle";
-import ItemsList from "../../components/combined/itemsList";
+import ItemsListHorizontal from "../../components/combined/itemsListHorizontal";
 import { useSelector } from "react-redux";
-import Survey from "../../components/combined/survey";
-import Coupon from "../../components/combined/coupon";
 import { selectAccountData } from "../../components/redux_components/accountController";
 import MarginContainer from "../../components/common/Containers/marginContainer";
 import PopUp from "../../components/common/popUp";
 import BuyingWindow from "../../components/combined/buyingWindow";
 import { selectPersonalData } from "../../components/redux_components/personalDataController";
 import { backgroundColors } from "../../styles/colors";
+import { fonts } from "../../styles/fonts";
 const HomePage = ({ navigation }) => {
   let { account } = useSelector(selectAccountData);
   let { personal } = useSelector(selectPersonalData);
@@ -32,54 +31,23 @@ const HomePage = ({ navigation }) => {
     setMessage(text);
   };
 
-  const renderSurveys = () => {
-    return surveys
-      .slice(0, 4)
-      .map((survey, index) => (
-        <Survey
-          key={index}
-          id={survey.id}
-          name={survey.name}
-          category={survey.category}
-          description={survey.shortDescription}
-          price={survey.price}
-          rate={survey.rate}
-          snackbar={onToggleSnackBar}
-        />
-      ));
-  };
-
-  const renderCoupons = () => {
-    return coupons
-      .slice(0, 4)
-      .map((coupon, index) => (
-        <Coupon
-          key={index}
+  const renderCheckout = (couponId) => {
+    const coupon = coupons.find((item) => item.id == couponId);
+    if (coupon) {
+      return (
+        <BuyingWindow
+          modalVisible={modalVisible}
+          setModalVisible={setModalVisible}
           id={coupon.id}
           name={coupon.company}
           category={coupon.category}
           description={coupon.description}
           price={coupon.price}
-          setModalVisible={setModalVisible}
-          setCouponId={setCouponId}
+          points={account.points}
+          snackbar={onToggleSnackBar}
         />
-      ));
-  };
-
-  const renderCheckout = (couponId) => {
-    const coupon = coupons.find((item) => item.id == couponId);
-    return (
-      <BuyingWindow
-        modalVisible={modalVisible}
-        setModalVisible={setModalVisible}
-        id={coupon.id}
-        name={coupon.company}
-        category={coupon.category}
-        description={coupon.description}
-        price={coupon.price}
-        points={account.points}
-      />
-    );
+      );
+    }
   };
 
   return (
@@ -90,8 +58,8 @@ const HomePage = ({ navigation }) => {
           Twoje punkty:
         </Title>
         <Title color={true} size="big" shadow={true} noMargin={true}>
-          {account.points}
-          <FontAwesome5 name="money-bill" size={24} color="white" />
+          {account.points}{" "}
+          <FontAwesome5 name="money-bill" size={fonts.md} color="white" />
         </Title>
       </HeaderContainer>
       <ContentContainer>
@@ -100,24 +68,24 @@ const HomePage = ({ navigation }) => {
             <Title>Witaj {personal.name}</Title>
             <SubTitle>Mamy dla Ciebie super ankiety!</SubTitle>
             <MarginContainer>
-              <ItemsList
+              <ItemsListHorizontal
                 title="Nowe ankiety"
                 subTitle="Zobacz wszystkie:"
                 action={() => navigation.navigate("Surveys")}
-              >
-                {renderSurveys()}
-              </ItemsList>
+                data={surveys}
+                type="surveys"
+                snackbar={onToggleSnackBar}
+              />
             </MarginContainer>
-            <MarginContainer>
-              <ItemsList
-                title="Kupony"
-                subTitle="Zobacz wszystkie:"
-                type="coupons"
-                action={() => navigation.navigate("Shopping")}
-              >
-                {renderCoupons()}
-              </ItemsList>
-            </MarginContainer>
+            <ItemsListHorizontal
+              title="Kupony"
+              subTitle="Zobacz wszystkie:"
+              type="coupons"
+              action={() => navigation.navigate("Shopping")}
+              data={coupons}
+              setModalVisible={setModalVisible}
+              setCouponId={setCouponId}
+            />
           </ViewContainer>
         </ScrollableContainer>
         <PopUp visible={visible} setVisible={setVisible} message={message} />

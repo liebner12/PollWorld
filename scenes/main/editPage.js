@@ -12,15 +12,9 @@ import {
 } from "../../components/form/typingValidation";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  dispatchAccountData,
-  dispatchSurveysWithValue,
-  selectAccountData,
-} from "../../components/redux_components/accountController";
-import {
   boolToSex,
   numberToPlaceOfResidence,
   placeOfResidenceToNumber,
-  profileDataJoiner,
   profileDataSeparator,
   sexToBool,
 } from "../../components/functional/profile/logic/profileDataHandlers";
@@ -41,14 +35,11 @@ import {
   dispatchDetailsData,
   selectDetailsData,
 } from "../../components/redux_components/detailsDataController";
-import { getSurveysForUser } from "../../components/functional/surveys/logic/survey";
-import { serverToSurvey } from "../../components/functional/surveys/logic/surveyConverter";
 
-const EdditPage = ({ navigation }) => {
+const EdditPage = ({ route, navigation }) => {
   let { personal } = useSelector(selectPersonalData);
   let { physical } = useSelector(selectPhysicalData);
   let { details } = useSelector(selectDetailsData);
-  let { account } = useSelector(selectAccountData);
 
   const dispatchPersonal = useDispatch();
   const dispatchDetails = useDispatch();
@@ -58,20 +49,26 @@ const EdditPage = ({ navigation }) => {
 
   const handleSubmit = async () => {
     const accessToken = await getAccessToken();
-    await putUserDataForUser(accessToken, changedValues);
-    const profileData = await getUserDataForUser(accessToken);
+    const status = await putUserDataForUser(accessToken, changedValues)
+      .response_status;
+    if (status == 200) {
+      route.params.snackbar("Zedtyowano pomyślnie dane!");
 
-    await dispatchPersonal(
-      dispatchPersonalData(profileDataSeparator(profileData).personal)
-    );
-    await dispatchPhysical(
-      dispatchPhysicalData(profileDataSeparator(profileData).physical)
-    );
-    await dispatchDetails(
-      dispatchDetailsData(profileDataSeparator(profileData).details)
-    );
-    await navigation.goBack();
-    await route.params.snackbar("Zedtyowano pomyślnie dane!");
+      const profileData = await getUserDataForUser(accessToken);
+
+      dispatchPersonal(
+        dispatchPersonalData(profileDataSeparator(profileData).personal)
+      );
+      dispatchPhysical(
+        dispatchPhysicalData(profileDataSeparator(profileData).physical)
+      );
+      dispatchDetails(
+        dispatchDetailsData(profileDataSeparator(profileData).details)
+      );
+    } else {
+      route.params.snackbar("Błąd!");
+    }
+    navigation.goBack();
   };
 
   const setValues = (
@@ -92,8 +89,6 @@ const EdditPage = ({ navigation }) => {
     changedValues.growth = parseInt(height);
     changedValues.weight = parseInt(weight);
     changedValues.level_of_fitness = parseInt(activity);
-
-    console.log("CHANGED:", changedValues);
   };
   const secondTextField = createRef();
   const thirdTextField = createRef();
@@ -112,17 +107,25 @@ const EdditPage = ({ navigation }) => {
               buttonText="Zakończ"
               onSubmit={handleSubmit}
               action={setValues}
+              edit={{
+                name: personal.name,
+                age: personal.age.toString(),
+                sex: boolToSex(personal.sex),
+                job: details.profession,
+                hometown: numberToPlaceOfResidence(details.place_of_residence),
+                height: physical.growth.toString(),
+                weight: physical.weight.toString(),
+                activity: physical.level_of_fitness.toString(),
+              }}
               fields={{
                 name: {
                   name: "Imię",
-                  defaultValue: personal.name,
                   validate: [cantBeEmpty],
                   blurOnSubmit: false,
                   onSubmitEditing: () => secondTextField.current.focus(),
                 },
                 age: {
                   name: "Wiek",
-                  defaultValue: personal.age.toString(),
                   keyboardType: "numeric",
                   validate: [onlyNumbers, cantBeEmpty],
                   ref: secondTextField,
@@ -130,7 +133,6 @@ const EdditPage = ({ navigation }) => {
                 sex: {
                   type: "radio",
                   title: "Płeć",
-                  defaultValue: boolToSex(personal.sex),
                   fields: {
                     male: { name: "mężczyzna" },
                     female: { name: "kobieta" },
@@ -141,7 +143,7 @@ const EdditPage = ({ navigation }) => {
                 job: {
                   type: "list",
                   title: "Branża",
-                  defaultValue: details.profession,
+                  defaultValue: "przemysł",
                   fields: {
                     1: { name: "przemysł" },
                     2: { name: "budownictwo" },
@@ -180,9 +182,6 @@ const EdditPage = ({ navigation }) => {
                 hometown: {
                   type: "radio",
                   title: "Miejsce zamieszkania",
-                  defaultValue: numberToPlaceOfResidence(
-                    details.place_of_residence
-                  ),
                   fields: {
                     city: { name: "metropolia" },
                     town: { name: "miasto" },
@@ -193,7 +192,6 @@ const EdditPage = ({ navigation }) => {
                 height: {
                   name: "Wzrost",
                   keyboardType: "numeric",
-                  defaultValue: physical.growth.toString(),
                   validate: [onlyNumbers, cantBeEmpty],
                   blurOnSubmit: false,
                   onSubmitEditing: () => thirdTextField.current.focus(),
@@ -201,14 +199,12 @@ const EdditPage = ({ navigation }) => {
                 weight: {
                   name: "Waga",
                   keyboardType: "numeric",
-                  defaultValue: physical.weight.toString(),
                   validate: [onlyNumbers, cantBeEmpty],
                   ref: thirdTextField,
                 },
                 activity: {
                   type: "radio",
                   title: "Poziom aktywności fizycznej",
-                  defaultValue: physical.level_of_fitness.toString(),
                   fields: {
                     1: { name: "1" },
                     2: { name: "2" },

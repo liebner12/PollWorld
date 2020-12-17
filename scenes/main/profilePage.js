@@ -8,7 +8,7 @@ import HeaderContainer from "../../components/common/Containers/headerContainer"
 import ViewContainer from "../../components/common/Containers/viewContainer";
 import PersonalData from "../../components/combined/personalData";
 import ImportantData from "../../components/combined/importantData";
-import { ScaledSheet } from "react-native-size-matters";
+import { ScaledSheet, mvs } from "react-native-size-matters";
 import { useSelector } from "react-redux";
 import MarginContainer from "../../components/common/Containers/marginContainer";
 import PopUp from "../../components/common/popUp";
@@ -77,8 +77,8 @@ const ProfilePage = ({ navigation, onSignOut }) => {
 const styles = ScaledSheet.create({
   name: {
     alignItems: "center",
-    marginTop: 30,
-    marginBottom: 10,
+    marginTop: mvs(40),
+    marginBottom: mvs(10),
   },
 });
 

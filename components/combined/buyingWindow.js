@@ -22,6 +22,7 @@ const BuyingWindow = ({
   description,
   price,
   points,
+  snackbar,
 }) => {
   const styles = StyleSheet.create({
     container: {
@@ -67,7 +68,7 @@ const BuyingWindow = ({
             </SubTitle>
           </View>
           <HorizontalLine grey={true} />
-          <MainButton name="Kup" onPress={() => setModalVisible(false)} />
+          <MainButton name="Kup" onPress={() => (setModalVisible(false), snackbar("Niestety nie można jeszcze kupić :("))} />
         </View>
       </View>
     </Modal>

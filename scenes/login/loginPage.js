@@ -15,6 +15,7 @@ import {
 } from "../../components/functional/authentication/socialLogInHandler";
 import Link from "../../components/common/Typography/link";
 import Paragraph from "../../components/common/Typography/paragraph";
+import { fonts } from "../../styles/fonts";
 
 const LoginPage = ({ navigation, onSignIn }) => {
   const secondTextField = createRef();
@@ -32,66 +33,62 @@ const LoginPage = ({ navigation, onSignIn }) => {
   return (
     <ScrollableContainer padding={true}>
       <ReturnButton />
-      <View>
-        <Title>Zaloguj się</Title>
-        <View>
-          <Form
-            buttonText="Zaloguj się"
-            onSubmit={handleLogin}
-            action={login}
-            fields={{
-              email: {
-                name: "Email",
-                keyboardType: "email-address",
-                validate: [validateEmail],
-                blurOnSubmit: false,
-                onSubmitEditing: () => secondTextField.current.focus(),
-              },
-              password: {
-                name: "Hasło",
-                password: true,
-                secured: true,
-                validate: [validatePasswordLength],
-                ref: secondTextField,
-              },
-            }}
+      <Title>Zaloguj się</Title>
+      <Form
+        buttonText="Zaloguj się"
+        onSubmit={handleLogin}
+        action={login}
+        fields={{
+          email: {
+            name: "Email",
+            keyboardType: "email-address",
+            validate: [validateEmail],
+            blurOnSubmit: false,
+            onSubmitEditing: () => secondTextField.current.focus(),
+          },
+          password: {
+            name: "Hasło",
+            password: true,
+            secured: true,
+            validate: [validatePasswordLength],
+            ref: secondTextField,
+          },
+        }}
+      />
+      <View style={styles.smallText}>
+        <Paragraph center={true}>
+          albo użyj twojego portalu społecznościowego
+        </Paragraph>
+      </View>
+      <View style={styles.buttonsContainer}>
+        <View style={[styles.btn, styles.btnLeft]}>
+          <MainButton
+            name="Google"
+            icon={<FontAwesome name="google" size={fonts.md} color="white" />}
+            onPress={() => handleGoogleLogin(onSignIn)}
           />
-          <View style={styles.smallText}>
-            <Paragraph center={true}>
-              albo użyj twojego portalu społecznościowego
-            </Paragraph>
-          </View>
-          <View style={styles.buttonsContainer}>
-            <View style={[styles.btn, styles.btnLeft]}>
-              <MainButton
-                name="Google"
-                icon={<FontAwesome name="google" size={24} color="white" />}
-                onPress={() => handleGoogleLogin(onSignIn)}
-              />
-            </View>
-            <View style={styles.btn}>
-              <MainButton
-                name="Facebook"
-                icon={<FontAwesome name="facebook" size={24} color="white" />}
-                onPress={() => handleFacebookLogin(onSignIn)}
-              />
-            </View>
-          </View>
         </View>
-        <View style={styles.buttonsContainer}>
-          <TouchableOpacity
-            activeOpacity={0.6}
-            style={{ flexWrap: "wrap", flex: 1 }}
-          >
-            <Paragraph>Zapomniałeś hasła?</Paragraph>
-          </TouchableOpacity>
-          <TouchableOpacity
-            activeOpacity={0.6}
-            onPress={() => navigation.navigate("Register")}
-          >
-            <Link style={styles.registerLink}>Zarejestruj się!</Link>
-          </TouchableOpacity>
+        <View style={styles.btn}>
+          <MainButton
+            name="Facebook"
+            icon={<FontAwesome name="facebook" size={fonts.md} color="white" />}
+            onPress={() => handleFacebookLogin(onSignIn)}
+          />
         </View>
+      </View>
+      <View style={styles.buttonsContainer}>
+        <TouchableOpacity
+          activeOpacity={0.6}
+          style={{ flexWrap: "wrap", flex: 1 }}
+        >
+          <Paragraph>Zapomniałeś hasła?</Paragraph>
+        </TouchableOpacity>
+        <TouchableOpacity
+          activeOpacity={0.6}
+          onPress={() => navigation.navigate("Register")}
+        >
+          <Link style={styles.registerLink}>Zarejestruj się!</Link>
+        </TouchableOpacity>
       </View>
     </ScrollableContainer>
   );

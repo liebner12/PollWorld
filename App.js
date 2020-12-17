@@ -3,14 +3,11 @@ import React from "react";
 import { AppLoading } from "expo";
 import {
   useFonts,
-  Quicksand_400Regular,
-  Quicksand_500Medium,
   Quicksand_600SemiBold,
   Quicksand_700Bold,
 } from "@expo-google-fonts/quicksand";
 import {
   Asap_400Regular,
-  Asap_500Medium,
   Asap_600SemiBold,
   Asap_700Bold,
 } from "@expo-google-fonts/asap";
@@ -40,7 +37,7 @@ export default function App() {
     roundness: 14,
     colors: {
       ...DefaultTheme.colors,
-      colors,
+      primary: "#32e0c4",
     },
   };
 

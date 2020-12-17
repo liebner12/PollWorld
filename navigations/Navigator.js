@@ -8,25 +8,42 @@ import PhysicalPage from "../scenes/login/physicalPage";
 import PersonalDataPage from "../scenes/login/personalDataPage";
 import DetailsPage from "../scenes/login/detailsPage";
 import MainNavigations from "./MainNavigations";
-import { DefaultTheme, DarkTheme } from "@react-navigation/native";
-import { darkTheme } from "../styles/themes"
-import {useDispatch, useSelector} from "react-redux";
+import { darkTheme } from "../styles/themes";
+import { useDispatch, useSelector } from "react-redux";
 import {
   dispatchAccountData,
   dispatchEmail,
-  dispatchSurveysWithValue
+  dispatchSurveysWithValue,
 } from "../components/redux_components/accountController";
-import {getAccessToken, setAccessToken} from "../components/functional/api/storedTokens";
-import {getSurveysForUser} from "../components/functional/surveys/logic/survey";
-import {serverToSurvey} from "../components/functional/surveys/logic/surveyConverter";
-import {getUserData} from "../components/functional/profile/communication/fetchUserData";
-import {dispatchPersonalData, selectPersonalData} from "../components/redux_components/personalDataController";
-import {profileDataJoiner, profileDataSeparator} from "../components/functional/profile/logic/profileDataHandlers";
-import {dispatchDetailsData, selectDetailsData} from "../components/redux_components/detailsDataController";
-import {dispatchPhysicalData, selectPhysicalData} from "../components/redux_components/physicalDataController";
-import {getUserDataForUser, putUserDataForUser} from "../components/functional/profile/logic/userData";
+import {
+  getAccessToken,
+  setAccessToken,
+} from "../components/functional/api/storedTokens";
+import { getSurveysForUser } from "../components/functional/surveys/logic/survey";
+import { serverToSurvey } from "../components/functional/surveys/logic/surveyConverter";
+import { getUserData } from "../components/functional/profile/communication/fetchUserData";
+import {
+  dispatchPersonalData,
+  selectPersonalData,
+} from "../components/redux_components/personalDataController";
+import {
+  profileDataJoiner,
+  profileDataSeparator,
+} from "../components/functional/profile/logic/profileDataHandlers";
+import {
+  dispatchDetailsData,
+  selectDetailsData,
+} from "../components/redux_components/detailsDataController";
+import {
+  dispatchPhysicalData,
+  selectPhysicalData,
+} from "../components/redux_components/physicalDataController";
+import {
+  getUserDataForUser,
+  putUserDataForUser,
+} from "../components/functional/profile/logic/userData";
 //import { setRefreshToken } from "../api/token";
-
+import { useNavigation } from "@react-navigation/native";
 const Stack = createStackNavigator();
 
 const AppNavigator = () => {
@@ -37,36 +54,56 @@ const AppNavigator = () => {
   const dispatchAccount = useDispatch();
   const dispatchSurveysWithData = useDispatch();
 
-  const handleSignInShorter = async() =>
-  {
-    const token = await getAccessToken()
-    const surveys = await getSurveysForUser(token)
-    await dispatchSurveysWithData(dispatchSurveysWithValue(surveys.map(serverToSurvey)));
+  React.useEffect(() => {
+    const bootstrapAsync = async () => {
+      let userToken;
+      try {
+        userToken = await getAccessToken();
+        if (userToken != "") {
+          handleSignIn();
+        }
+      } catch (e) {}
+    };
+    bootstrapAsync();
+  }, []);
+
+  const handleSignInShorter = async () => {
+    const token = await getAccessToken();
+    const surveys = await getSurveysForUser(token);
+    await dispatchSurveysWithData(
+      dispatchSurveysWithValue(surveys.map(serverToSurvey))
+    );
     await dispatchAccount(dispatchAccountData());
     setIsAuthenticated(true);
-  }
-
+  };
 
   const handleSignIn = async () => {
+    setIsAuthenticated(true);
     const token = await getAccessToken();
     const surveys = await getSurveysForUser(token);
     const profileData = await getUserDataForUser(token);
 
-    console.log(profileData)
+    dispatchSurveysWithData(
+      dispatchSurveysWithValue(surveys.map(serverToSurvey))
+    );
+    dispatchPersonal(
+      dispatchPersonalData(profileDataSeparator(profileData).personal)
+    );
+    dispatchPhysical(
+      dispatchPhysicalData(profileDataSeparator(profileData).physical)
+    );
+    dispatchDetails(
+      dispatchDetailsData(profileDataSeparator(profileData).details)
+    );
+    dispatchAccount(dispatchAccountData());
 
-    await dispatchSurveysWithData(dispatchSurveysWithValue(surveys.map(serverToSurvey)));
-    await dispatchPersonal(dispatchPersonalData(profileDataSeparator(profileData).personal))
-    await dispatchPhysical(dispatchPhysicalData(profileDataSeparator(profileData).physical))
-    await dispatchDetails(dispatchDetailsData(profileDataSeparator(profileData).details))
-    await dispatchAccount(dispatchAccountData());
-
-    setIsAuthenticated(true);
+    
   };
 
   const handleSignOut = async () => {
     await setAccessToken("");
-    console.log("wylogowano")
-    await console.log(await getAccessToken())
+    console.log("wylogowano");
+    await console.log(await getAccessToken());
     setIsAuthenticated(false);
   };
 
@@ -77,7 +114,6 @@ const AppNavigator = () => {
           <Stack.Screen name="Home">
             {(props) => (
               <MainNavigations {...props} onSignOut={handleSignOut} />
-
             )}
           </Stack.Screen>
         ) : (
@@ -98,7 +134,9 @@ const AppNavigator = () => {
               {(props) => <PersonalDataPage {...props} />}
             </Stack.Screen>
             <Stack.Screen name="Physical">
-              {(props) => <PhysicalPage {...props} onSignIn={handleSignInShorter} />}
+              {(props) => (
+                <PhysicalPage {...props} onSignIn={handleSignInShorter} />
+              )}
             </Stack.Screen>
           </>
         )}

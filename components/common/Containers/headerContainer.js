@@ -1,11 +1,12 @@
 import React from "react";
 import { View, TouchableOpacity, Animated, Image } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { ms } from "react-native-size-matters";
+import { ms, mvs } from "react-native-size-matters";
 import { ScaledSheet } from "react-native-size-matters";
 import { backgroundColors, colors } from "../../../styles/colors";
 import ReturnButton from "../returnButton";
 import { dimensions, elevation, rounded } from "../../../styles/base";
+
 const headerContainer = ({
   children,
   settings,
@@ -38,8 +39,8 @@ const headerContainer = ({
       width: "100%",
     },
     icon: {
-      height: 125,
-      width: 125,
+      height: mvs(125),
+      width: mvs(125),
       backgroundColor: backgroundColors.secondary,
       borderRadius: rounded.md,
       top: 40,
@@ -59,19 +60,19 @@ const headerContainer = ({
   });
   return (
     <View style={styles.container}>
-      {returnButton ? <ReturnButton white={true} /> : null}
+      {returnButton ? <ReturnButton white={true} action={returnButton}/> : null}
       {icon ? (
         <View style={styles.iconContainer}>
           <Animated.Image
             style={{
               height: animatedValue.interpolate({
                 inputRange: [0, 50],
-                outputRange: [125, 60],
+                outputRange: [mvs(125), mvs(60)],
                 extrapolate: "clamp",
               }),
               width: animatedValue.interpolate({
                 inputRange: [0, 50],
-                outputRange: [125, 60],
+                outputRange: [mvs(125), mvs(60)],
                 extrapolate: "clamp",
               }),
               backgroundColor: backgroundColors.secondary,

@@ -2,7 +2,7 @@ import React from "react";
 import { View } from "react-native";
 import { RadioButton } from "react-native-paper";
 import { ScaledSheet } from "react-native-size-matters";
-import Paragraph from "../common/Typography/subTitle";
+import Paragraph from "../common/Typography/paragraph";
 import SubTitle from "../common/Typography/subTitle";
 const RadioButtonGroup = ({
   title,

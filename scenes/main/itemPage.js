@@ -14,10 +14,11 @@ import Paragraph from "../../components/common/Typography/paragraph";
 import { selectAccountData } from "../../components/redux_components/accountController";
 import { backgroundColors } from "../../styles/colors";
 import { elevation, rounded } from "../../styles/base";
+import { mvs } from "react-native-size-matters";
 const ItemPage = ({ route, navigation }) => {
   const keyId = route.params.itemId;
-  const { account } = useSelector(selectAccountData);
-  const survey = account.surveys.find((el) => el.id == keyId);
+  let { account } = useSelector(selectAccountData);
+  let survey = account.surveys.find((el) => el.id == keyId);
   const offset = useRef(new Animated.Value(0)).current;
 
   return (
@@ -31,9 +32,9 @@ const ItemPage = ({ route, navigation }) => {
         <ScrollableContainer offset={offset}>
           <View style={styles.name}>
             <Title color={true} size="big">
-              {survey.name}
+              {survey ? survey.name : null}
             </Title>
-            <SubTitle>{survey.company}</SubTitle>
+            <SubTitle>{survey ? survey.company : null}</SubTitle>
           </View>
           <ViewContainer wider={true}>
             <View style={styles.itemContainer}>
@@ -53,17 +54,17 @@ const ItemPage = ({ route, navigation }) => {
                 <View style={styles.itemStats}>
                   <View style={styles.evenContainer}>
                     <Title size="small" noMargin={true} center={true}>
-                      {survey.company}
+                      {survey ? survey.company : null}
                     </Title>
                   </View>
                   <View style={styles.evenContainer}>
                     <Title size="small" noMargin={true} center={true}>
-                      {survey.time}
+                      {survey ? survey.time : null}
                     </Title>
                   </View>
                   <View style={styles.evenContainer}>
                     <Title size="small" noMargin={true} center={true}>
-                      {survey.price}
+                      {survey ? survey.price : null}
                     </Title>
                   </View>
                 </View>
@@ -71,7 +72,7 @@ const ItemPage = ({ route, navigation }) => {
               <View style={styles.container}>
                 <SubTitle>Opis</SubTitle>
                 <HorizontalLine />
-                <Paragraph>{survey.description}</Paragraph>
+                <Paragraph>{survey ? survey.description : null}</Paragraph>
               </View>
             </View>
             <View style={{ flex: 1, justifyContent: "flex-end" }}>
@@ -96,7 +97,7 @@ const ItemPage = ({ route, navigation }) => {
 const styles = StyleSheet.create({
   name: {
     alignItems: "center",
-    marginTop: 30,
+    marginTop: mvs(40),
     marginBottom: 10,
   },
   itemContainer: {
@@ -106,8 +107,8 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: backgroundColors.secondary,
     borderRadius: rounded.md,
-    padding: 25,
-    marginBottom: 25,
+    padding: mvs(25),
+    marginBottom: mvs(25),
     elevation: elevation.elevation,
   },
   itemStats: {

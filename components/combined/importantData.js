@@ -3,11 +3,11 @@ import { StyleSheet, View, TouchableOpacity } from "react-native";
 import Title from "../common/Typography/title";
 import SubTitle from "../common/Typography/subTitle";
 import { MaterialIcons } from "@expo/vector-icons";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { colors, backgroundColors } from "../../styles/colors";
 import { elevation, rounded } from "../../styles/base";
 import HorizontalLine from "../common/horizontalLine";
-
+import { fonts } from "../../styles/fonts";
+import { mvs } from "react-native-size-matters";
 const PersonalData = ({ onPress, email, password }) => {
   return (
     <View style={styles.container}>
@@ -16,7 +16,7 @@ const PersonalData = ({ onPress, email, password }) => {
         {onPress ? (
           <TouchableOpacity onPress={onPress}>
             <Title>
-              <MaterialIcons name="edit" size={24} color={colors.primary} />
+              <MaterialIcons name="edit" size={fonts.md} color={colors.primary} />
             </Title>
           </TouchableOpacity>
         ) : null}
@@ -24,7 +24,7 @@ const PersonalData = ({ onPress, email, password }) => {
       <HorizontalLine />
       <View style={styles.spaceBetween}>
         <View style={styles.icon}>
-          <MaterialIcons name="email" size={24} color={colors.dark} />
+          <MaterialIcons name="email" size={fonts.md} color={colors.dark} />
         </View>
         <View>
           <Title noMargin={true} size="small" color={true}>
@@ -35,7 +35,7 @@ const PersonalData = ({ onPress, email, password }) => {
       </View>
       <View style={styles.spaceBetween}>
         <View style={styles.icon}>
-          <MaterialIcons name="vpn-key" size={24} color={colors.dark} />
+          <MaterialIcons name="vpn-key" size={fonts.md} color={colors.dark} />
         </View>
         <View>
           <Title noMargin={true} size="small" color={true}>
@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   spaceBetween: {
-    marginVertical: 8,
+    marginVertical: mvs(8),
     flexDirection: "row",
     alignItems: "center",
   },
@@ -68,9 +68,9 @@ const styles = StyleSheet.create({
     padding: 4,
     backgroundColor: colors.primary,
     borderRadius: rounded.sm,
-    marginRight: 15,
-    width: 34,
-    height: 34,
+    marginRight: mvs(15),
+    width: mvs(34),
+    height: mvs(34),
     alignItems: "center",
     justifyContent: "center",
   },
