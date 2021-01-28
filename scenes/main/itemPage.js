@@ -16,6 +16,7 @@ import { backgroundColors } from "../../styles/colors";
 import { elevation, rounded } from "../../styles/base";
 import { mvs } from "react-native-size-matters";
 import {getQuestionsForSurvey} from "../../components/functional/surveys/logic/survey";
+import icon from "../../assets/james.jpg";
 const ItemPage = ({ route, navigation }) => {
   const keyId = route.params.itemId;
   let { account } = useSelector(selectAccountData);
@@ -26,7 +27,7 @@ const ItemPage = ({ route, navigation }) => {
     <PrimaryContainer>
       <HeaderContainer
         returnButton={() => navigation.goBack()}
-        icon={true}
+        icon={icon}
         animatedValue={offset}
       ></HeaderContainer>
       <ContentContainer>

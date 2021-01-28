@@ -1,10 +1,11 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { View, Text, Image } from "react-native";
 import Title from "../common/Typography/title";
 import Paragraph from "../common/Typography/paragraph";
 import { ScaledSheet } from "react-native-size-matters";
 import { colors } from "../../styles/colors";
 import { rounded } from "../../styles/base";
+import icon from "../../assets/james.jpg";
 const itemHeader = ({ name, category, fit }) => {
   const styles = ScaledSheet.create({
     header: {
@@ -34,7 +35,7 @@ const itemHeader = ({ name, category, fit }) => {
   });
   return (
     <View style={styles.header}>
-      <View style={styles.icon}></View>
+      <View style={styles.icon}><Image  style={styles.icon} source={icon}/></View>
       <View>
         <Text style={styles.textAlign}>
           <Title size="small" noMargin={true}>
