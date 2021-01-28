@@ -26,7 +26,7 @@ const ReturnButton = ({ white, action }) => {
       activeOpacity={0.7}
     >
       <Ionicons
-        name="md-arrow-round-back"
+        name="md-arrow-back"
         size={ms(30)}
         color={white ? colors.white : colors.primary}
         style={styles.returnButton}

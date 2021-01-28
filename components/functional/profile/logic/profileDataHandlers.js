@@ -40,7 +40,6 @@ export const placeOfResidenceToNumber = (place_of_residence) => {
             return 2
         case "miasto":
             return 3
-        // code block
     }
     return 3
 }

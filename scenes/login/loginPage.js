@@ -20,7 +20,7 @@ import { fonts } from "../../styles/fonts";
 const LoginPage = ({ navigation, onSignIn }) => {
   const secondTextField = createRef();
 
-  const handleLogin = async (result) => {
+  const handleLogin = (result) => {
     if (result === 200) {
       onSignIn();
     } else if (result === 401) {

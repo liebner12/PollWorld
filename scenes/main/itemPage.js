@@ -15,6 +15,7 @@ import { selectAccountData } from "../../components/redux_components/accountCont
 import { backgroundColors } from "../../styles/colors";
 import { elevation, rounded } from "../../styles/base";
 import { mvs } from "react-native-size-matters";
+import {getQuestionsForSurvey} from "../../components/functional/surveys/logic/survey";
 const ItemPage = ({ route, navigation }) => {
   const keyId = route.params.itemId;
   let { account } = useSelector(selectAccountData);
@@ -78,13 +79,14 @@ const ItemPage = ({ route, navigation }) => {
             <View style={{ flex: 1, justifyContent: "flex-end" }}>
               <MainButton
                 name="Zaczynajmy!"
-                onPress={() =>
+                onPress={async () => {
                   navigation.navigate("Survey", {
                     itemId: keyId,
                     survey: survey,
+                    questions: await getQuestionsForSurvey(keyId),
                     snackbar: route.params.snackbar,
                   })
-                }
+                }}
               />
             </View>
           </ViewContainer>

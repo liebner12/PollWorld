@@ -2,7 +2,6 @@ import { createSlice } from '@reduxjs/toolkit'
 import {
     getCouponsToBuy,
     getOwnedCoupons,
-    getMockSurveysForUser,
     getUserPoints
 } from "../functional/surveys/logic/survey";
 
@@ -11,7 +10,7 @@ export const initialState = {
         surveys: [],
         owned_coupons: [],
         coupons_to_buy: [],
-        points: "1337",
+        points: "0",
         email: "fakemail@gmail.com",
 
     }
@@ -57,18 +56,13 @@ export function dispatchAccountData() {
     }
 }
 
-export function dispatchSurveys(){
-    return dispatch => {
-        const surveys = getMockSurveysForUser();
-        dispatch(userSurveys(surveys))
-    }
-}
 
 export function dispatchSurveysWithValue(surveysList) {
     return dispatch => {
         dispatch(userSurveys(surveysList))
     }
 }
+
 
 export function dispatchOwnedCoupons(){
     return dispatch => {

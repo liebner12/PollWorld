@@ -1,5 +1,6 @@
 const server = `http://10.0.2.2:8000`;
 
+
 const getHeaders = (token) => {
   const headers = {
     'Content-Type': 'application/json',
@@ -92,5 +93,3 @@ export const get = async (destination, token) => {
     response_headers: response_headers
   };
 }
-
-

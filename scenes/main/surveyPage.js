@@ -8,20 +8,37 @@ import ViewContainer from "../../components/common/Containers/viewContainer";
 import { useSelector } from "react-redux";
 import Form from "../../components/form/form";
 import { selectAccountData } from "../../components/redux_components/accountController";
-import PopUp from "../../components/common/popUp";
 import Dialog from "../../components/common/dialog";
-import { NavigationEvents } from "react-navigation";
+import {
+    prepareAnswersForServer,
+    getConvertedQuestions,
+    questionsToFields
+} from "../../components/functional/surveys/logic/surveyConverter";
+
 const SurveyPage = ({ route, navigation }) => {
+
   const keyId = route.params.itemId;
   const { account } = useSelector(selectAccountData);
   const surveys = account.surveys;
   const survey = surveys.find((el) => el.id == keyId);
-  const onSubmit = () => {
-    navigation.popToTop();
-    route.params.snackbar("Wypełniono pomyślnie ankietę!");
+
+  const questions = getConvertedQuestions(route.params.questions)
+  const questionsFields = questionsToFields(questions)
+  let answersForSurvey = {}
+
+
+
+  const onSubmit = async () => {
+      navigation.popToTop();
+      route.params.snackbar("Wypełniono pomyślnie ankietę!");
   };
+
   const [visible, setVisible] = React.useState(false);
   const hideDialog = () => setVisible(false);
+
+  const setAnswers = (...answers) =>{
+      answersForSurvey=prepareAnswersForServer(answers, questionsFields)
+  }
 
   return (
     <PrimaryContainer>
@@ -35,38 +52,10 @@ const SurveyPage = ({ route, navigation }) => {
           <ViewContainer wider={true}>
             <Form
               buttonText="Zakończ"
-              onSubmit={() => onSubmit()}
-              action={() => console.log("ha")}
+              onSubmit={onSubmit}
+              action={setAnswers}
               survey={true}
-              fields={{
-                name: {
-                  name: "Jakie jest twoje zainteresowanie?",
-                  blurOnSubmit: false,
-                },
-                age: {
-                  name: "Ile masz lat?",
-                },
-                sex: {
-                  name: "Określ swoją płeć.",
-                  type: "radio",
-                  title: "Płeć",
-                  fields: {
-                    male: { name: "mężczyzna" },
-                    female: { name: "kobieta" },
-                    others: { name: "inne" },
-                  },
-                },
-                have: {
-                  name: "Powiedz co masz.",
-                  type: "checkbox",
-                  title: "Powiedz co masz.",
-                  fields: {
-                    2: { text: "Mam 2 złote" },
-                    3: { text: "Mam 3 złote" },
-                    5: { text: "Mam 5 złotych" },
-                  },
-                },
-              }}
+              fields={questionsFields}
             />
           </ViewContainer>
         </ScrollableContainer>
