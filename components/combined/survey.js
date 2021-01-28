@@ -18,19 +18,20 @@ const Survey = ({
   even,
   rate,
   price,
+  snackbar,
 }) => {
   const styles = ScaledSheet.create({
     item: {
       backgroundColor: backgroundColors.secondary,
-      width: fit ? "47%" : "200@s",
-      minHeight: fit ? 250 : 0,
+      width: fit ? "42.5%" : "200@s",
+      minHeight: fit ? 250 : 150,
       borderRadius: rounded.md,
       elevation: elevation.elevation,
       paddingTop: "10@mvs",
       paddingBottom: 10,
-      marginRight: fit ? (even ? "3%" : 0) : 30,
-      marginLeft: fit ? (even ? 0 : "3%") : 0,
-      marginBottom: fit ? 30 : 10,
+      marginRight: fit ? (even ? "5%" : 0) : 30,
+      marginLeft: fit ? (even ? "5%" : 0) : 0,
+      marginBottom: fit ? "30@vs" : "10@vs",
       paddingHorizontal: "10@ms",
     },
     textAlign: {
@@ -53,7 +54,7 @@ const Survey = ({
     <TouchableOpacity
       style={styles.item}
       activeOpacity={0.6}
-      onPress={() => navigation.navigate("Item", { itemId: id })}
+      onPress={() => navigation.navigate("Item", { itemId: id, snackbar: snackbar })}
     >
       <ItemHeader fit={fit} name={name} category={category} />
       <Text style={styles.textAlign}>

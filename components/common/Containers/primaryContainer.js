@@ -7,6 +7,7 @@ const PrimarContainer = ({ children }) => {
     container: {
       flex: 1,
       backgroundColor: backgroundColors.primary,
+      position: "relative",
     },
   });
   return <View style={styles.container}>{children}</View>;

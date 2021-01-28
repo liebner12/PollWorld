@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { View, Animated } from "react-native";
 import PrimaryContainer from "../../components/common/Containers/primaryContainer";
 import ContentContainer from "../../components/common/Containers/contentContainer";
@@ -8,54 +8,67 @@ import HeaderContainer from "../../components/common/Containers/headerContainer"
 import ViewContainer from "../../components/common/Containers/viewContainer";
 import PersonalData from "../../components/combined/personalData";
 import ImportantData from "../../components/combined/importantData";
-import { ScaledSheet } from "react-native-size-matters";
+import { ScaledSheet, mvs } from "react-native-size-matters";
 import { useSelector } from "react-redux";
-import { selectProfileData } from "../../components/redux_components/profileController";
 import MarginContainer from "../../components/common/Containers/marginContainer";
+import PopUp from "../../components/common/popUp";
+import icon from "../../assets/user.jpg";
+import {selectPersonalData} from "../../components/redux_components/personalDataController";
+import {selectPhysicalData} from "../../components/redux_components/physicalDataController";
+import {selectDetailsData} from "../../components/redux_components/detailsDataController";
+import {selectAccountData} from "../../components/redux_components/accountController";
+import {boolToSex, numberToPlaceOfResidence} from "../../components/functional/profile/logic/profileDataHandlers";
 
 const ProfilePage = ({ navigation, onSignOut }) => {
-  const { profile } = useSelector(selectProfileData);
+  let { personal } = useSelector(selectPersonalData);
+  let { physical } = useSelector(selectPhysicalData);
+  let { details } = useSelector(selectDetailsData);
+  let { account } = useSelector(selectAccountData)
+
   const offset = useRef(new Animated.Value(0)).current;
-  const job =
-    profile.place_of_residence == 1
-      ? "metropolia"
-      : profile.place_of_residence == 2
-      ? "miasto"
-      : "wieś";
+  const [visible, setVisible] = useState(false);
+  const [message, setMessage] = useState("");
+  const onToggleSnackBar = (text) => {
+    setVisible(!visible);
+    setMessage(text);
+  };
+
   return (
     <PrimaryContainer>
       <HeaderContainer
         settings={() => navigation.navigate("Settings")}
-        icon={true}
+        icon={icon}
         animatedValue={offset}
       ></HeaderContainer>
       <ContentContainer>
         <ScrollableContainer offset={offset}>
           <View style={styles.name}>
             <Title size="big" color={true}>
-              Cześć {profile.name}
+              Cześć {personal.name}
             </Title>
           </View>
           <ViewContainer wider={true}>
             <ImportantData
-              onPress={() => navigation.navigate("Edit")}
-              email={profile.email}
+              email={account.email}
               password="********"
             />
             <MarginContainer>
               <PersonalData
-                onPress={() => navigation.navigate("Edit")}
-                age={profile.age}
-                sex="mężczyzna"
-                living={job}
-                job={profile.profession}
-                height={profile.growth}
-                weight={profile.weight}
-                fitness={profile.level_of_fitness}
+                onPress={() =>
+                  navigation.navigate("Edit", { snackbar: onToggleSnackBar })
+                }
+                age={personal.age}
+                sex={boolToSex(personal.sex)}
+                living={numberToPlaceOfResidence(details.place_of_residence)}
+                job={details.profession}
+                height={physical.growth}
+                weight={physical.weight}
+                fitness={physical.level_of_fitness}
               />
             </MarginContainer>
           </ViewContainer>
         </ScrollableContainer>
+        <PopUp visible={visible} setVisible={setVisible} message={message} />
       </ContentContainer>
     </PrimaryContainer>
   );
@@ -64,8 +77,8 @@ const ProfilePage = ({ navigation, onSignOut }) => {
 const styles = ScaledSheet.create({
   name: {
     alignItems: "center",
-    marginTop: 30,
-    marginBottom: 10,
+    marginTop: mvs(40),
+    marginBottom: mvs(10),
   },
 });
 

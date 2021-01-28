@@ -1,8 +1,8 @@
 import React from "react";
 import { View } from "react-native";
-import { verticalScale } from "react-native-size-matters";
+import { vs } from "react-native-size-matters";
 const MarginContainer = ({ children }) => {
-  return <View style={{ marginTop: verticalScale(20) }}>{children}</View>;
+  return <View style={{ marginVertical: vs(20), }}>{children}</View>;
 };
 
 export default MarginContainer;

@@ -12,7 +12,6 @@ import Form from "../../components/form/form";
 import ReturnButton from "../../components/common/returnButton";
 import Link from "../../components/common/Typography/link";
 import Paragraph from "../../components/common/Typography/paragraph";
-
 const RegisterPage = ({ navigation }) => {
   const secondTextField = createRef();
   const thirdTextField = createRef();
@@ -22,7 +21,6 @@ const RegisterPage = ({ navigation }) => {
     } else if (result === 400) {
       throw new Error("Ten adres email jest już używany.");
     } else {
-      console.log(result)
       throw new Error("Coś poszło nie tak.");
     }
   };

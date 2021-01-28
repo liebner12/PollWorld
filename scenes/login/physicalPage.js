@@ -8,52 +8,79 @@ import {
   cantBeEmpty,
   onlyNumbers,
 } from "../../components/form/typingValidation";
-const PhysicalPage = ({ navigation, onSignIn }) => {
+import { useDispatch, useSelector } from "react-redux";
+import { dispatchPhysicalData } from "../../components/redux_components/physicalDataController";
+import { getAccessToken } from "../../components/functional/api/storedTokens";
+import { putUserDataForUser } from "../../components/functional/profile/logic/userData";
+import { profileDataJoiner } from "../../components/functional/profile/logic/profileDataHandlers";
+import { selectPersonalData } from "../../components/redux_components/personalDataController";
+import { selectDetailsData } from "../../components/redux_components/detailsDataController";
+const PhysicalPage = ({ onSignIn }) => {
   const secondTextField = createRef();
-  const handleSubmit = () => {
-    onSignIn();
+  const dispatchPhysical = useDispatch();
+
+  let { personal } = useSelector(selectPersonalData);
+  let { details } = useSelector(selectDetailsData);
+  let data = {};
+
+  const handleDispatcher = (height, weight, activity) => {
+    data.growth = height;
+    data.weight = weight;
+    data.level_of_fitness = activity;
+    dispatchPhysical(
+      dispatchPhysicalData({
+        growth: height,
+        weight: weight,
+        level_of_fitness: activity,
+      })
+    );
+  };
+  const handleSubmit = async () => {
+    const accessToken = await getAccessToken();
+    console.log(accessToken);
+    let response = await putUserDataForUser(
+      accessToken,
+      await profileDataJoiner(personal, data, details)
+    );
+    await onSignIn();
   };
 
   return (
     <ScrollableContainer padding={true}>
       <ReturnButton />
-      <View>
-        <Title>Fizyczne statystyki</Title>
-        <View>
-          <Form
-            buttonText="Zakończ"
-            onSubmit={handleSubmit}
-            action={() => console.log("fake")}
-            fields={{
-              height: {
-                name: "Wzrost",
-                keyboardType: "numeric",
-                validate: [onlyNumbers, cantBeEmpty],
-                blurOnSubmit: false,
-                onSubmitEditing: () => secondTextField.current.focus(),
-              },
-              weight: {
-                name: "Waga",
-                keyboardType: "numeric",
-                validate: [onlyNumbers, cantBeEmpty],
-                ref: secondTextField,
-              },
-              activity: {
-                type: "radio",
-                title: "Poziom aktywności fizycznej",
-                fields: {
-                  1: { name: "1" },
-                  2: { name: "2" },
-                  3: { name: "3" },
-                  4: { name: "4" },
-                  5: { name: "5" },
-                },
-                validate: [cantBeEmpty],
-              },
-            }}
-          />
-        </View>
-      </View>
+      <Title>Fizyczne statystyki</Title>
+      <Form
+        buttonText="Zakończ"
+        onSubmit={handleSubmit}
+        action={handleDispatcher}
+        fields={{
+          height: {
+            name: "Wzrost",
+            keyboardType: "numeric",
+            validate: [onlyNumbers, cantBeEmpty],
+            blurOnSubmit: false,
+            onSubmitEditing: () => secondTextField.current.focus(),
+          },
+          weight: {
+            name: "Waga",
+            keyboardType: "numeric",
+            validate: [onlyNumbers, cantBeEmpty],
+            ref: secondTextField,
+          },
+          activity: {
+            type: "radio",
+            title: "Poziom aktywności fizycznej",
+            fields: {
+              1: { name: "1" },
+              2: { name: "2" },
+              3: { name: "3" },
+              4: { name: "4" },
+              5: { name: "5" },
+            },
+            validate: [cantBeEmpty],
+          },
+        }}
+      />
     </ScrollableContainer>
   );
 };

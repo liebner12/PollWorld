@@ -10,16 +10,82 @@ import {
   cantBeEmpty,
   onlyNumbers,
 } from "../../components/form/typingValidation";
-import {useSelector} from "react-redux";
-import {selectAccountData} from "../../components/redux_components/accountController";
-import {selectProfileData} from "../../components/redux_components/profileController";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  boolToSex,
+  numberToPlaceOfResidence,
+  placeOfResidenceToNumber,
+  profileDataSeparator,
+  sexToBool,
+} from "../../components/functional/profile/logic/profileDataHandlers";
+import { getAccessToken } from "../../components/functional/api/storedTokens";
+import {
+  getUserDataForUser,
+  putUserDataForUser,
+} from "../../components/functional/profile/logic/userData";
+import {
+  dispatchPersonalData,
+  selectPersonalData,
+} from "../../components/redux_components/personalDataController";
+import {
+  dispatchPhysicalData,
+  selectPhysicalData,
+} from "../../components/redux_components/physicalDataController";
+import {
+  dispatchDetailsData,
+  selectDetailsData,
+} from "../../components/redux_components/detailsDataController";
 
-const EdditPage = ({ navigation }) => {
-  const {account} = useSelector(selectAccountData)
-  const {profile} = useSelector(selectProfileData)
+const EdditPage = ({ route, navigation }) => {
+  let { personal } = useSelector(selectPersonalData);
+  let { physical } = useSelector(selectPhysicalData);
+  let { details } = useSelector(selectDetailsData);
 
+  const dispatchPersonal = useDispatch();
+  const dispatchDetails = useDispatch();
+  const dispatchPhysical = useDispatch();
+
+  const changedValues = {};
+
+  const handleSubmit = async () => {
+    const accessToken = await getAccessToken();
+    await putUserDataForUser(accessToken, changedValues);
+    const profileData = await getUserDataForUser(accessToken);
+    dispatchPersonal(
+      dispatchPersonalData(profileDataSeparator(profileData).personal)
+    );
+    dispatchPhysical(
+      dispatchPhysicalData(profileDataSeparator(profileData).physical)
+    );
+    dispatchDetails(
+      dispatchDetailsData(profileDataSeparator(profileData).details)
+    );
+    route.params.snackbar("Zedtyowano pomyślnie dane!");
+    navigation.goBack();
+  };
+
+  const setValues = (
+    name,
+    age,
+    sex,
+    job,
+    hometown,
+    height,
+    weight,
+    activity
+  ) => {
+    changedValues.name = name;
+    changedValues.age = parseInt(age);
+    changedValues.sex = sexToBool(sex);
+    changedValues.profession = job;
+    changedValues.place_of_residence = placeOfResidenceToNumber(hometown);
+    changedValues.growth = parseInt(height);
+    changedValues.weight = parseInt(weight);
+    changedValues.level_of_fitness = parseInt(activity);
+  };
   const secondTextField = createRef();
   const thirdTextField = createRef();
+
   return (
     <PrimaryContainer>
       <HeaderContainer returnButton={() => navigation.goBack()}>
@@ -32,19 +98,27 @@ const EdditPage = ({ navigation }) => {
           <ViewContainer>
             <Form
               buttonText="Zakończ"
-              onSubmit={() => console.log("ha")}
-              action={() => console.log("fake")}
+              onSubmit={handleSubmit}
+              action={setValues}
+              edit={{
+                name: personal.name,
+                age: personal.age.toString(),
+                sex: boolToSex(personal.sex),
+                job: details.profession,
+                hometown: numberToPlaceOfResidence(details.place_of_residence),
+                height: physical.growth.toString(),
+                weight: physical.weight.toString(),
+                activity: physical.level_of_fitness.toString(),
+              }}
               fields={{
                 name: {
                   name: "Imię",
-                  defaultValue: "Michał",
                   validate: [cantBeEmpty],
                   blurOnSubmit: false,
                   onSubmitEditing: () => secondTextField.current.focus(),
                 },
                 age: {
                   name: "Wiek",
-                  defaultValue: "16",
                   keyboardType: "numeric",
                   validate: [onlyNumbers, cantBeEmpty],
                   ref: secondTextField,
@@ -52,7 +126,6 @@ const EdditPage = ({ navigation }) => {
                 sex: {
                   type: "radio",
                   title: "Płeć",
-                  defaultValue: "mężczyzna",
                   fields: {
                     male: { name: "mężczyzna" },
                     female: { name: "kobieta" },
@@ -102,7 +175,6 @@ const EdditPage = ({ navigation }) => {
                 hometown: {
                   type: "radio",
                   title: "Miejsce zamieszkania",
-                  defaultValue: "metropolia",
                   fields: {
                     city: { name: "metropolia" },
                     town: { name: "miasto" },
@@ -113,7 +185,6 @@ const EdditPage = ({ navigation }) => {
                 height: {
                   name: "Wzrost",
                   keyboardType: "numeric",
-                  defaultValue: "169",
                   validate: [onlyNumbers, cantBeEmpty],
                   blurOnSubmit: false,
                   onSubmitEditing: () => thirdTextField.current.focus(),
@@ -121,14 +192,12 @@ const EdditPage = ({ navigation }) => {
                 weight: {
                   name: "Waga",
                   keyboardType: "numeric",
-                  defaultValue: "40",
                   validate: [onlyNumbers, cantBeEmpty],
                   ref: thirdTextField,
                 },
                 activity: {
                   type: "radio",
                   title: "Poziom aktywności fizycznej",
-                  defaultValue: "3",
                   fields: {
                     1: { name: "1" },
                     2: { name: "2" },

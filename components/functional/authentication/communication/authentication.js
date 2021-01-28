@@ -18,3 +18,7 @@ export const sendGoogleUserToken = (user_token) => {
 export const sendFacebookUserToken = (user_token) => {
   return post("/users/login/google",{},user_token);
 }
+
+export const sendRefreshToken = (refresh_token) => {
+  return post ("/token/refresh", {refresh: refresh_token})
+}

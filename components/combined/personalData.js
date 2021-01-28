@@ -7,7 +7,8 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { colors, backgroundColors } from "../../styles/colors";
 import { elevation, rounded } from "../../styles/base";
 import HorizontalLine from "../common/horizontalLine";
-
+import { fonts } from "../../styles/fonts";
+import { mvs } from "react-native-size-matters";
 const PersonalData = ({
   onPress,
   age,
@@ -24,14 +25,14 @@ const PersonalData = ({
         <Title size="small">Twoje dane osobowe:</Title>
         <TouchableOpacity onPress={onPress}>
           <Title>
-            <MaterialIcons name="edit" size={24} color={colors.primary} />
+            <MaterialIcons name="edit" size={fonts.md} color={colors.primary} />
           </Title>
         </TouchableOpacity>
       </View>
       <HorizontalLine />
       <View style={styles.spaceBetween}>
         <View style={styles.icon}>
-          <MaterialIcons name="cake" size={24} color={colors.dark} />
+          <MaterialIcons name="cake" size={fonts.md} color={colors.dark} />
         </View>
         <View>
           <Title noMargin={true} size="small" color={true}>
@@ -42,7 +43,11 @@ const PersonalData = ({
       </View>
       <View style={styles.spaceBetween}>
         <View style={styles.icon}>
-          <MaterialIcons name="account-circle" size={24} color={colors.dark} />
+          <MaterialIcons
+            name="account-circle"
+            size={fonts.md}
+            color={colors.dark}
+          />
         </View>
         <View>
           <Title noMargin={true} size="small" color={true}>
@@ -53,7 +58,11 @@ const PersonalData = ({
       </View>
       <View style={styles.spaceBetween}>
         <View style={styles.icon}>
-          <MaterialIcons name="location-on" size={24} color={colors.dark} />
+          <MaterialIcons
+            name="location-on"
+            size={fonts.md}
+            color={colors.dark}
+          />
         </View>
         <View>
           <Title noMargin={true} size="small" color={true}>
@@ -64,7 +73,7 @@ const PersonalData = ({
       </View>
       <View style={styles.spaceBetween}>
         <View style={styles.icon}>
-          <MaterialIcons name="work" size={24} color={colors.dark} />
+          <MaterialIcons name="work" size={fonts.md} color={colors.dark} />
         </View>
         <View>
           <Title noMargin={true} size="small" color={true}>
@@ -77,7 +86,7 @@ const PersonalData = ({
         <View style={styles.icon}>
           <MaterialCommunityIcons
             name="human-male-height-variant"
-            size={24}
+            size={fonts.md}
             color={colors.dark}
           />
         </View>
@@ -90,7 +99,11 @@ const PersonalData = ({
       </View>
       <View style={styles.spaceBetween}>
         <View style={styles.icon}>
-          <MaterialIcons name="fitness-center" size={24} color={colors.dark} />
+          <MaterialIcons
+            name="fitness-center"
+            size={fonts.md}
+            color={colors.dark}
+          />
         </View>
         <View>
           <Title noMargin={true} size="small" color={true}>
@@ -101,7 +114,7 @@ const PersonalData = ({
       </View>
       <View style={styles.spaceBetween}>
         <View style={styles.icon}>
-          <MaterialIcons name="directions-run" size={24} color="black" />
+          <MaterialIcons name="directions-run" size={fonts.md} color="black" />
         </View>
         <View>
           <Title noMargin={true} size="small" color={true}>
@@ -126,7 +139,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   spaceBetween: {
-    marginVertical: 8,
+    marginVertical: mvs(8),
     flexDirection: "row",
     alignItems: "center",
   },
@@ -134,9 +147,9 @@ const styles = StyleSheet.create({
     padding: 4,
     backgroundColor: colors.primary,
     borderRadius: rounded.sm,
-    marginRight: 15,
-    width: 34,
-    height: 34,
+    marginRight: mvs(15),
+    width: mvs(34),
+    height: mvs(34),
     alignItems: "center",
     justifyContent: "center",
   },

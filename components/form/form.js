@@ -9,15 +9,18 @@ import ExpandableList from "../combined/expandableList";
 import HorizontalLine from "../common/horizontalLine";
 import SubTitle from "../common/Typography/subTitle";
 import { backgroundColors, colors } from "../../styles/colors";
-const Form = ({ fields, buttonText, onSubmit, action, survey }) => {
+import { fonts } from "../../styles/fonts";
+import { elevation, rounded } from "../../styles/base";
+const Form = ({ fields, buttonText, onSubmit, action, survey, edit }) => {
   const fieldKeys = Object.keys(fields);
-  const [values, setValues] = useState("");
+  const [values, setValues] = useState(edit ? edit : "");
   const [errorMessage, setErrorMessage] = useState("");
   const [validationErrors, setValidationErrors] = useState("");
 
   const onChangeValue = (key, value) => {
     const newState = { ...values, [key]: value };
     setValues(newState);
+
     if (validationErrors[key]) {
       const newErrors = { ...validationErrors, [key]: "" };
       setValidationErrors(newErrors);
@@ -25,15 +28,10 @@ const Form = ({ fields, buttonText, onSubmit, action, survey }) => {
   };
 
   const getValues = () => {
-    return fieldKeys.sort().map((key) => values[key]);
+    return fieldKeys.map((key) => values[key]);
   };
 
   const submit = async () => {
-    fieldKeys.map((key) => {
-      const field = fields[key];
-      onChangeValue(key, field.defaultValue);
-    });
-
     setErrorMessage("");
     setValidationErrors("");
     const errors = validateFields(fields, values);
@@ -41,8 +39,8 @@ const Form = ({ fields, buttonText, onSubmit, action, survey }) => {
       return setValidationErrors(errors);
     }
     try {
-      //const result = await action(...getValues());
-      await onSubmit();
+      const result = await action(...getValues());
+      await onSubmit(result);
     } catch (e) {
       setErrorMessage(e.message);
     }
@@ -101,20 +99,17 @@ const Form = ({ fields, buttonText, onSubmit, action, survey }) => {
 };
 const styles = StyleSheet.create({
   error: {
-    fontFamily: "Asap_400Regular",
+    fontFamily: fonts.secondary,
     minHeight: 20,
     color: colors.error,
     marginBottom: "1%",
   },
   container: {
     backgroundColor: backgroundColors.secondary,
-    borderRadius: 14,
+    borderRadius: rounded.md,
     padding: 25,
     marginBottom: 25,
-    elevation: 6,
-  },
-  line: {
-    height: 2,
+    elevation: elevation.elevation,
   },
 });
 export default Form;

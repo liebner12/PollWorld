@@ -1,5 +1,5 @@
-import React from "react";
-import { View, Text, TouchableOpacity } from "react-native";
+import React, {useState} from "react";
+import { View, Text, TouchableOpacity, Clipboard } from "react-native";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { ScaledSheet } from "react-native-size-matters";
 import { backgroundColors, colors } from "../../styles/colors";
@@ -16,25 +16,33 @@ const Coupon = ({
   even,
   price,
   code,
+  setModalVisible,
+  setCouponId,
+  snackbar,
 }) => {
+  const copyToClipboard = () => {
+    snackbar("Skopiowano kod do schowka.")
+    Clipboard.setString(code);
+  };
+
   const styles = ScaledSheet.create({
     item: {
       backgroundColor: backgroundColors.secondary,
-      width: fit ? "47%" : "200@s",
+      width: fit ? "42.5%" : "200@s",
       minHeight: fit ? 200 : 150,
       borderRadius: rounded.md,
       elevation: elevation.elevation,
       paddingTop: "10@mvs",
-      marginRight: fit ? (even ? "3%" : 0) : 30,
-      marginLeft: fit ? (even ? 0 : "3%") : 0,
-      marginBottom: fit ? 30 : 10,
+      marginRight: fit ? (even ? "5%" : 0) : 30,
+      marginLeft: fit ? (even ? "5%" : 0) : 0,
+      marginBottom: fit ? "30@vs" : "10@vs",
     },
     textAlign: {
       textAlign: fit ? "center" : "auto",
-      flex: 1,
+      flexGrow: 1,
     },
     main: {
-      flex: 1,
+      flexGrow: 1,
       paddingHorizontal: "10@s",
     },
     footer: {
@@ -70,7 +78,13 @@ const Coupon = ({
           </SubTitle>
         </Text>
       </View>
-      <TouchableOpacity style={styles.footer} activeOpacity={0.6}>
+      <TouchableOpacity
+        style={styles.footer}
+        activeOpacity={0.6}
+        onPress={() =>
+          code ? copyToClipboard() : (setModalVisible(true), setCouponId(id))
+        }
+      >
         {code ? (
           <Text style={styles.codeAlign}>
             <SubTitle color="white">{code}</SubTitle>
