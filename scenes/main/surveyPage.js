@@ -30,9 +30,16 @@ const SurveyPage = ({ route, navigation }) => {
   const keyId = route.params.itemId;
   const { account } = useSelector(selectAccountData);
   const surveys = account.surveys;
-  let message;
   const survey = surveys.filter((el) => el.id == keyId);
-  const dispatchPoints = useDispatch();
+  let title
+  try{
+      title = survey[0].name
+  }
+  catch (e){
+      title = ""
+  }
+
+    const dispatchPoints = useDispatch();
   const questions = getConvertedQuestions(route.params.questions)
   const questionsFields = questionsToFields(questions)
   let answersForSurvey = {}
@@ -72,7 +79,7 @@ const SurveyPage = ({ route, navigation }) => {
     <PrimaryContainer>
       <HeaderContainer returnButton={() => setVisible(true)}>
         <Title size="big" color={true} shadow={true}>
-            {survey[0].name}
+            {title}
         </Title>
       </HeaderContainer>
       <ContentContainer>

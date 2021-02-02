@@ -66,7 +66,7 @@ const AppNavigator = () => {
     const surveys = await getSurveysForUser(token)
     const userEmail = await getUser();
     const profileData = await getUserDataForUser(token);
-    let couponsToBuy = await getWelcomeCoupon();
+    let couponsToBuy = await getCouponsToBuy(token);
     let ownedCoupons = await getOwnedCoupons(token);
 
     dispatchSurveysWithData(dispatchSurveysWithValue(surveys.map(convertToAppSurvey)));
