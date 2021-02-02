@@ -1,33 +1,40 @@
-import {sendLoginData, sendRefreshToken} from "../authentication/communication/authentication";
 import {getRefreshToken, setAccessToken, setRefreshToken} from "./storedTokens";
+import {post} from "./fetchBuilder";
+
+export const sendRefreshToken = (refresh_token) => {
+    return post("/token/refresh/", {refresh: refresh_token});
+}
 
 
 export const refreshAccessToken = async () => {
-    console.log("refreshed")
     let refresh = await getRefreshToken();
     let response = await sendRefreshToken(refresh);
     if(response.response_status === 200){
         await setAccessToken(response.response_body.access)
         return response.response_body.access
     }
-
     return response.response_status
 }
 
-export const retryIfFailed = async (request, token, body) => {
+export const performRequest = async (request, destination, body, token) => {
     if(body){
-    if (request(token,body).response_status === 401) {
+        let response = await request(destination, body, token);
+        let status = response.response_status
+        if (status === 401) {
         let newToken = await refreshAccessToken()
-        return await request(newToken,body)}
-
-    return request(token,body)}
-    else{
-        if (request(token).response_status === 401) {
-            let newToken = await refreshAccessToken()
-            console.log("i jak tam")
-            return await request(newToken)
+        response = await request(destination,newToken,body)
         }
-        return request(token)
+    return response;
+    }
+    else{
+        let response = await request(destination, token);
+        let status = response.response_status
+        console.log(response)
+        if (status === 401) {
+            let newToken = await refreshAccessToken()
+            response = await request(destination,newToken)
+        }
+        return response
     }
 }
 

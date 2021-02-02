@@ -11,16 +11,21 @@ import MainNavigations from "./MainNavigations";
 import { darkTheme } from "../styles/themes"
 import {useDispatch} from "react-redux";
 import {
-  dispatchAccountData,
-  dispatchEmail,
-  dispatchSurveysWithValue
+  dispatchAccountData, dispatchCouponsToBuy,
+  dispatchEmail, dispatchOwnedCoupons,
+  dispatchSurveysWithValue, dispatchUserPoints
 } from "../components/redux_components/accountController";
 import {
   clearSecureStore,
   getAccessToken,
   getUser,
 } from "../components/functional/api/storedTokens";
-import {getSurveysForUser} from "../components/functional/surveys/logic/survey";
+import {
+  getCouponsToBuy,
+  getOwnedCoupons,
+  getSurveysForUser,
+  getWelcomeCoupon
+} from "../components/functional/surveys/logic/survey";
 import {convertToAppSurvey} from "../components/functional/surveys/logic/surveyConverter";
 import {dispatchPersonalData} from "../components/redux_components/personalDataController";
 import {profileDataSeparator} from "../components/functional/profile/logic/profileDataHandlers";
@@ -35,9 +40,12 @@ const AppNavigator = () => {
   const dispatchPersonal = useDispatch();
   const dispatchDetails = useDispatch();
   const dispatchPhysical = useDispatch();
+  const dispatchPoints = useDispatch();
   const dispatchAccount = useDispatch();
   const dispatchSurveysWithData = useDispatch();
+  const dispatchToBuy= useDispatch();
   const dispatchUser = useDispatch();
+  const dispatchOwned = useDispatch();
 
   React.useEffect(() => {
     const bootstrapAsync = async () => {
@@ -57,9 +65,15 @@ const AppNavigator = () => {
     const token = await getAccessToken()
     const surveys = await getSurveysForUser(token)
     const userEmail = await getUser();
+    const profileData = await getUserDataForUser(token);
+    let couponsToBuy = await getWelcomeCoupon();
+    let ownedCoupons = await getOwnedCoupons(token);
 
     dispatchSurveysWithData(dispatchSurveysWithValue(surveys.map(convertToAppSurvey)));
+    dispatchPoints(dispatchUserPoints(profileDataSeparator(profileData).account.points))
     dispatchAccount(dispatchAccountData());
+    dispatchToBuy(dispatchCouponsToBuy(couponsToBuy))
+    dispatchOwned(dispatchOwnedCoupons(ownedCoupons))
     dispatchUser(dispatchEmail(userEmail));
     setIsAuthenticated(true);
   }
@@ -67,15 +81,20 @@ const AppNavigator = () => {
 
   const handleSignIn = async () => {
     const token = await getAccessToken();
-    const surveys = await getSurveysForUser(token);
-    const profileData = await getUserDataForUser(token);
     const userEmail = await getUser();
+
+    let surveys = await getSurveysForUser(token);
+    let profileData = await getUserDataForUser(token);
+    let couponsToBuy = await getCouponsToBuy(token);
+    let ownedCoupons = await getOwnedCoupons(token);
 
     dispatchSurveysWithData(dispatchSurveysWithValue(surveys.map(convertToAppSurvey)));
     dispatchPersonal(dispatchPersonalData(profileDataSeparator(profileData).personal))
     dispatchPhysical(dispatchPhysicalData(profileDataSeparator(profileData).physical))
     dispatchDetails(dispatchDetailsData(profileDataSeparator(profileData).details))
-    dispatchAccount(dispatchAccountData());
+    dispatchPoints(dispatchUserPoints(profileDataSeparator(profileData).account.points))
+    dispatchToBuy(dispatchCouponsToBuy(couponsToBuy))
+    dispatchOwned(dispatchOwnedCoupons(ownedCoupons))
     dispatchUser(dispatchEmail(userEmail));
     setIsAuthenticated(true);
   };

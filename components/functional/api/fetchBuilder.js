@@ -1,4 +1,4 @@
-const server = `http://10.0.2.2:8000`;
+const server = `https://pollworldbackend.loca.lt`;
 
 
 const getHeaders = (token) => {
@@ -62,8 +62,8 @@ export const post = async (destination, body, token) => {
       });
   response_body = await res.json()
   return {
-    response_body: response_body,
     response_status: response_status,
+    response_body: response_body,
     response_headers: response_headers
   };
 }

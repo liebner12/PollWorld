@@ -4,6 +4,7 @@ import {
     getOwnedCoupons,
     getUserPoints
 } from "../functional/surveys/logic/survey";
+import {fixIDs} from "../functional/surveys/logic/surveyConverter";
 
 export const initialState = {
     account: {
@@ -47,12 +48,8 @@ export default accountSlice.reducer
 export function dispatchAccountData() {
     return dispatch => {
         const owned_coupons = getOwnedCoupons();
-        const coupons_to_buy = getCouponsToBuy();
-        const points = getUserPoints()
-
-        dispatch(userPoints(points))
         dispatch(ownedCoupons(owned_coupons))
-        dispatch(couponsToBuy(coupons_to_buy))
+
     }
 }
 
@@ -64,10 +61,16 @@ export function dispatchSurveysWithValue(surveysList) {
 }
 
 
-export function dispatchOwnedCoupons(){
+export function dispatchOwnedCoupons(coupons){
     return dispatch => {
-        const coupons = getOwnedCoupons();
+        fixIDs(coupons)
         dispatch(ownedCoupons(coupons))
+    }
+}
+
+export function dispatchUserPoints(points){
+    return dispatch => {
+        dispatch(userPoints(points))
     }
 }
 
@@ -77,9 +80,8 @@ export function dispatchEmail(mail){
     }
 }
 
-export function dispatchCouponsToBuy(){
+export function dispatchCouponsToBuy(coupons){
     return dispatch => {
-        const coupons = getCouponsToBuy();
         dispatch(couponsToBuy(coupons))
     }
 }

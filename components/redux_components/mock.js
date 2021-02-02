@@ -72,91 +72,73 @@ export const mockUserPoints=1231
 export const mockOwnedCoupons =[
     {
         "id": 1,
-        "company": "Firma",
+        "company": "Firma nr 0",
         "category": "Obuwie",
         "description": "10% zniżki na buty",
         "code": "AXADSFX"
     },
-    {
-        "id": 2,
-        "company": "Firma2",
-        "category": "Akcesoria",
-        "description": "50% zniżki na akcesoria",
-        "code": "HFDABZC"
-    },
-    {
-        "id": 3,
-        "company": "Firma3",
-        "category": "Sprzęt komputerowy",
-        "description": "40zł mniej za zakupy powyzej 20 zł",
-        "code": "kod_kuponu"
-    },
-    {
-        "id": 4,
-        "company": "Firma4",
-        "category": "kategoria kuponu",
-        "description": "opis kuponu",
-        "code": "kod_kuponu"
-    },
-    {
-        "id": 5,
-        "company": "Firma5",
-        "category": "kategoria kuponu",
-        "description": "opis kuponu",
-        "code": "kod_kuponu"
-    },
-    {
-        "id": 6,
-        "company": "Firma6",
-        "category": "kategoria kuponu",
-        "description": "opis kuponu",
-        "code": "kod_kuponu"
-    },
 
+]
+export const welcomeCoupon = [
+    {
+        "id":0,
+        "company":"PollWorld",
+        "name":"PollWorld",
+        "category":"IT",
+        "descripton": "Witamy w PollWorld!",
+        "code":"Witamy w PollWorld!"
+    }
 ]
 
 export const mockCouponsToBuy=[
     {
-        "id": 1,
-        "company": "Firma",
-        "category": "Obuwie",
-        "description": "10% zniżki na buty",
-        "price": 120
+        "id": 0,
+        "company": "Firma nr 0",
+        "name": "Kupon nr: 0",
+        "price": 320,
+        "category": "Kategoria nr 0",
+        "description": "Długi opis kuponu"
     },
+
     {
-        "id": 2,
-        "company": "Firma2",
-        "category": "Akcesoria",
-        "description": "50% zniżki na akcesoria",
-        "price": 120
+        "id": 1,
+        "company": "Firma nr 1",
+        "name": "Kupon nr: 1",
+        "price": 370,
+        "category": "Kategoria nr 0",
+        "description": "Długi opis kuponu"
     },
     {
         "id": 3,
-        "company": "Firma3",
-        "category": "Sprzęt komputerowy",
-        "description": "40zł mniej za zakupy powyzej 40 zł",
-        "price": 120
+        "company": "Firma nr 2",
+        "name": "Kupon nr: 2",
+        "price": 380,
+        "category": "Kategoria nr 0",
+        "description": "Długi opis kuponu"
     },
     {
         "id": 4,
-        "company": "Firma4",
-        "category": "kategoria kuponu",
-        "description": "opis kuponu",
-        "price": 120
+        "company": "Firma nr 3",
+        "name": "Kupon nr: 3",
+        "price": 350,
+        "category": "Kategoria nr 0",
+        "description": "Długi opis kuponu"
     },
     {
         "id": 5,
-        "company": "Firma5",
-        "category": "kategoria kuponu",
-        "description": "opis kuponu",
-        "price": 140
+        "company": "Firma nr 4",
+        "name": "Kupon nr: 4",
+        "price": 340,
+        "category": "Kategoria nr 0",
+        "description": "Długi opis kuponu"
     },
     {
         "id": 6,
-        "company": "Firma6",
-        "category": "kategoria kuponu",
-        "description": "opis kuponu",
-        "price": 150
+        "company": "Firma nr 5",
+        "name": "Kupon nr: 5",
+        "price": 500,
+        "category": "Kategoria nr 0",
+        "description": "Długi opis kuponu"
     },
 
 
