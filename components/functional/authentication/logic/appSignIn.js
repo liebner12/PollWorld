@@ -18,9 +18,6 @@ const expected_status = 200;
 
 export const createAccount = async (email, password) => {
   let response = await sendRegisterData(email, password);
-  console.log(response.response_headers.get("content-type"));
-  console.log(response.response_body);
-  console.log(response.response_status);
 
   if (response.response_status === expected_status) {
     console.log("Bedzie teraz wszystko wysylane")

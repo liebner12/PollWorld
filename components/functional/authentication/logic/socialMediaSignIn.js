@@ -1,7 +1,6 @@
 import React from 'react';
 import * as Facebook from "expo-facebook";
 import * as Google from 'expo-google-app-auth';
-import {facebookAppId, googleAppId} from "../../api/secrets"
 
 import {initializeAsync, logInWithReadPermissionsAsync} from "expo-facebook";
 
@@ -9,7 +8,7 @@ import {initializeAsync, logInWithReadPermissionsAsync} from "expo-facebook";
 export const getGoogleUserToken = async() =>{
         const scopes = ["profile", "email"];
         const result = await Google.logInAsync({
-            androidClientId: googleAppId,
+            androidClientId: "",
             scopes: scopes
         }) .catch((error) => {
             console.error(error);
@@ -20,7 +19,8 @@ export const getGoogleUserToken = async() =>{
     };
 
 export const getFacebookUserToken = async() =>{
-        await initializeAsync({appId: facebookAppId}).catch((error) =>{ console.log((error))});
+        console.log(FACEBOOK_APP_ID)
+        await initializeAsync({appId:""}).catch((error) =>{ console.log((error))});
        const result = await logInWithReadPermissionsAsync({
         permissions: ["public_profile", "email"],
     }).then() .catch((error) => {

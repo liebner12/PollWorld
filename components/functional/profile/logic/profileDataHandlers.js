@@ -28,8 +28,10 @@ export const profileDataSeparator = (profile) =>{
         profession: profile.profession,
         place_of_residence: profile.place_of_residence
     }
-
-    return {personal, physical, details};
+    let account = {
+        points: profile.points
+    }
+    return {personal, physical, details, account};
 }
 
 export const placeOfResidenceToNumber = (place_of_residence) => {

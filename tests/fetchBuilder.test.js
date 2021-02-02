@@ -11,7 +11,7 @@ test('Test fetchBuilder GET correct', async () => {
     const response = await get("/token", "accessToken");
 
     expect (fetch).toHaveBeenCalledWith(
-        `http://10.0.2.2:8000/token`,
+        `https://pollworldbackend.loca.lt/token`,
                 {"headers": {
                         "Content-Type": "application/json",
                         "Authorization": "Bearer accessToken"},
@@ -37,7 +37,7 @@ test('Test fetchBuilder POST without a token', async () => {
     const response = await post("/tokenless",{});
 
     expect (fetch).toHaveBeenCalledWith(
-        `http://10.0.2.2:8000/tokenless`,
+        `https://pollworldbackend.loca.lt/tokenless`,
         {   "body": "{}",
             "headers": {
                 "Content-Type": "application/json"},
@@ -60,7 +60,7 @@ test('Test fetchBuilder PUT with wrong token', async () =>{
     const response = await put("/wrong",{}, "accessToken");
 
     expect (fetch).toHaveBeenCalledWith(
-        `http://10.0.2.2:8000/wrong`,
+        `https://pollworldbackend.loca.lt/wrong`,
         {   "body": "{}",
             "headers": {
                 "Content-Type": "application/json",

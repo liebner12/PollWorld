@@ -1,3 +1,5 @@
+import {ownedCoupons} from "../../../redux_components/accountController";
+
 export const convertToAppSurvey = (inputSurvey) => {
     let outputSurvey = inputSurvey;
     outputSurvey.shortDescription = outputSurvey["short-descripption"]
@@ -31,7 +33,7 @@ export const prepareAnswersForServer=  (answers, questions) =>{
         else{
             answearText = answers[answersList.length]
         }
-        answersList.push({questionId, optionIds, answerText: answearText})
+        answersList.push({questionId, optionIds, answearText: answearText})
         answerIterator = 0
         optionIds = []
         answearText = ""
@@ -74,7 +76,11 @@ export const getConvertedQuestions = (serverQuestions) =>
     }
     return outputQuestions
 }
-
+export const fixIDs = (coupons)=>{
+    for(let i=0;i<coupons.length;i++){
+        coupons[i].id=i;
+    }
+}
 
 export const convertQuestionType = (inputType) =>
 {

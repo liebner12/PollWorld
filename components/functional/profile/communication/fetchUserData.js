@@ -1,9 +1,10 @@
 import {post, put, get} from "../../api/fetchBuilder";
+import {performRequest} from "../../api/refreshToken";
 
 export const putUserData = (user_token, data) =>{
-    return put("/accounts/api/update/",data,user_token)
+    return performRequest(put,"/accounts/personal_update/",data,user_token)
 }
 
 export const getUserData = (user_token) =>{
-    return get("/accounts/api/get/", user_token)
+    return performRequest(get, "/accounts/get/",null,user_token)
 }

@@ -14,7 +14,6 @@ import { View } from "react-native";
 
 const ShoppingPage = () => {
   let { account } = useSelector(selectAccountData);
-  let ownedCoupons = account.owned_coupons;
   let couponsToBuy = account.coupons_to_buy;
   const [modalVisible, setModalVisible] = useState(false);
   const [couponId, setCouponId] = useState(1);
@@ -64,7 +63,7 @@ const ShoppingPage = () => {
               <ItemsListHorizontal
                 title="Twoje kupony:"
                 type="coupons"
-                data={ownedCoupons}
+                data={account.owned_coupons}
                 snackbar={onToggleSnackBar}
               />
               <Wallet amount={account.points} />
