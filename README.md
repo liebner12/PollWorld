@@ -1,6 +1,5 @@
 # PollWorld
-Application that allows to fill out surveys and then get points from that. Then user can buy coupons using this virtual currency. This masterpiece was created using React Native in enviroment Expo. Global store was implemented by using Redux Toolkit and connection to server resolved via REST API. 
-Interface was firstly designed in Moqups https://app.moqups.com/bc8ynOPf5Y/view/page/a27800101 and then improved during implementation.
+Application that allows to fill out surveys and then get points from that. Then user can buy coupons using this virtual currency. This masterpiece was created using React Native in enviroment Expo. Global store was implemented by using Redux Toolkit and connection to server resolved via REST API. Interface was firstly designed in Moqups https://app.moqups.com/bc8ynOPf5Y/view/page/a27800101 and then improved during implementation.
 <img src="https://github.com/liebner12/PollWorld/blob/master/assets/screenshots/1.png" width="200" height="400">
 <img src="https://github.com/liebner12/PollWorld/blob/master/assets/screenshots/2.png" width="200" height="400">
 <img src="https://github.com/liebner12/PollWorld/blob/master/assets/screenshots/3.png" width="200" height="400">
@@ -16,3 +15,4 @@ Interface was firstly designed in Moqups https://app.moqups.com/bc8ynOPf5Y/view/
 Right now we are working on implementing company account, which will be able to check results from surveys and create them.
 <img src="https://github.com/liebner12/PollWorld/blob/master/assets/screenshots/11.png" width="200" height="400">
 <img src="https://github.com/liebner12/PollWorld/blob/master/assets/screenshots/12.png" width="200" height="400">
+
