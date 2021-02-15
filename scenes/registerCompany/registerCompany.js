@@ -10,16 +10,15 @@ import {
 import { createAccount } from "../../components/functional/authentication/logic/appSignIn";
 import Form from "../../components/form/form";
 import ReturnButton from "../../components/common/returnButton";
-import {TouchableOpacity, TouchableWithoutFeedback } from "react-native";
 import Link from "../../components/common/Typography/link";
 import Paragraph from "../../components/common/Typography/paragraph";
 
-const RegisterPage = ({ navigation }) => {
+const RegisterCompany = ({ navigation, onSignIn }) => {
   const secondTextField = createRef();
   const thirdTextField = createRef();
   const handleRegister = (result) => {
     if (result === 200) {
-      navigation.navigate("Personal");
+      navigation.navigate("ComapnyData");
     } else if (result === 400) {
       throw new Error("Ten adres email jest już używany.");
     } else {
@@ -30,16 +29,16 @@ const RegisterPage = ({ navigation }) => {
   return (
     <ScrollableContainer padding={true}>
       <ReturnButton />
-      <Title>Zarejestruj się</Title>
+      <Title>Rejestracja dla firm!</Title>
       <Form
         buttonText="Zarejestruj się"
-        onSubmit={handleRegister}
-        action={createAccount}
+        onSubmit={()=> onSignIn(true)}
+        action={()=>console.log("fake")}
         fields={{
           email: {
             name: "Email",
             keyboardType: "email-address",
-            validate: [validateEmail],
+            //validate: [validateEmail],
             blurOnSubmit: false,
             onSubmitEditing: () => secondTextField.current.focus(),
           },
@@ -47,7 +46,7 @@ const RegisterPage = ({ navigation }) => {
             name: "Hasło",
             password: true,
             secured: true,
-            validate: [validatePasswordLength],
+            //validate: [validatePasswordLength],
             ref: secondTextField,
             blurOnSubmit: false,
             onSubmitEditing: () => thirdTextField.current.focus(),
@@ -56,12 +55,12 @@ const RegisterPage = ({ navigation }) => {
             name: "Powtórz hasło",
             password: true,
             secured: true,
-            validate: [validateTwoPasswords],
+            //validate: [validateTwoPasswords],
             ref: thirdTextField,
           },
           registerPolicy: {
             type: "checkbox",
-            validate: [cantBeEmpty],
+            //validate: [cantBeEmpty],
             fields: {
               registerPolicy: {
                 name: "registerPolicy",
@@ -76,15 +75,8 @@ const RegisterPage = ({ navigation }) => {
           },
         }}
       />
-      <TouchableOpacity
-        activeOpacity={0.6}
-        onPress={() => navigation.navigate("RegisterCompany")}
-        style={{flex: 1, alignItems: "center", marginTop: 20,}}
-      >
-        <Paragraph>Jesteś firmą? <Link> Załóż konto dla firm!</Link></Paragraph>
-      </TouchableOpacity>
     </ScrollableContainer>
   );
 };
 
-export default RegisterPage;
+export default RegisterCompany;

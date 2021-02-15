@@ -7,6 +7,7 @@ export const colors = {
   dark: "#000",
   error: "#cf6679",
   grey: "#a2a2a2",
+  darkGrey: "#212121",
 };
 
 export const backgroundColors = {
@@ -16,4 +17,5 @@ export const backgroundColors = {
   lightGrey: "#616161",
   transparentBackground: "#2DA794",
   green: "#2DA794",
+  lightGreen: "#32e0c4",
 };

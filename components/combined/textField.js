@@ -18,6 +18,8 @@ const TextField = React.forwardRef(
       blurOnSubmit,
       defaultValue,
       survey,
+      placeholder,
+      editable
     },
     ref
   ) => {
@@ -61,9 +63,10 @@ const TextField = React.forwardRef(
             keyboardType={keyboardType}
             maxLength={40}
             ref={ref}
+            editable={editable}
             blurOnSubmit={blurOnSubmit}
-            placeholder={survey ? "Enter text here:" : ""}
-            placeholderTextColor="#aaa"
+            placeholder={placeholder ? placeholder : survey ? "Wpisz tekst tutaj" :  ""}
+            placeholderTextColor={placeholder ? "#fff": "#aaa"}
           />
           {password ? (
             <AntDesign

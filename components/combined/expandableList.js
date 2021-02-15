@@ -30,7 +30,7 @@ const ExpandableList = ({
       borderRadius: rounded.md,
       color: colors.white,
       elevation: elevation.elevation,
-      maxHeight: "280@mvs",
+      maxHeight: "300@mvs",
     },
     firstItem: {
       flexDirection: "row",
@@ -57,7 +57,6 @@ const ExpandableList = ({
       )}
       <View style={styles.container}>
         <TouchableWithoutFeedback
-          activeOpacity={0.8}
           onPress={() => setOpen(!open)}
         >
           <View style={styles.list}>

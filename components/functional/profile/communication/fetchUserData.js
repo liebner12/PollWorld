@@ -5,5 +5,5 @@ export const putUserData = (user_token, data) =>{
 }
 
 export const getUserData = (user_token) =>{
-    return get("/accounts/api/get/", user_token)
+    return get("/accounts/get/", user_token)
 }

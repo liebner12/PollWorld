@@ -87,7 +87,7 @@ const LoginPage = ({ navigation, onSignIn }) => {
           activeOpacity={0.6}
           onPress={() => navigation.navigate("Register")}
         >
-          <Link style={styles.registerLink}>Zarejestruj się!</Link>
+          <Link>Zarejestruj się!</Link>
         </TouchableOpacity>
       </View>
     </ScrollableContainer>

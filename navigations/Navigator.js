@@ -8,7 +8,10 @@ import PhysicalPage from "../scenes/login/physicalPage";
 import PersonalDataPage from "../scenes/login/personalDataPage";
 import DetailsPage from "../scenes/login/detailsPage";
 import MainNavigations from "./MainNavigations";
-import { darkTheme } from "../styles/themes"
+import RegisterCompany from "../scenes/registerCompany/registerCompany";
+import CompanyData from "../scenes/registerCompany/companyData";
+import BottomTabsCompany from "./CompanyNavigations"
+import { darkTheme } from "../styles/themes";
 import {useDispatch} from "react-redux";
 import {
   dispatchAccountData,
@@ -32,6 +35,7 @@ const Stack = createStackNavigator();
 
 const AppNavigator = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isCompany, setIsCompany] = useState(false);
   const dispatchPersonal = useDispatch();
   const dispatchDetails = useDispatch();
   const dispatchPhysical = useDispatch();
@@ -83,6 +87,7 @@ const AppNavigator = () => {
   const handleSignOut = async () => {
     await clearSecureStore();
     setIsAuthenticated(false);
+    setIsCompany(false);
   };
 
   return (
@@ -92,8 +97,11 @@ const AppNavigator = () => {
           <Stack.Screen name="Home">
             {(props) => (
               <MainNavigations {...props} onSignOut={handleSignOut} />
-
             )}
+          </Stack.Screen>
+        ) : isCompany ? (
+          <Stack.Screen name="HomeCompany">
+             {(props) => <BottomTabsCompany {...props} onSignIn={handleSignIn} onSignOut={handleSignOut}/>}
           </Stack.Screen>
         ) : (
           <>
@@ -105,6 +113,12 @@ const AppNavigator = () => {
             </Stack.Screen>
             <Stack.Screen name="Register">
               {(props) => <RegisterPage {...props} />}
+            </Stack.Screen>
+            <Stack.Screen name="RegisterCompany">
+              {(props) => <RegisterCompany {...props} onSignIn={setIsCompany}/>}
+            </Stack.Screen>
+            <Stack.Screen name="ComapnyData">
+              {(props) => <CompanyData {...props} />}
             </Stack.Screen>
             <Stack.Screen name="Details">
               {(props) => <DetailsPage {...props} />}
