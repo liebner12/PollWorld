@@ -66,12 +66,12 @@ const headerContainer = ({
           <Animated.Image
             style={{
               height: animatedValue.interpolate({
-                inputRange: [0, 50],
+                inputRange: [0, 100],
                 outputRange: [mvs(125), mvs(60)],
                 extrapolate: "clamp",
               }),
               width: animatedValue.interpolate({
-                inputRange: [0, 50],
+                inputRange: [0, 100],
                 outputRange: [mvs(125), mvs(60)],
                 extrapolate: "clamp",
               }),

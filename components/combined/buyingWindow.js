@@ -6,9 +6,8 @@ import {
   View,
 } from "react-native";
 import { FontAwesome5 } from "@expo/vector-icons";
-import Title from "../common/Typography/title";
 import { colors, backgroundColors } from "../../styles/colors";
-import { elevation, rounded } from "../../styles/base";
+import { rounded } from "../../styles/base";
 import MainButton from "../common/mainButton";
 import ItemHeader from "../common/itemHeader";
 import HorizontalLine from "../common/horizontalLine";
@@ -16,9 +15,7 @@ import SubTitle from "../common/Typography/subTitle";
 const BuyingWindow = ({
   modalVisible,
   setModalVisible,
-  id,
   name,
-  category,
   description,
   price,
   points,
@@ -63,12 +60,18 @@ const BuyingWindow = ({
           <View style={styles.priceContainer}>
             <SubTitle noMargin={true}>Stan konta:</SubTitle>
             <SubTitle noMargin={true} color={true}>
-              {points} - {price} = {points-price}{" "}
+              {points} - {price} = {points - price}{" "}
               <FontAwesome5 name="money-bill" size={18} color={colors.white} />
             </SubTitle>
           </View>
           <HorizontalLine grey={true} />
-          <MainButton name="Kup" onPress={() => (setModalVisible(false), snackbar("Niestety nie można jeszcze kupić :("))} />
+          <MainButton
+            name="Kup"
+            onPress={() => (
+              setModalVisible(false),
+              snackbar("Niestety nie można jeszcze kupić :(")
+            )}
+          />
         </View>
       </View>
     </Modal>

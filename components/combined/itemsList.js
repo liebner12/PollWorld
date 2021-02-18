@@ -5,7 +5,6 @@ import Link from "../common/Typography/link";
 import { ScaledSheet } from "react-native-size-matters";
 import Coupon from "./coupon";
 import Survey from "./survey";
-import { colors } from "../../styles/colors";
 import Placeholder from "./placeholder";
 const ItemsList = ({
   title,

@@ -10,6 +10,7 @@ const LargeBox = ({ children, onLayout }) => {
       marginVertical: 10,
       width: "100%",
       height: 230,
+      paddingVertical: 5,
       borderRadius: rounded.sm,
       elevation: elevation.elevation,
     },

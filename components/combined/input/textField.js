@@ -1,10 +1,10 @@
 import React from "react";
 import { TextInput, View } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
-import SubTitle from "../common/Typography/subTitle";
+import SubTitle from "../../common/Typography/subTitle";
 import { ScaledSheet } from "react-native-size-matters";
-import { colors, backgroundColors } from "../../styles/colors";
-import { rounded } from "../../styles/base";
+import { colors, backgroundColors } from "../../../styles/colors";
+import { rounded } from "../../../styles/base";
 const TextField = React.forwardRef(
   (
     {

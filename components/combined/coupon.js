@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import { View, Text, TouchableOpacity, Clipboard } from "react-native";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { ScaledSheet } from "react-native-size-matters";
@@ -21,7 +21,7 @@ const Coupon = ({
   snackbar,
 }) => {
   const copyToClipboard = () => {
-    snackbar("Skopiowano kod do schowka.")
+    snackbar("Skopiowano kod do schowka.");
     Clipboard.setString(code);
   };
 

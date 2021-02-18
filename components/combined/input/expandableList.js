@@ -5,13 +5,13 @@ import {
   TouchableWithoutFeedback,
   ScrollView,
 } from "react-native";
-import SubTitle from "../common/Typography/subTitle";
+import SubTitle from "../../common/Typography/subTitle";
 import { AntDesign } from "@expo/vector-icons";
 import { ScaledSheet } from "react-native-size-matters";
-import { backgroundColors, colors } from "../../styles/colors";
-import { elevation, rounded } from "../../styles/base";
-import HorizontalLine from "../common/horizontalLine";
-import Title from "../common/Typography/title";
+import { backgroundColors, colors } from "../../../styles/colors";
+import { elevation, rounded } from "../../../styles/base";
+import HorizontalLine from "../../common/horizontalLine";
+import Title from "../../common/Typography/title";
 const ExpandableList = ({
   fields,
   title,
@@ -40,7 +40,7 @@ const ExpandableList = ({
     },
     items: {
       paddingHorizontal: 16,
-      paddingVertical: 16,
+      paddingVertical: 16,      
     },
     icon: {
       transform: [{ rotate: open ? "180deg" : "0deg" }],
@@ -56,9 +56,7 @@ const ExpandableList = ({
         </SubTitle>
       )}
       <View style={styles.container}>
-        <TouchableWithoutFeedback
-          onPress={() => setOpen(!open)}
-        >
+        <TouchableWithoutFeedback onPress={() => setOpen(!open)}>
           <View style={styles.list}>
             <TouchableOpacity
               style={styles.firstItem}

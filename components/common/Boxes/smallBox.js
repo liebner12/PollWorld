@@ -20,7 +20,8 @@ const SmallBox = ({ children, green, onPress }) => {
       height: 150,
       borderRadius: rounded.sm,
       elevation: elevation.elevation,
-      paddingHorizontal: 5,
+      paddingHorizontal: 10,
+      paddingVertical: 5,
     },
   });
   return (

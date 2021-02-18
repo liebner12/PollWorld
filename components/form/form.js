@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { View, StyleSheet, Text } from "react-native";
-import TextField from "../combined/textField";
+import TextField from "../combined/input/textField";
 import MainButton from "../common/mainButton";
 import { validateFields, hasValidationError } from "./validate";
-import RadioButtonGroup from "../combined/radioButton";
-import CheckboxGroup from "../combined/checkbox";
-import ExpandableList from "../combined/expandableList";
+import RadioButtonGroup from "../combined/input/radioButton";
+import CheckboxGroup from "../combined/input/checkbox";
+import ExpandableList from "../combined/input/expandableList";
 import HorizontalLine from "../common/horizontalLine";
 import SubTitle from "../common/Typography/subTitle";
 import { backgroundColors, colors } from "../../styles/colors";

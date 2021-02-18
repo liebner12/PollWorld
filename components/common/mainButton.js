@@ -5,7 +5,7 @@ import { ScaledSheet } from "react-native-size-matters";
 import { colors } from "../../styles/colors";
 import SubTitle from "./Typography/subTitle";
 import { elevation, rounded } from "../../styles/base";
-const MainButton = ({ name, transparent, icon, onPress }) => {
+const MainButton = ({ name, transparent, icon, onPress, round }) => {
   const styles = ScaledSheet.create({
     button: {
       flexDirection: "row",
@@ -18,8 +18,8 @@ const MainButton = ({ name, transparent, icon, onPress }) => {
         : colors.transparentPrimary,
       borderColor: transparent ? colors.white : null,
       borderWidth: transparent ? 2 : 0,
-      borderRadius: rounded.md,
-      elevation: transparent ? 0 : elevation.elevation,
+      borderRadius: round ? 50 : rounded.md,
+      elevation: transparent ? 0 : round ? 0 : elevation.elevation,
     },
     container: {
       flex: 1,
