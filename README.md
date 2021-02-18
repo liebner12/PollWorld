@@ -21,3 +21,7 @@ Right now we are working on implementing company account, which will be able to 
 <img src="https://github.com/liebner12/PollWorld/blob/master/assets/screenshots/11.png" width="200" height="400">
 <img src="https://github.com/liebner12/PollWorld/blob/master/assets/screenshots/12.png" width="200" height="400">
 <div/>
+
+Link for presentation of our application that shows full functionality:
+
+https://www.canva.com/design/DAEUtOsGMVI/OfcDiKmbQEUe00MOVo3ZQw/view?utm_content=DAEUtOsGMVI&utm_campaign=designshare&utm_medium=link&utm_source=publishpresent#1
