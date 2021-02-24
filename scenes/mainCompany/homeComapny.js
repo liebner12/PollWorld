@@ -13,7 +13,9 @@ import { colors } from "../../styles/colors";
 import { LineChart, ProgressChart } from "react-native-chart-kit";
 import SubTitle from "../../components/common/Typography/subTitle";
 import { ScaledSheet } from "react-native-size-matters";
-
+import { chartConfig } from "../../components/common/Charts/chartsConfig";
+import { useSelector } from "react-redux";
+import { selectCompanySurveys } from "../../components/redux_components/companyController";
 const data = {
   data: [0.73],
 };
@@ -25,17 +27,6 @@ const wideData = {
       data: [100, 1060, 150, 346, 478, 750, 280],
     },
   ],
-};
-
-const chartConfig = {
-  backgroundGradientFromOpacity: 0,
-  backgroundGradientToOpacity: 0,
-  strokeWidth: 3,
-  barPercentage: 1,
-  decimalPlaces: 0,
-  fillShadowGradientOpacity: 1,
-  color: (opacity = 1) => `rgba(50, 240, 196, ${opacity})`,
-  labelColor: (opacity = 1) => `rgba(50, 255, 196, ${opacity})`,
 };
 
 const HomePage = ({ navigation }) => {

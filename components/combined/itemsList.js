@@ -16,6 +16,7 @@ const ItemsList = ({
   setModalVisible,
   setCouponId,
   ListHeaderComponent,
+  company,
 }) => {
   const renderItem = ({ item, index }) => (
     <Survey
@@ -26,6 +27,7 @@ const ItemsList = ({
       price={item.price}
       rate={item.rate}
       fit={true}
+      company={company}
       even={index % 2 ? false : true}
       snackbar={snackbar}
     />

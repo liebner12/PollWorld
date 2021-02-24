@@ -11,6 +11,7 @@ const Paragraph = ({ children, center, grey }) => {
       fontFamily: fonts.secondary,
       color: grey ? colors.grey : colors.secondary,
       textAlign: center ? "center" : "auto",
+      
     },
   });
   return <Text style={styles.title}>{children}</Text>;

@@ -15,127 +15,126 @@ import QuestionHeader from "../../components/combined/surveyCreator/questionHead
 import SurveyHeader from "../../components/combined/surveyCreator/surveyHeader";
 import SurveyFooter from "../../components/combined/surveyCreator/surveyFooter";
 
-const HomePage = ({ navigation }) => {
-  const handleAddObj = (key, value) => {
-    const newState = { ...questionObj, [key]: value };
+const AddPage = ({ navigation }) => {
+  const handleSurveyChange = (key, value) => {
+    const newState = { ...survey, [key]: value };
     console.log(newState);
-    setQuestionObj(newState);
+    setSurvey(newState);
   };
-  const [survey, setSurvey] = useState({ ...questionObj, surveyTitle: "" });
-  const [questionObj, setQuestionObj] = useState({
-    0: {
-      title: "",
-      type: "Krótka odpowiedź",
-      required: false,
-      values: { 0: "" },
-    },
-  });
-  const [objIterator, setObjIterator] = useState(1);
-  const [radioIterator, setRadioIterator] = useState(1);
 
+  const [survey, setSurvey] = useState({
+    name: "",
+    description: "",
+    short_description: "",
+    category: "Sport",
+    questions: [
+      {
+        name: "",
+        type: "Krótka odpowiedź",
+        required: false,
+        values: [""],
+      },
+    ],
+  });
+  const renderSwitch = (item, newArray, index) => {
+    switch (item.type) {
+      case "Wielokrotny wybór":
+        return (
+          <View>
+            <CheckBoxGroup
+              fields={item.values}
+              create={true}
+              item={item}
+              newArray={newArray}
+              index={index}
+              handleSurveyChange={handleSurveyChange}
+            />
+            <QuestionFooter
+              handleSurveyChange={handleSurveyChange}
+              newArray={newArray}
+              index={index}
+              item={item}
+            />
+          </View>
+        );
+      case "Lista rozwijana":
+        return (
+          <View>
+            <QuestionListCreator
+              fields={item.values}
+              item={item}
+              newArray={newArray}
+              index={index}
+              handleSurveyChange={handleSurveyChange}
+            />
+            <QuestionFooter
+              handleSurveyChange={handleSurveyChange}
+              newArray={newArray}
+              index={index}
+              item={item}
+            />
+          </View>
+        );
+      case "Jednokrotny wybór":
+        return (
+          <View>
+            <RadioButtonGroup
+              survey={true}
+              fields={item.values}
+              setValue={() => console.log()}
+              item={item}
+              create={true}
+              newArray={newArray}
+              index={index}
+              handleSurveyChange={handleSurveyChange}
+            />
+            <QuestionFooter
+              handleSurveyChange={handleSurveyChange}
+              newArray={newArray}
+              index={index}
+              item={item}
+            />
+          </View>
+        );
+      default:
+        return (
+          <View>
+            <TextField survey={true} editable={false} placeholder="..." />
+            <QuestionFooter
+              handleSurveyChange={handleSurveyChange}
+              newArray={newArray}
+              index={index}
+              item={item}
+              add={false}
+            />
+          </View>
+        );
+    }
+  };
   return (
     <PrimaryContainer>
       <ContentContainer>
         <ScrollableContainer>
           <ViewContainer wider={true}>
-            <SurveyHeader
-              survey={survey}
-              setSurvey={setSurvey}
-              questionObj={questionObj}
-            />
-            {Object.keys(questionObj).map((key) => {
-              const field = questionObj[key];
+            <SurveyHeader handleSurveyChange={handleSurveyChange} survey={survey} />
+            {survey.questions.map((item) => {
+              let newArray = [...survey.questions];
+              let index = [...survey.questions].indexOf(item);
               return (
-                <View style={styles.container} key={key}>
+                <View style={styles.container}>
                   <QuestionHeader
-                    handleAddObj={handleAddObj}
-                    setQuestionObj={setQuestionObj}
-                    questionObj={questionObj}
-                    field={field}
-                    objKey={key}
+                    handleSurveyChange={handleSurveyChange}
+                    item={item}
+                    newArray={newArray}
+                    index={index}
                   />
-                  {field.type == "Krótka odpowiedź" ? (
-                    <View>
-                      <TextField
-                        survey={true}
-                        editable={false}
-                        placeholder="..."
-                      />
-                      <QuestionFooter
-                        setRadioIterator={setRadioIterator}
-                        handleAddObj={handleAddObj}
-                        field={field}
-                        radioIterator={radioIterator}
-                        objKey={key}
-                        add={false}
-                      />
-                    </View>
-                  ) : field.type == "Wielokrotny wybór" ? (
-                    <View>
-                      <CheckBoxGroup
-                        fields={field.values}
-                        onPress={console.log()}
-                        create={questionObj}
-                        value={field}
-                        objKey={key}
-                        onChangeObj={handleAddObj}
-                        setQuestionList={setQuestionObj}
-                      />
-                      <QuestionFooter
-                        setRadioIterator={setRadioIterator}
-                        handleAddObj={handleAddObj}
-                        field={field}
-                        radioIterator={radioIterator}
-                        objKey={key}
-                      />
-                    </View>
-                  ) : field.type == "Lista rozwijana" ? (
-                    <View>
-                      <QuestionListCreator
-                        fields={field.values}
-                        onPress={console.log()}
-                        create={questionObj}
-                        value={field}
-                        objKey={key}
-                        onChangeObj={handleAddObj}
-                        setQuestionList={setQuestionObj}
-                      />
-                      <QuestionFooter
-                        setRadioIterator={setRadioIterator}
-                        handleAddObj={handleAddObj}
-                        field={field}
-                        radioIterator={radioIterator}
-                        objKey={key}
-                      />
-                    </View>
-                  ) : (
-                    <View>
-                      <RadioButtonGroup
-                        value={field}
-                        objKey={key}
-                        survey={true}
-                        fields={field.values}
-                        setValue={() => console.log()}
-                        create={questionObj}
-                        onChangeValueRadio={handleAddObj}
-                        setQuestionList={setQuestionObj}
-                      />
-                      <QuestionFooter
-                        setRadioIterator={setRadioIterator}
-                        handleAddObj={handleAddObj}
-                        field={field}
-                        radioIterator={radioIterator}
-                        objKey={key}
-                      />
-                    </View>
-                  )}
+                  {renderSwitch(item, newArray, index)}
                 </View>
               );
             })}
             <SurveyFooter
-              objIterator={objIterator}
-              setObjIterator={setObjIterator}
-              handleAddObj={handleAddObj}
+              survey={survey}
+              handleSurveyChange={handleSurveyChange}
             />
           </ViewContainer>
         </ScrollableContainer>
@@ -152,4 +151,4 @@ const styles = StyleSheet.create({
     elevation: elevation.elevation,
   },
 });
-export default HomePage;
+export default AddPage;

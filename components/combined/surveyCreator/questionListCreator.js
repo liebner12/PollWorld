@@ -8,20 +8,19 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { colors } from "../../../styles/colors";
 const QuestionListCreator = ({
   fields,
-  create,
-  onChangeObj,
-  objKey,
-  value,
-  setQuestionList,
+  handleSurveyChange,
+  newArray,
+  item,
+  index,
 }) => {
   const fieldKeys = Object.keys(fields);
   const styles = ScaledSheet.create({
-    checkboxButton: {
+    container: {
       flexDirection: "row",
       alignItems: "center",
     },
     button: {
-      marginBottom: create ? "5@mvs" : 0,
+      marginBottom: "5@mvs",
     },
     closeButton: {
       marginLeft: 5,
@@ -31,48 +30,35 @@ const QuestionListCreator = ({
   return (
     <View>
       {fieldKeys.map((key) => {
-        const field = fields[key];
         return (
-          <View key={key} style={styles.checkboxButton}>
-            <View style={styles.button}></View>
-            {create ? (
-              <View
-                style={{
-                  flex: 1,
+          <View key={key} style={styles.container}>
+            <View
+              style={{
+                flex: 1,
+              }}
+            >
+              <TextField
+                survey={true}
+                value={item.values[key]}
+                onChangeText={(text) => {
+                  let values = [...item.values];
+                  values[key] = text;
+                  newArray[index] = { ...item, values: values };
+                  handleSurveyChange("questions", newArray);
                 }}
-              >
-                <TextField
-                  survey={true}
-                  onChangeText={(text) =>
-                    onChangeObj(objKey, {
-                      ...value,
-                      values: {
-                        ...value.values,
-                        [Object.keys(value.values).find(
-                          (val) => val == key
-                        )]: text,
-                      },
-                    })
-                  }
-                />
-              </View>
-            ) : (
-              <Paragraph>{field.text}</Paragraph>
-            )}
-            {create ? (
-              <TouchableOpacity
-                style={styles.closeButton}
-                onPress={() => {
-                  let del = Object.keys(value.values).filter(
-                    (val) => val == key
-                  );
-                  delete value.values[del];
-                  setQuestionList({ ...create });
-                }}
-              >
-                <MaterialIcons name="close" size={24} color={colors.white} />
-              </TouchableOpacity>
-            ) : null}
+              />
+            </View>
+            <TouchableOpacity
+              style={styles.closeButton}
+              onPress={() => {
+                let values = [...item.values];
+                values.splice(key, 1);
+                newArray[index] = { ...item, values: values };
+                handleSurveyChange("questions", newArray);
+              }}
+            >
+              <MaterialIcons name="close" size={24} color={colors.white} />
+            </TouchableOpacity>
           </View>
         );
       })}

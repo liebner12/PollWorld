@@ -6,7 +6,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import MainButton from "../../common/mainButton";
 
-const SurveyFooter = ({ setObjIterator, handleAddObj, objIterator }) => {
+const SurveyFooter = ({ survey, handleSurveyChange}) => {
   const styles = ScaledSheet.create({
     container: {
       flex: 1,
@@ -35,13 +35,15 @@ const SurveyFooter = ({ setObjIterator, handleAddObj, objIterator }) => {
             activeOpacity={0.6}
             style={{ width: 50, borderRadius: 50 }}
             onPress={() => {
-              setObjIterator(objIterator + 1);
-              handleAddObj(objIterator, {
-                title: "",
-                type: "Krótka odpowiedź",
-                required: false,
-                values: { 0: "" },
-              });
+              handleSurveyChange("questions", [
+                ...survey.questions,
+                {
+                  name: "",
+                  type: "Krótka odpowiedź",
+                  required: false,
+                  values: [""],
+                },
+              ]);
             }}
           >
             <MaterialIcons

@@ -19,7 +19,9 @@ const TextField = React.forwardRef(
       defaultValue,
       survey,
       placeholder,
-      editable
+      editable,
+      multiline = false,
+      numberOfLines,
     },
     ref
   ) => {
@@ -61,12 +63,16 @@ const TextField = React.forwardRef(
             secureTextEntry={secure}
             onSubmitEditing={onSubmitEditing}
             keyboardType={keyboardType}
-            maxLength={40}
+            maxLength={multiline ? 150 : 40}
             ref={ref}
             editable={editable}
             blurOnSubmit={blurOnSubmit}
-            placeholder={placeholder ? placeholder : survey ? "Wpisz tekst tutaj" :  ""}
-            placeholderTextColor={placeholder ? "#fff": "#aaa"}
+            placeholder={
+              placeholder ? placeholder : survey ? "Wpisz tekst tutaj" : ""
+            }
+            placeholderTextColor={placeholder ? "#fff" : "#aaa"}
+            multiline={multiline}
+            numberOfLines={numberOfLines}
           />
           {password ? (
             <AntDesign

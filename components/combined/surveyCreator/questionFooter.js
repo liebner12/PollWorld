@@ -5,14 +5,7 @@ import SubTitle from "../../common/Typography/subTitle";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Switch } from "react-native-paper";
 import { colors } from "../../../styles/colors";
-const QuestionFooter = ({
-  add = true,
-  setRadioIterator,
-  handleAddObj,
-  field,
-  radioIterator,
-  objKey,
-}) => {
+const QuestionFooter = ({ add = true, handleSurveyChange, item, newArray, index }) => {
   const styles = ScaledSheet.create({
     container: {
       flex: 1,
@@ -32,6 +25,7 @@ const QuestionFooter = ({
       alignSelf: "flex-end",
     },
   });
+
   return (
     <View style={styles.container}>
       <View style={styles.switchContainer}>
@@ -39,27 +33,19 @@ const QuestionFooter = ({
           Wymagane
         </SubTitle>
         <Switch
-          value={field.required}
-          onValueChange={() =>
-            handleAddObj(objKey, {
-              ...field,
-              required: !field.required,
-            })
-          }
+          value={item.required}
+          onValueChange={(value) => {
+            newArray[index] = { ...item, required: value };
+            handleSurveyChange("questions", newArray);
+          }}
         />
       </View>
       {add ? (
         <TouchableOpacity
           activeOpacity={0.6}
           onPress={() => {
-            setRadioIterator(radioIterator + 1),
-              handleAddObj(objKey, {
-                ...field,
-                values: {
-                  ...field.values,
-                  [radioIterator]: "",
-                },
-              });
+            newArray[index] = { ...item, values: [...item.values, ""] };
+            handleSurveyChange("questions", newArray);
           }}
           style={styles.addIcon}
         >

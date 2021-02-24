@@ -8,7 +8,8 @@ import HorizontalLine from "../../common/horizontalLine";
 import TextField from "../input/textField";
 import { backgroundColors } from "../../../styles/colors";
 import { elevation, rounded } from "../../../styles/base";
-const SurveyHeader = ({ survey, setSurvey, questionObj }) => {
+import ExpandableList from "../input/expandableList";
+const SurveyHeader = ({ handleSurveyChange, survey }) => {
   const styles = ScaledSheet.create({
     nameContainer: {
       backgroundColor: backgroundColors.secondary,
@@ -33,15 +34,63 @@ const SurveyHeader = ({ survey, setSurvey, questionObj }) => {
       </View>
       <View style={styles.nameContainer}>
         <View>
+          <View style={{ marginBottom: 20 }}>
+            <SubTitle small={true} color="white">
+              Podaj nazwę ankiety:
+            </SubTitle>
+            <HorizontalLine />
+            <TextField
+              survey={true}
+              onChangeText={(text) => {
+                handleSurveyChange("name", text);
+              }}
+            />
+          </View>
+          <View style={{ marginBottom: 20 }}>
+            <SubTitle small={true} color="white">
+              Wybierz kategorię ankiety:
+            </SubTitle>
+            <HorizontalLine />
+            <ExpandableList
+              survey={true}
+              value={survey.category}
+              defaultValue="Sport"
+              fields={{
+                1: { name: "Sport" },
+                2: { name: "Nauka" },
+                3: { name: "Zdrowie" },
+                4: { name: "Rozwój" },
+                5: { name: "Technologia" },
+              }}
+              onPress={(value) => {
+                handleSurveyChange("category", value);
+              }}
+            />
+          </View>
+
+          <View style={{ marginBottom: 20 }}>
+            <SubTitle small={true} color="white">
+              Krótki opis ankiety:
+            </SubTitle>
+            <HorizontalLine />
+            <TextField
+              survey={true}
+              onChangeText={(text) => {
+                handleSurveyChange("short_description", text);
+              }}
+            />
+          </View>
           <SubTitle small={true} color="white">
-            Podaj nazwę ankiety:
+            Długi opis ankiety:
           </SubTitle>
           <HorizontalLine />
           <TextField
             survey={true}
             onChangeText={(text) => {
-              setSurvey({ ...questionObj }, (survey.surveyTitle = text));
+              handleSurveyChange("description", text);
             }}
+            multiline={true}
+            numberOfLines={3}
           />
         </View>
       </View>

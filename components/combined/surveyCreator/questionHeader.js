@@ -6,13 +6,8 @@ import TextField from "../input/textField";
 import { colors } from "../../../styles/colors";
 import ExpandableList from "../input/expandableList";
 import HorizontalLine from "../../common/horizontalLine";
-const QuestionHeader = ({
-  handleAddObj,
-  field,
-  setQuestionObj,
-  objKey,
-  questionObj,
-}) => {
+
+const QuestionHeader = ({ item, handleSurveyChange, newArray, index }) => {
   const styles = ScaledSheet.create({
     container: {
       flex: 1,
@@ -27,15 +22,22 @@ const QuestionHeader = ({
       marginLeft: 10,
     },
   });
+
+  const resetValues = (value) => {
+    newArray[index] = { ...item, type: value, values: [""] };
+    handleSurveyChange("questions", newArray);
+  };
+
   return (
     <View>
       <View style={styles.container}>
         <View style={{ flex: 1 }}>
           <TextField
-            value={field.title}
+            value={item.name}
             survey={true}
             onChangeText={(text) => {
-              handleAddObj(objKey, { ...field, title: text });
+              newArray[index] = { ...item, name: text };
+              handleSurveyChange("questions", newArray);
             }}
             placeholder="Pytanie"
           />
@@ -43,8 +45,10 @@ const QuestionHeader = ({
         <TouchableOpacity
           activeOpacity={0.6}
           onPress={() => {
-            delete questionObj[objKey];
-            setQuestionObj({ ...questionObj });
+            handleSurveyChange(
+              "questions",
+              newArray.filter((value) => value !== item)
+            );
           }}
           style={styles.deleteIcon}
         >
@@ -66,9 +70,12 @@ const QuestionHeader = ({
             3: { name: "Wielokrotny wybór" },
             4: { name: "Lista rozwijana" },
           }}
-          value={field.type}
+          value={item.type}
           onPress={(value) => {
-            handleAddObj(objKey, { ...field, type: value });
+            value == "Krótka odpowiedź"
+              ? resetValues(value)
+              : ((newArray[index] = { ...item, type: value }),
+                handleSurveyChange("questions", newArray));
           }}
         />
       </View>

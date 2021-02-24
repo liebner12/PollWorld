@@ -14,10 +14,12 @@ const RadioButtonGroup = ({
   value = defaultValue,
   setValue,
   survey,
-  create,
-  onChangeValueRadio,
-  setQuestionList,
-  objKey,
+  create = false,
+  item,
+  newArray,
+  handleSurveyChange,
+  index
+
 }) => {
   const fieldKeys = Object.keys(fields);
   const styles = ScaledSheet.create({
@@ -63,19 +65,14 @@ const RadioButtonGroup = ({
                   }}
                 >
                   <TextField
-                    value={value.values[key]}
+                    value={item.values[key]}
                     survey={true}
-                    onChangeText={(text) =>
-                      onChangeValueRadio(objKey, {
-                        ...value,
-                        values: {
-                          ...value.values,
-                          [Object.keys(value.values).find(
-                            (val) => val == key
-                          )]: text,
-                        },
-                      })
-                    }
+                    onChangeText={(text) => {
+                      let values = [...item.values];
+                      values[key] = text;
+                      newArray[index] = { ...item, values: values };
+                      handleSurveyChange("questions", newArray);
+                    }}
                   />
                 </View>
               ) : (
@@ -85,12 +82,10 @@ const RadioButtonGroup = ({
                 <TouchableOpacity
                   style={styles.closeButton}
                   onPress={() => {
-                    let del = Object.keys(value.values).find(
-                      (val) => val == key
-                    );
-
-                    delete value.values[del];
-                    setQuestionList({ ...create });
+                    let values = [...item.values];
+                    values.splice(key, 1);
+                    newArray[index] = { ...item, values: values };
+                    handleSurveyChange("questions", newArray);
                   }}
                 >
                   <MaterialIcons name="close" size={24} color="white" />

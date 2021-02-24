@@ -12,10 +12,14 @@ import Form from "../../components/form/form";
 import ReturnButton from "../../components/common/returnButton";
 import Link from "../../components/common/Typography/link";
 import Paragraph from "../../components/common/Typography/paragraph";
+import { dispatchCompanyData } from "../../components/redux_components/companyController";
+import { useDispatch } from "react-redux";
 
 const RegisterCompany = ({ navigation, onSignIn }) => {
   const secondTextField = createRef();
   const thirdTextField = createRef();
+  const dispatchCompany = useDispatch();
+
   const handleRegister = (result) => {
     if (result === 200) {
       navigation.navigate("ComapnyData");
@@ -32,8 +36,8 @@ const RegisterCompany = ({ navigation, onSignIn }) => {
       <Title>Rejestracja dla firm!</Title>
       <Form
         buttonText="Zarejestruj się"
-        onSubmit={()=> onSignIn(true)}
-        action={()=>console.log("fake")}
+        onSubmit={() => onSignIn(true)}
+        action={() => dispatchCompany(dispatchCompanyData())}
         fields={{
           email: {
             name: "Email",

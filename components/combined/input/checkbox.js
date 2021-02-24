@@ -11,10 +11,10 @@ const CheckBoxGroup = ({
   fields,
   onPress,
   create,
-  onChangeObj,
-  objKey,
-  value,
-  setQuestionList,
+  handleSurveyChange,
+  newArray,
+  item,
+  index,
 }) => {
   const fieldKeys = Object.keys(fields);
   const [isChecked, setIsChecked] = useState(false);
@@ -37,6 +37,7 @@ const CheckBoxGroup = ({
       marginBottom: "5@mvs",
     },
   });
+
   return (
     <View>
       {fieldKeys.map((key) => {
@@ -61,17 +62,13 @@ const CheckBoxGroup = ({
               >
                 <TextField
                   survey={true}
-                  onChangeText={(text) =>
-                    onChangeObj(objKey, {
-                      ...value,
-                      values: {
-                        ...value.values,
-                        [Object.keys(value.values).find(
-                          (val) => val == key
-                        )]: text,
-                      },
-                    })
-                  }
+                  value={item.values[key]}
+                  onChangeText={(text) => {
+                    let values = [...item.values];
+                    values[key] = text;
+                    newArray[index] = { ...item, values: values };
+                    handleSurveyChange("questions", newArray);
+                  }}
                 />
               </View>
             ) : (
@@ -81,11 +78,10 @@ const CheckBoxGroup = ({
               <TouchableOpacity
                 style={styles.closeButton}
                 onPress={() => {
-                  let del = Object.keys(value.values).filter(
-                    (val) => val == key
-                  );
-                  delete value.values[del];
-                  setQuestionList({ ...create });
+                  let values = [...item.values];
+                  values.splice(key, 1);
+                  newArray[index] = { ...item, values: values };
+                  handleSurveyChange("questions", newArray);
                 }}
               >
                 <MaterialIcons name="close" size={24} color="white" />

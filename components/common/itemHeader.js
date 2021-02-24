@@ -35,7 +35,9 @@ const itemHeader = ({ name, category, fit }) => {
   });
   return (
     <View style={styles.header}>
-      <View style={styles.icon}><Image  style={styles.icon} source={icon}/></View>
+      <View style={styles.icon}>
+        <Image style={styles.icon} source={icon} />
+      </View>
       <View>
         <Text style={styles.textAlign}>
           <Title size="small" noMargin={true}>

@@ -3,7 +3,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import TabBar from "./TabBar";
 import HomeCompany from "../scenes/mainCompany/homeComapny"
 import SettingsPage from "../scenes/main/settingsPage";
-
+import SurveysPage from "../scenes/mainCompany/surveysCompanyPage"
 
 const Tab = createBottomTabNavigator();
 
@@ -14,7 +14,7 @@ const BottomTabsCompany = ({ onSignOut }) => {
         {(props) => <HomeCompany {...props} onSignOut={onSignOut} />}
       </Tab.Screen>
       <Tab.Screen name="Surveys">
-        {(props) => <SettingsPage {...props} onSignOut={onSignOut} />}
+        {(props) => <SurveysPage {...props} onSignOut={onSignOut} />}
       </Tab.Screen>
       <Tab.Screen name="Profile">
         {(props) => <SettingsPage {...props} onSignOut={onSignOut} />}

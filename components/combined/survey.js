@@ -19,6 +19,7 @@ const Survey = ({
   rate,
   price,
   snackbar,
+  company,
 }) => {
   const styles = ScaledSheet.create({
     item: {
@@ -54,7 +55,13 @@ const Survey = ({
     <TouchableOpacity
       style={styles.item}
       activeOpacity={0.6}
-      onPress={() => navigation.navigate("Item", { itemId: id, snackbar: snackbar })}
+      onPress={() => {
+        company
+          ? navigation.navigate("ViewSurvey", {
+              itemId: id,
+            })
+          : navigation.navigate("Item", { itemId: id, snackbar: snackbar });
+      }}
     >
       <ItemHeader fit={fit} name={name} category={category} />
       <Text style={styles.textAlign}>

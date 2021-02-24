@@ -30,6 +30,7 @@ import {profileDataSeparator} from "../components/functional/profile/logic/profi
 import {dispatchDetailsData} from "../components/redux_components/detailsDataController";
 import {dispatchPhysicalData} from "../components/redux_components/physicalDataController";
 import {getUserDataForUser} from "../components/functional/profile/logic/userData";
+import {dispatchCompanyData} from "../components/redux_components/companyController";
 
 const Stack = createStackNavigator();
 
@@ -42,6 +43,7 @@ const AppNavigator = () => {
   const dispatchAccount = useDispatch();
   const dispatchSurveysWithData = useDispatch();
   const dispatchUser = useDispatch();
+  const dispatchCompany = useDispatch();
 
   React.useEffect(() => {
     const bootstrapAsync = async () => {
@@ -74,7 +76,7 @@ const AppNavigator = () => {
     const surveys = await getSurveysForUser(token);
     const profileData = await getUserDataForUser(token);
     const userEmail = await getUser();
-
+    dispatchCompany(dispatchCompanyData())
     dispatchSurveysWithData(dispatchSurveysWithValue(surveys.map(convertToAppSurvey)));
     dispatchPersonal(dispatchPersonalData(profileDataSeparator(profileData).personal))
     dispatchPhysical(dispatchPhysicalData(profileDataSeparator(profileData).physical))
